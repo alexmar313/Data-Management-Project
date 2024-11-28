@@ -1,0 +1,30 @@
+---
+title: "Data-Management-Project"
+author: "Alex Martinez & Serry Ezbidi"
+format: html
+---
+
+```{r}
+here::i_am("Data-Management-Project.Rproj")
+library(here)
+library(vroom)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(stringr)
+library(readr)
+library(eurostat)
+```
+
+```{r}
+crime <- get_eurostat("crim_just_ctz", time_format = "num", stringsAsFactors = TRUE)
+```
+
+```{r}
+manifesto <- vroom(here("MPDataset_MPDS2024a.csv"))
+```
+
+```{r}
+
+```
+
