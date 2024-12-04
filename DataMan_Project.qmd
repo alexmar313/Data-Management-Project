@@ -51,8 +51,6 @@ The EU Political Barometer dataset provides bi-monthly data on public opinion an
 5- Description table
 
 ```{r}
-
-
 # Function to calculate dataset summary
 get_summary <- function(data, name, year_column, date_format, country_column) {
   # Normalize the year format
@@ -111,4 +109,11 @@ summary_table <- bind_rows(summaries)
 # Display the summary table
 print(summary_table)
 ```
+* maybe add 
+
+6- Description of variables 
+
+8- Target variable
+the change in suspicion
+
 
