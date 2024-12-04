@@ -18,13 +18,8 @@ library(eurostat)
 
 ```{r}
 crime <- get_eurostat("crim_just_ctz", time_format = "num", stringsAsFactors = TRUE)
+manifesto <- vroom(("https://manifesto-project.wzb.eu/down/data/2024a/datasets/MPDataset_MPDS2024a.csv"))
+ideolofy <- vroom(("https://eupoliticalbarometer.uc3m.es/api/ideologyDownload"))
 ```
 
-```{r}
-manifesto <- vroom(here("MPDataset_MPDS2024a.csv"))
-```
-
-```{r}
-
-```
 
