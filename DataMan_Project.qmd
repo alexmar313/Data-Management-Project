@@ -48,7 +48,6 @@ The Manifesto Project dataset offers a systematic analysis of political party ma
 EU Political Barometer Dataset
 The EU Political Barometer dataset provides bi-monthly data on public opinion and political preferences across EU member states from 2019 to 2023. It tracks ideological shifts, political attitudes, and public reactions to major societal events and political campaigns. Key indicators include changes in support for various ideologies and parties, offering a granular view of how public sentiment evolves over time. This dataset is particularly useful for analyzing short-term trends and understanding the relationship between political discourse and public opinion. By examining fluctuations in attitudes during specific events or election campaigns, we can identify patterns in voter behavior and ideological alignment. Its frequent updates make it a critical resource for real-time political analysis and policy evaluation.
 
-<<<<<<< HEAD
 5- Description table
 
 ```{r}
@@ -161,8 +160,6 @@ ggplot(crime |> filter(geo %in% c("FR", "DE")), aes(x = TIME_PERIOD, y = values,
 ```
 
 
-=======
 5-
->>>>>>> 8b24696 (Push to Pull)
 
 
