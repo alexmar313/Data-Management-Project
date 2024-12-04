@@ -139,7 +139,7 @@ crime <- crime %>%
 
 
 8- Target variable
-the change in suspicion
+the change in suspicion 
 
 ```{r}
 ggplot(crime |> filter(geo %in% c("FR", "DE")), aes(x = TIME_PERIOD, y = values, color = Category, group = Category)) +
