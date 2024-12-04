@@ -14,6 +14,7 @@ library(tidyr)
 library(stringr)
 library(readr)
 library(eurostat)
+library(lubridate)
 ```
 
 ```{r}
@@ -47,5 +48,67 @@ The Manifesto Project dataset offers a systematic analysis of political party ma
 EU Political Barometer Dataset
 The EU Political Barometer dataset provides bi-monthly data on public opinion and political preferences across EU member states from 2019 to 2023. It tracks ideological shifts, political attitudes, and public reactions to major societal events and political campaigns. Key indicators include changes in support for various ideologies and parties, offering a granular view of how public sentiment evolves over time. This dataset is particularly useful for analyzing short-term trends and understanding the relationship between political discourse and public opinion. By examining fluctuations in attitudes during specific events or election campaigns, we can identify patterns in voter behavior and ideological alignment. Its frequent updates make it a critical resource for real-time political analysis and policy evaluation.
 
+5- Description table
 
+```{r}
+
+
+# Function to calculate dataset summary
+get_summary <- function(data, name, year_column, date_format, country_column) {
+  # Normalize the year format
+  years <- tryCatch({
+    if (date_format == "year") {
+      data[[year_column]]
+    } else if (date_format == "year-month-day") {
+      year(as.Date(data[[year_column]]))
+    } else if (date_format == "day/month/year") {
+      year(dmy(data[[year_column]]))
+    } else {
+      NA
+    }
+  }, error = function(e) NA)
+  
+  # Check validity of years and calculate range
+  if (all(is.na(years))) {
+    years_covered <- "Invalid Year Column"
+  } else {
+    years_covered <- paste(range(years, na.rm = TRUE), collapse = " - ")
+  }
+  
+  # Count unique countries
+  num_countries <- if (country_column %in% names(data)) {
+    length(unique(data[[country_column]]))
+  } else {
+    0
+  }
+  
+  # Compute summary statistics
+  tibble(
+    Dataset = name,
+    Rows = nrow(data),
+    Columns = ncol(data),
+    `Years Covered` = years_covered,
+    `Number of Countries` = num_countries,
+    `Total Datapoints` = nrow(data) * ncol(data)
+  )
+}
+
+# Example datasets and their year and country columns
+datasets <- list(
+  list(name = "Crime Dataset", data = crime, year_column = "TIME_PERIOD", date_format = "year", country_column = "geo"),
+  list(name = "Ideology Dataset", data = ideology, year_column = "date", date_format = "year-month-day", country_column = "country_name"),
+  list(name = "Manifesto Dataset", data = manifesto, year_column = "edate", date_format = "day/month/year", country_column = "countryname")
+)
+
+# Generate summaries
+summaries <- lapply(datasets, function(ds) {
+  get_summary(ds$data, ds$name, ds$year_column, ds$date_format, ds$country_column)
+})
+
+# Combine all summaries into one table
+summary_table <- bind_rows(summaries)
+
+# Display the summary table
+print(summary_table)
+```
 
