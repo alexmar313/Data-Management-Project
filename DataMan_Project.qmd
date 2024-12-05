@@ -159,7 +159,35 @@ ggplot(crime |> filter(geo %in% c("FR", "DE")), aes(x = TIME_PERIOD, y = values,
 
 ```
 
+7- A description of the research question:
 
-5-
+Research question: The association between immigration and crime suspicions and convictions in the EU, considering political ideology
+
+The research explores the relationship between immigration status and crime outcomes (suspicion and conviction rates) in EU countries. It questions whether claims by political entities, particularly right-wing parties, that immigration drives up crime rates hold true, and explores how other intervening factors, such as the demographic profile of immigrants, might contribute to this perception.
+
+Background context and relevance
+Right-wing political narratives often link immigration with rising crime rates without acknowledging broader contextual factors. For example, statistical evidence suggests that most crimes are committed by young males—a group overrepresented among immigrant populations. Across the EU, a significant proportion of non-citizens are young males: non-national men aged 20–49 constitute 29% of their demographic group, compared to 18% for nationals. Additionally, 54–60% of unauthorized immigrants are male, with a majority under 35 years old. Such demographic realities could skew perceptions of immigrant involvement in crime when not carefully controlled for.
+*Source: https://ec.europa.eu/eurostat/web/interactive-publications/migration-2023
+
+This research aims to integrate crime statistics and demographic data with measures of political ideology to disentangle these associations. By doing so, it challenges simplistic narratives and aims to explore whether shifts in political rhetoric influence crime outcomes or merely exacerbate perceptions of immigrant criminality.
+
+Data and methodology
+1. Crime Data:
+   Eurostat provides comprehensive data on annual suspicion and conviction rates per 1,000 residents, disaggregated by citizenship (non-citizens vs. citizens) for 2008–2022. This allows for trend analysis of disparities between groups.
+
+2. Political ideology data:
+   - Manifesto Project Database: Tracks the content of political party platforms during election years, focusing on themes such as “law and order” and “security.”  
+   - EU Political Barometer: Captures public opinion on political ideologies monthly from 2019–2023.
+
+A Difference-in-Differences (DiD) approach will compare changes in crime-related outcomes before and after election periods with shifts in ideological rhetoric. Non-election years serve as a control group, isolating the causal effect of political discourse.
+
+Core Issues Addressed 
+The research will investigate:
+1. Whether increased suspicion of immigrant crime correlates with heightened right-wing rhetoric.
+2. If young male overrepresentation among immigrants, rather than immigrant status itself, explains these crime rates.  
+3. Do conviction rates—representing judicial outcomes—reflect ideological trends, or are they more stable and less subject to political influence?
+
+Significance and expected outcomes  
+This study seeks to clarify how political discourse shapes public perceptions and crime outcomes involving immigrants. Preliminary hypotheses suggest that while suspicion rates rise in line with ideological shifts, conviction rates remain relatively stable, suggesting biases in suspicion rather than evidence-based outcomes. By emphasizing intervening factors like demographics, the research highlights the importance of nuanced policymaking and avoids perpetuating harmful stereotypes.
 
 
