@@ -111,6 +111,28 @@ knitr::kable(summary_table)
 
 **5- Short description of the most important variables**
 
+*Crime dataset*
+
+- *"leg_stat"*: "PER_SUSP" indicates individuals whho are suspected of committing crimes, "PER_CNV" indicates individuals who are convicted of crimes.
+
+- *"citizen"*: "NAT" indicates nationals (citizens of the reporting country), "FOR" represents foreigners (non-citizens).
+
+*Ideology dataset*
+
+- *"left_ideology"*: numeric score (0-10) representing the left-wing ideological positioning in the country, where a higher value corresponds to stronger left ideology.
+
+- *"right_ideology"*: numeric score (0-10) representing the right-wing ideological positioning in the country, where a higher value corresponds to stronger right ideology.
+
+- *"dalton"*: named after the political scientist Russell Dalton, a numeric score (0-10) that shows the degree of ideological polarization in a country, where a higher score corresponds to higher polarization.
+
+*Manifesto dataset*
+
+- *"per101 to per109"*: represent the percentage of the political party's manifesto dedicated to specific themes related to national security, crime, and immigration. They focus on topics like law and order, national security, crime prevention, and the role of the state in dealing with security threats. Specifically: per101: Law and Order, per102: National Security, per103: Crime and Punishment, per104: Prison and Penal System, per105: Immigration, per106: International Relations (related to security), per107: Economic Issues, per108: Welfare and Social Issues, per109: Cultural and National Identity
+
+- *"per201 to per204"*: focus on economic policies, social support, and public services, potentially linking to discussions about immigration’s impact on the economy and social welfare. Specifically, per201: Economic Growth, per202: Employment, per203: Social Security, per204: Public Services
+
+- *"per301 to per305"*: focus on social welfare, social issues, and public goods, which might also intersect with debates around immigration and crime in relation to societal wellbeing and state responsibility. Specifically, per301: Social Welfare, per302: Education, per303: Health Care, per304: Family Support, per305: Environment and Sustainability.
+
 **6- Cleaning of the data**
 
 ```{r, include=FALSE}
