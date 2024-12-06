@@ -4,7 +4,7 @@ author: "Alex Martinez & Serry Ezbidi"
 format: html
 ---
 
-```{r}
+```{r, include=FALSE}
 here::i_am("Data-Management-Project.Rproj")
 library(here)
 library(vroom)
@@ -15,9 +15,12 @@ library(stringr)
 library(readr)
 library(eurostat)
 library(lubridate)
+library(knitr)
+library(tibble)
+library(kableExtra)
 ```
 
-```{r}
+```{r, include=FALSE}
 crime <- get_eurostat("crim_just_ctz", time_format = "num", stringsAsFactors = TRUE)
 manifesto <- vroom(("https://manifesto-project.wzb.eu/down/data/2024a/datasets/MPDataset_MPDS2024a.csv"))
 ideology <- vroom(("https://eupoliticalbarometer.uc3m.es/api/ideologyDownload"))
@@ -26,9 +29,11 @@ ideology <- vroom(("https://eupoliticalbarometer.uc3m.es/api/ideologyDownload"))
 Data Management
 
 **1- Link to GitHub**
+
 https://github.com/alexmar313/Data-Management-Project.git
 
 **2- Links to the sources**
+
 *Sources download links*
 https://eupoliticalbarometer.uc3m.es/api/ideologyDownload
 https://manifesto-project.wzb.eu/down/data/2024a/datasets/MPDataset_MPDS2024a.csv
@@ -40,6 +45,7 @@ https://manifesto-project.wzb.eu/datasets
 https://ec.europa.eu/eurostat/databrowser/view/crim_just_ctz/default/table?lang=en
 
 **3- Data description**
+
 *Eurostat Crime and Criminal Justice Dataset*
 The Eurostat Crime and Criminal Justice dataset provides yearly statistics on the citizens and non-citizens within the justice system across European Union member states, covering the period from 2008 to 2022. It includes data on suspicion and conviction rates per 1,000 inhabitants, offering insights into both the number of individuals suspected of crimes and those convicted. By distinguishing between citizens and non-citizens, this dataset sheds light on potential disparities in how these groups are treated within the legal system. Such information is crucial for understanding systemic inequities and evaluating the impact of policies on different demographics. 
 
@@ -51,7 +57,7 @@ The EU Political Barometer dataset provides bi-monthly data on public opinion an
 
 **4- Description table**
 
-```{r}
+```{r, echo=FALSE}
 get_summary <- function(data, name, year_column, date_format, country_column) {
 
   years <- tryCatch({
@@ -102,23 +108,23 @@ summary_table <- bind_rows(summaries)
 knitr::kable(summary_table)
 
 ```
-* maybe add 
+
 **5- Short description of the most important variables**
 
 **6- Cleaning of the data**
 
-```{r}
+```{r, include=FALSE}
 crime <- crime %>%
   filter(citizen != "TOTAL" & leg_stat != "PER_PRSC")
 ```
 
-```{r}
+```{r, include=FALSE}
 manifesto <- manifesto %>%
   mutate(edate = dmy(edate)) %>%
   filter(edate >= as.Date("2008-01-01"))
 ```
 
-```{r}
+```{r,include=FALSE}
 library(countrycode)
 crime <- crime %>%
   mutate(geo = countrycode(geo, origin = "iso2c", destination = "country.name"))
@@ -126,7 +132,7 @@ crime <- crime %>%
   filter(!is.na(geo))
 ```
 
-```{r}
+```{r, include=FALSE}
 crime <- crime %>%
   mutate(Category = case_when(
     citizen == "NAT" & leg_stat == "PER_CNV" ~ "Convicted Citizens",
@@ -135,6 +141,55 @@ crime <- crime %>%
     citizen == "FOR" & leg_stat == "PER_SUSP" ~ "Suspected Non-Citizens",
     TRUE ~ NA_character_  
   ))
+```
+
+```{r, echo=FALSE}
+get_summary <- function(data, name, year_column, date_format, country_column) {
+  
+  years <- tryCatch({
+    if (date_format == "year") {
+      data[[year_column]]
+    } else if (date_format == "year-month-day") {
+      year(as.Date(data[[year_column]]))
+    } else if (date_format == "day/month/year") {
+      year(dmy(data[[year_column]]))
+    } else {
+      NA
+    }
+  }, error = function(e) NA)
+
+  if (all(is.na(years))) {
+    years_covered <- "Invalid Year Column"
+  } else {
+    years_covered <- paste(range(years, na.rm = TRUE), collapse = " - ")
+  }
+  
+  num_countries <- if (country_column %in% names(data)) {
+    length(unique(data[[country_column]]))
+  } else {
+    0
+  }
+  
+  tibble(
+    Dataset = name,
+    Rows = nrow(data),
+    Columns = ncol(data),
+    `Years Covered` = years_covered,
+    `Number of Countries` = num_countries,
+    `Total Datapoints` = nrow(data) * ncol(data)
+  )
+}
+
+crime_summary <- get_summary(crime, "Crime Dataset", "TIME_PERIOD", "year", "geo")
+ideology_summary <- get_summary(ideology, "Ideology Dataset", "date", "year-month-day", "country_name")
+manifesto_summary <- get_summary(manifesto, "Manifesto Dataset", "edate", "year", "countryname")
+
+summary_table <- bind_rows(crime_summary, ideology_summary, manifesto_summary)
+
+summary_table %>%
+  kbl(caption = "Summary of cleaned datasets") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE)
+
 ```
 
 **7- A description of the research question**
@@ -171,9 +226,10 @@ This study seeks to clarify how political discourse shapes public perceptions an
 
 
 **8- Target variable**
-the change in suspicion and conviction rates of non-citizens (immigrants).
 
-```{r}
+*The change in suspicion and conviction rates of non-citizens (immigrants).*
+
+```{r, echo=FALSE}
 ggplot(crime |> filter(geo %in% c("FR", "DE")), aes(x = TIME_PERIOD, y = values, color = Category, group = Category)) +
   geom_smooth(se = FALSE, size = 1.5, method = "loess") +
   labs(
