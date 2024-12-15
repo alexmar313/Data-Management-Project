@@ -173,55 +173,15 @@ crime <- crime %>%
 
 ```
 
-b) Cleaning of Manifesto Data, manifesto
-```{r, include=FALSE}
-# Delete data in Manifesto from before our first Crime data points, before 2008
-manifesto <- manifesto %>%
-  mutate(edate = dmy(edate)) %>%
-  filter(edate >= as.Date("2008-01-01"))
-
-manifesto2 <- manifesto %>%
-  select(countryname, edate, partyname, per101, per102, per103, per104, per105, per106, per107, per108, per109, per201, per203, per202, per204, per301, per302, per303, per305)
-
-manifesto_long <- manifesto2 %>%
-  pivot_longer(
-    cols = starts_with("per"),  # Select all `per` variables
-    names_to = "per_category",  # Create a column for the `per` variable names
-    values_to = "value"         # Create a column for the `per` values
-  )
-
-manifesto_long <- manifesto_long %>%
-  mutate(party_per = paste0(partyname, "/", per_category))  # Combine party and per category
-
-# Keep relevant columns
-manifesto_wide <- manifesto_long %>%
-  select(countryname, edate, party_per, value) 
-
-manifesto_wide <- manifesto_wide %>%
-  pivot_wider(
-    names_from = party_per,  # Each unique `party_per` becomes a column
-    values_from = value      # Populate with values from the `value` column
-  )
-
-manifesto_wide <- manifesto_wide %>%
-  drop_na(value)
-
-unique_columns <- manifesto_long %>%
-  distinct(party_per) %>%
-  nrow()
-
-print(unique_columns)
-
-```
-
-
 c) Cleaning of Barometer Data, ideology
 ```{r}
 # Keep only real values
 ideology <- ideology %>%
   filter(data_type != "ewma")
-```
 
+ideology <- ideology %>%
+  filter(date < as.Date("2023-01-01"))
+```
 
 d) Joint Cleaning
 ```{r}
@@ -234,54 +194,94 @@ manifesto <- manifesto %>%
   semi_join(crime, by = c("countryname" = "geo"))
 ```
 
-```{r, echo=FALSE}
-get_summary <- function(data, name, year_column, date_format, country_column) {
-  
-  years <- tryCatch({
-    if (date_format == "year") {
-      data[[year_column]]
-    } else if (date_format == "year-month-day") {
-      year(as.Date(data[[year_column]]))
-    } else if (date_format == "day/month/year") {
-      year(dmy(data[[year_column]]))
-    } else {
-      NA
-    }
-  }, error = function(e) NA)
+b) Cleaning of Manifesto Data, manifesto
 
-  if (all(is.na(years))) {
-    years_covered <- "Invalid Year Column"
-  } else {
-    years_covered <- paste(range(years, na.rm = TRUE), collapse = " - ")
-  }
-  
-  num_countries <- if (country_column %in% names(data)) {
-    length(unique(data[[country_column]]))
-  } else {
-    0
-  }
-  
-  tibble(
-    Dataset = name,
-    Rows = nrow(data),
-    Columns = ncol(data),
-    `Years Covered` = years_covered,
-    `Number of Countries` = num_countries,
-    `Total Datapoints` = nrow(data) * ncol(data)
-  )
-}
+***We need to aggregate the manifesto data set so that we have 1 observation per country and per year (aggregate political parties, and date so that only 1 observation per year)***
 
-crime_summary <- get_summary(crime, "Crime Dataset", "TIME_PERIOD", "year", "geo")
-ideology_summary <- get_summary(ideology, "Ideology Dataset", "date", "year-month-day", "country_name")
-manifesto_summary <- get_summary(manifesto, "Manifesto Dataset", "edate", "year-month-day", "countryname")
+```{r, include=FALSE}
+# Delete data in Manifesto from before our first Crime data points, before 2008
+manifesto <- manifesto %>%
+  mutate(edate = dmy(edate)) %>%
+  filter(edate >= as.Date("2008-01-01"))
 
-summary_table <- bind_rows(crime_summary, ideology_summary, manifesto_summary)
+manifesto <- manifesto %>%
+  select(countryname, partyname, edate, per101, per102, per103, per104, per105, per106, per107, per108, per109, per201, per203, per202, per204, per301, per302, per303, per304, per305)
+```
 
-summary_table %>%
-  kbl(caption = "Summary of cleaned datasets") %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE)
+
+Group by date and country
+```{r}
+
+#### MANIFESTO #####
+
+# Extract the year from the 'edate' column
+manifesto2 <- manifesto %>%
+  mutate(date = year(edate))  # Create 'date' column for year
+
+manifesto2 <- manifesto2 %>%
+  select(countryname, date, per101, per102, per103, per104, per105, per106, per107, per108, per109, per201, per203, per202, per204, per301, per302, per303, per304, per305)
+
+# Group by 'countryname' and 'date' (year), then calculate the average for each 'per...' variable
+manifesto_cleaned <- manifesto2 %>%
+  group_by(countryname, date) %>%
+  summarise(
+    per101 = mean(per101, na.rm = TRUE),
+    per102 = mean(per102, na.rm = TRUE),
+    per103 = mean(per103, na.rm = TRUE),
+    per104 = mean(per104, na.rm = TRUE),
+    per105 = mean(per105, na.rm = TRUE),
+    per106 = mean(per106, na.rm = TRUE),
+    per107 = mean(per107, na.rm = TRUE),
+    per108 = mean(per108, na.rm = TRUE),
+    per109 = mean(per109, na.rm = TRUE),
+    per201 = mean(per201, na.rm = TRUE),
+    per202 = mean(per202, na.rm = TRUE),
+    per203 = mean(per203, na.rm = TRUE),
+    per204 = mean(per204, na.rm = TRUE),
+    per301 = mean(per301, na.rm = TRUE),
+    per302 = mean(per302, na.rm = TRUE),
+    per303 = mean(per303, na.rm = TRUE),
+    per304 = mean(per304, na.rm = TRUE),
+    per305 = mean(per305, na.rm = TRUE)
+  ) %>%
+  ungroup()
+
+#### IDEOLOGY #####
+
+# Extract the year from the date column
+ideology2 <- ideology %>%
+  mutate(year = year(date))
+
+# Group by 'year' and calculate the average for each column of interest (e.g., ideological scores)
+ideology2 <- ideology2 %>%
+  group_by(country_name, year) %>%
+  summarise(
+    left_ideology = mean(left_ideology, na.rm = TRUE),
+    right_ideology = mean(right_ideology, na.rm = TRUE),
+    dalton = mean(dalton, na.rm = TRUE)
+  ) %>%
+  ungroup()
 
 ```
+
+```{r}
+crime_cleaned <- crime %>%
+  rename(year = TIME_PERIOD, country = geo)
+
+manifesto_cleaned <- manifesto_cleaned %>%
+  rename(year = date, country = countryname)
+
+ideology_cleaned <- ideology2 %>%
+  rename(year = year, country = country_name)
+
+crime_cleaned$year <- as.numeric(crime_cleaned$year)
+manifesto_cleaned$year <- as.numeric(manifesto_cleaned$year)
+ideology_cleaned$year <- as.numeric(ideology_cleaned$year)
+
+merged_data <- full_join(crime_cleaned, manifesto_cleaned, by = c("country", "year")) %>%
+  full_join(ideology_cleaned, by = c("country", "year"))
+```
+
 
 
 **7- A description of the research question**
@@ -321,21 +321,28 @@ This study seeks to clarify how political discourse shapes public perceptions an
 
 *The change in suspicion and conviction rates of non-citizens (immigrants).*
 
+*The change in suspicion and conviction rates of citizens.*
+
 ```{r, echo=FALSE}
-ggplot(crime |> filter(geo %in% c("FR", "DE")), aes(x = TIME_PERIOD, y = values, color = Category, group = Category)) +
-  geom_smooth(se = FALSE, size = 1.5, method = "loess") +
-  labs(
-    title = "Trends in Convictions and Suspicions by Citizenship Status (FR & DE)",
-    x = "Year",
-    y = "Count of Individuals",
-    color = "Category"
-  ) +
+filtered_data <- crime_cleaned %>%
+  filter(country %in% c("France", "Germany", "Austria", "Bulgaria"))
+
+# Plot the graph with separate lines for each category
+ggplot(filtered_data, aes(x = year)) +
+  geom_line(aes(y = `Convicted Non-Citizens`, color = "Convicted Non-Citizens"), size = 1) +
+  geom_line(aes(y = `Convicted Citizens`, color = "Convicted Citizens"), size = 1) +
+  geom_line(aes(y = `Suspected Non-Citizens`, color = "Suspected Non-Citizens"), size = 1) +
+  geom_line(aes(y = `Suspected Citizens`, color = "Suspected Citizens"), size = 1) +
+  facet_wrap(~country, scales = "free_y") +  # Split by country
+  labs(title = "Convictions and Suspicions Over Time",
+       x = "Year",
+       y = "Number of People",
+       color = "Category") +
   theme_minimal() +
-  theme(
-    plot.title = element_text(hjust = 0.5, size = 14, face = "bold"),
-    axis.title = element_text(size = 12),
-    legend.title = element_text(size = 12)
-  )
+  scale_color_manual(values = c("Convicted Non-Citizens" = "blue", 
+                                "Convicted Citizens" = "green", 
+                                "Suspected Non-Citizens" = "red", 
+                                "Suspected Citizens" = "orange"))
 
 ```
 
