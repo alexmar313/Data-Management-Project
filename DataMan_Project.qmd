@@ -30,21 +30,21 @@ Data Management
 
 **1- Link to GitHub**
 
-https://github.com/alexmar313/Data-Management-Project.git
+<a href="https://github.com/alexmar313/Data-Management-Project.git" target="_blank">GitHub Repository</a>
 
 **2- Links to the sources**
 
 *Sources download links*
 
-https://eupoliticalbarometer.uc3m.es/api/ideologyDownload
-https://manifesto-project.wzb.eu/down/data/2024a/datasets/MPDataset_MPDS2024a.csv
-https://ec.europa.eu/eurostat/databrowser/view/crim_just_ctz/default/table?lang=en
+- <a href="https://eupoliticalbarometer.uc3m.es/api/ideologyDownload" target="_blank">Ideology Download</a>
+- <a href="https://manifesto-project.wzb.eu/down/data/2024a/datasets/MPDataset_MPDS2024a.csv" target="_blank">Manifesto Dataset</a>
+- <a href="https://ec.europa.eu/eurostat/databrowser/view/crim_just_ctz/default/table?lang=en" target="_blank">Eurostat Crime Data</a>
 
 *Websites links from which data was extracted*
 
-https://eupoliticalbarometer.uc3m.es/dashboard/ideology
-https://manifesto-project.wzb.eu/datasets
-https://ec.europa.eu/eurostat/databrowser/view/crim_just_ctz/default/table?lang=en
+- <a href="https://eupoliticalbarometer.uc3m.es/dashboard/ideology" target="_blank">EU Political Barometer Dashboard</a>
+- <a href="https://manifesto-project.wzb.eu/datasets" target="_blank">Manifesto Project Datasets</a>
+- <a href="https://ec.europa.eu/eurostat/databrowser/view/crim_just_ctz/default/table?lang=en" target="_blank">Eurostat Crime Justice Table</a>
 
 **3- Data description**
 
