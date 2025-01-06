@@ -1,5 +1,5 @@
 ---
-title: "Data-Management-Project"
+title: "Crime, Ideology, and Manifestos: A Comparative Study of European Political Trends"
 author: "Alex Martinez & Serry Ezbidi"
 format: 
   html: 
@@ -337,11 +337,46 @@ This study seeks to clarify how political discourse shapes public perceptions an
 
 # **Target variable**
 
-## *The change in suspicion and conviction rates of non-citizens (immigrants).*
-
-## *The change in suspicion and conviction rates of citizens.*
-
+## *Crime suspicion rates over time for citizens and non-citizens (immigrants) for selected countries*
 ```{r, echo=FALSE}
+filtered_data <- crime_cleaned %>%
+  filter(country %in% c("France", "Germany", "Austria", "Bulgaria"))
+
+# Plot the graph with separate lines for each category
+ggplot(filtered_data, aes(x = year)) +
+  geom_line(aes(y = `Suspected Non-Citizens`, color = "Suspected Non-Citizens"), size = 1) +
+  geom_line(aes(y = `Suspected Citizens`, color = "Suspected Citizens"), size = 1) +
+  facet_wrap(~country, scales = "free_y") +  # Split by country
+  labs(title = "Crime suspicion over time",
+       x = "Year",
+       y = "Number of People",
+       color = "Category") +
+  theme_minimal() +
+  scale_color_manual(values = c("Suspected Non-Citizens" = "red", 
+                                "Suspected Citizens" = "orange"))
+```
+
+## *Crime conviction rates over time for citizens and non-citizens (immigrants) for selected countries*
+```{r, echo=FALSE}
+filtered_data <- crime_cleaned %>%
+  filter(country %in% c("France", "Germany", "Austria", "Bulgaria"))
+
+# Plot the graph with separate lines for each category
+ggplot(filtered_data, aes(x = year)) +
+  geom_line(aes(y = `Convicted Non-Citizens`, color = "Convicted Non-Citizens"), size = 1) +
+  geom_line(aes(y = `Convicted Citizens`, color = "Convicted Citizens"), size = 1) +
+  facet_wrap(~country, scales = "free_y") +  # Split by country
+  labs(title = "Crime conviction and over time",
+       x = "Year",
+       y = "Number of People",
+       color = "Category") +
+  theme_minimal() +
+  scale_color_manual(values = c("Convicted Non-Citizens" = "blue", 
+                                "Convicted Citizens" = "green"))
+```
+
+
+```{r, include=FALSE}
 filtered_data <- crime_cleaned %>%
   filter(country %in% c("France", "Germany", "Austria", "Bulgaria"))
 
@@ -361,7 +396,4 @@ ggplot(filtered_data, aes(x = year)) +
                                 "Convicted Citizens" = "green", 
                                 "Suspected Non-Citizens" = "red", 
                                 "Suspected Citizens" = "orange"))
-
 ```
-
-
