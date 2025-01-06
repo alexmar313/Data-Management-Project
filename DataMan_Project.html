@@ -191,21 +191,46 @@ ul.task-list li input[type="checkbox"] {
 <h1 data-number="6"><span class="header-section-number">6</span> <strong>Cleaning of the data</strong></h1>
 <section id="cleaning-of-eurostat-data-crime" class="level2" data-number="6.1">
 <h2 data-number="6.1" class="anchored" data-anchor-id="cleaning-of-eurostat-data-crime"><span class="header-section-number">6.1</span> <em>Cleaning of Eurostat Data, Crime</em></h2>
+<ul>
+<li><p><em>Filtering and cleaning:</em> remove irrelevant categories (e.g., “TOTAL” citizens and “PER_PRSC” status), keeping only the data for citizens and non-citizens related to crime suspicion and conviction.</p></li>
+<li><p><em>Country name assignment:</em> convert country codes to full country names using the “countrycode” package.</p></li>
+<li><p><em>Category creation:</em> classify data into four categories based on citizenship and legal status: “Convicted Citizens,” “Convicted Non-Citizens,” “Suspected Citizens,” and “Suspected Non-Citizens.”</p></li>
+<li><p><em>Drop irrelevant variables:</em> include only variables of interest: country, date, citizenship and legal status category, and crime rates.</p></li>
+<li><p><em>Data reshaping:</em> pivot the data to have a single row per country per year, with columns for each of the four categories (convicted and suspected citizens/non-citizens).</p></li>
+</ul>
 </section>
 <section id="cleaning-of-barometer-data-ideology" class="level2" data-number="6.2">
 <h2 data-number="6.2" class="anchored" data-anchor-id="cleaning-of-barometer-data-ideology"><span class="header-section-number">6.2</span> <em>Cleaning of Barometer Data, ideology</em></h2>
+<ul>
+<li><p><em>Filter invalid data:</em> removes data related to “ewma” (exponentially weighted moving average) and retain only real ideological scores.</p></li>
+<li><p><em>Date filtering:</em> filter the dataset to include only data up until 2023.</p></li>
+</ul>
 </section>
 <section id="joint-cleaning" class="level2" data-number="6.3">
 <h2 data-number="6.3" class="anchored" data-anchor-id="joint-cleaning"><span class="header-section-number">6.3</span> <em>Joint Cleaning</em></h2>
+<ul>
+<li><em>Data intersection:</em> ensure that only countries present in both the Crime, Manifesto, and Ideology datasets remain in each dataset. This is achieved through a semi_join to keep only the common countries.</li>
+</ul>
 </section>
 <section id="cleaning-of-manifesto-data-manifesto" class="level2" data-number="6.4">
 <h2 data-number="6.4" class="anchored" data-anchor-id="cleaning-of-manifesto-data-manifesto"><span class="header-section-number">6.4</span> <em>Cleaning of Manifesto Data, manifesto</em></h2>
+<ul>
+<li><p><em>Date filtering:</em> remove data before 2008 (the first available year in the Crime dataset).</p></li>
+<li><p><em>Column selection:</em> Keeps only relevant columns in the manifesto dataset (e.g., political themes related to law and order, national security, immigration).</p></li>
+</ul>
 </section>
 <section id="group-by-date-and-country" class="level2" data-number="6.5">
 <h2 data-number="6.5" class="anchored" data-anchor-id="group-by-date-and-country"><span class="header-section-number">6.5</span> <em>Group by date and country</em></h2>
+<ul>
+<li><em>Manifesto Data:</em> extract the year from the date and group the data by country and year to compute the average percentage of the manifesto dedicated to specific themes like law and order, national security, and immigration.</li>
+</ul>
+<p>_ <em>Ideology Data:</em> extract the year from the date and groups the data by country and year to calculate the average ideological scores (left, right, and Dalton’s polarization index).</p>
 </section>
 <section id="merge-datasets" class="level2" data-number="6.6">
 <h2 data-number="6.6" class="anchored" data-anchor-id="merge-datasets"><span class="header-section-number">6.6</span> <em>Merge datasets</em></h2>
+<ul>
+<li><em>Renaming and merging:</em> Rename columns in the Crime, Manifesto, and Ideology datasets for consistency and merge them into one unified dataset. “full_join” is used to ensure no data is lost while combining them based on country and year.</li>
+</ul>
 </section>
 </section>
 <section id="a-description-of-the-research-question" class="level1" data-number="7">
@@ -254,7 +279,7 @@ ul.task-list li input[type="checkbox"] {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>

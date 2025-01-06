@@ -20,6 +20,7 @@ library(lubridate)
 library(knitr)
 library(tibble)
 library(kableExtra)
+library(countrycode)
 ```
 
 ```{r, include=FALSE}
@@ -27,8 +28,6 @@ crime <- get_eurostat("crim_just_ctz", time_format = "num", stringsAsFactors = T
 manifesto <- vroom(("https://manifesto-project.wzb.eu/down/data/2024a/datasets/MPDataset_MPDS2024a.csv"))
 ideology <- vroom(("https://eupoliticalbarometer.uc3m.es/api/ideologyDownload"))
 ```
-
-Data Management
 
 # **Link to GitHub**
 
@@ -144,14 +143,19 @@ knitr::kable(summary_table)
 # Keep only number of citizens and non-citizens convicted and suspected in Crime
 crime <- crime %>%
   filter(citizen != "TOTAL" & leg_stat != "PER_PRSC" & unit != "NR")
+```
+- *Filtering and cleaning:* remove irrelevant categories (e.g., "TOTAL" citizens and "PER_PRSC" status), keeping only the data for citizens and non-citizens related to crime suspicion and conviction.
 
+```{r, include=FALSE}
 # Create a new variable in Crime to have country names instead of just codes 
-library(countrycode)
 crime <- crime %>%
   mutate(geo = countrycode(geo, origin = "iso2c", destination = "country.name"))
 crime <- crime %>%
   filter(!is.na(geo))
+```
+- *Country name assignment:* convert country codes to full country names using the "countrycode" package.
 
+```{r, include=FALSE}
 # Create a new variable Category in Crime dataset
 crime <- crime %>%
   mutate(Category = case_when(
@@ -161,29 +165,39 @@ crime <- crime %>%
     citizen == "FOR" & leg_stat == "PER_SUSP" ~ "Suspected Non-Citizens",
     TRUE ~ NA_character_  
   ))
+```
+- *Category creation:* classify data into four categories based on citizenship and legal status: "Convicted Citizens," "Convicted Non-Citizens," "Suspected Citizens," and "Suspected Non-Citizens."
 
+```{r, include=FALSE}
 # Keep only variables of interest
 crime <- crime %>%
   select(geo, TIME_PERIOD, Category, values)
+```
+- *Drop irrelevant variables:* include only variables of interest: country, date, citizenship and legal status category, and crime rates.
 
+```{r, include=FALSE}
 # Pivot the table to only have one row per country for a year
 crime <- crime %>%
   pivot_wider(
     names_from = Category,  # Specify the column with the categories
     values_from = values     # Specify the column with the values
   )
-
 ```
+- *Data reshaping:* pivot the data to have a single row per country per year, with columns for each of the four categories (convicted and suspected citizens/non-citizens).
 
 ## *Cleaning of Barometer Data, ideology*
 ```{r, include=FALSE}
 # Keep only real values
 ideology <- ideology %>%
   filter(data_type != "ewma")
+```
+- *Filter invalid data:* removes data related to "ewma" (exponentially weighted moving average) and retain only real ideological scores.
 
+```{r, include=FALSE}
 ideology <- ideology %>%
   filter(date < as.Date("2023-01-01"))
 ```
+- *Date filtering:* filter the dataset to include only data up until 2023.
 
 ## *Joint Cleaning*
 ```{r, include=FALSE}
@@ -195,6 +209,7 @@ ideology <- ideology %>%
 manifesto <- manifesto %>%
   semi_join(crime, by = c("countryname" = "geo"))
 ```
+- *Data intersection:* ensure that only countries present in both the Crime, Manifesto, and Ideology datasets remain in each dataset. This is achieved through a semi_join to keep only the common countries.
 
 ## *Cleaning of Manifesto Data, manifesto*
 ```{r, include=FALSE}
@@ -202,15 +217,18 @@ manifesto <- manifesto %>%
 manifesto <- manifesto %>%
   mutate(edate = dmy(edate)) %>%
   filter(edate >= as.Date("2008-01-01"))
+```
+- *Date filtering:* remove data before 2008 (the first available year in the Crime dataset).
 
+```{r, include=FALSE}
 manifesto <- manifesto %>%
   select(countryname, partyname, edate, per101, per102, per103, per104, per105, per106, per107, per108, per109, per201, per203, per202, per204, per301, per302, per303, per304, per305)
 ```
+- *Column selection:* Keeps only relevant columns in the manifesto dataset (e.g., political themes related to law and order, national security, immigration).
 
 
 ## *Group by date and country*
 ```{r, include=FALSE}
-
 #### MANIFESTO #####
 
 # Extract the year from the 'edate' column
@@ -244,7 +262,10 @@ manifesto_cleaned <- manifesto2 %>%
     per305 = mean(per305, na.rm = TRUE)
   ) %>%
   ungroup()
+```
+- *Manifesto Data:* extract the year from the date and group the data by country and year to compute the average percentage of the manifesto dedicated to specific themes like law and order, national security, and immigration.
 
+```{r, include=FALSE}
 #### IDEOLOGY #####
 
 # Extract the year from the date column
@@ -260,8 +281,8 @@ ideology2 <- ideology2 %>%
     dalton = mean(dalton, na.rm = TRUE)
   ) %>%
   ungroup()
-
 ```
+_ *Ideology Data:* extract the year from the date and groups the data by country and year to calculate the average ideological scores (left, right, and Dalton's polarization index).
 
 ## *Merge datasets*
 ```{r, include=FALSE}
@@ -281,8 +302,7 @@ ideology_cleaned$year <- as.numeric(ideology_cleaned$year)
 merged_data <- full_join(crime_cleaned, manifesto_cleaned, by = c("country", "year")) %>%
   full_join(ideology_cleaned, by = c("country", "year"))
 ```
-
-
+- *Renaming and merging:* Rename columns in the Crime, Manifesto, and Ideology datasets for consistency and merge them into one unified dataset. "full_join" is used to ensure no data is lost while combining them based on country and year.
 
 # **A description of the research question**
 
