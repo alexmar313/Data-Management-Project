@@ -1,7 +1,9 @@
 ---
 title: "Data-Management-Project"
 author: "Alex Martinez & Serry Ezbidi"
-format: html
+format: 
+  html: 
+    number-sections: true
 ---
 
 ```{r, include=FALSE}
@@ -28,36 +30,36 @@ ideology <- vroom(("https://eupoliticalbarometer.uc3m.es/api/ideologyDownload"))
 
 Data Management
 
-**1- Link to GitHub**
+# **Link to GitHub**
 
 <a href="https://github.com/alexmar313/Data-Management-Project.git" target="_blank">GitHub Repository</a>
 
-**2- Links to the sources**
+# **Links to the sources**
 
-*Sources download links*
+## *Sources download links*
 
 - <a href="https://eupoliticalbarometer.uc3m.es/api/ideologyDownload" target="_blank">Ideology Download</a>
 - <a href="https://manifesto-project.wzb.eu/down/data/2024a/datasets/MPDataset_MPDS2024a.csv" target="_blank">Manifesto Dataset</a>
 - <a href="https://ec.europa.eu/eurostat/databrowser/view/crim_just_ctz/default/table?lang=en" target="_blank">Eurostat Crime Data</a>
 
-*Websites links from which data was extracted*
+## *Websites links from which data was extracted*
 
 - <a href="https://eupoliticalbarometer.uc3m.es/dashboard/ideology" target="_blank">EU Political Barometer Dashboard</a>
 - <a href="https://manifesto-project.wzb.eu/datasets" target="_blank">Manifesto Project Datasets</a>
 - <a href="https://ec.europa.eu/eurostat/databrowser/view/crim_just_ctz/default/table?lang=en" target="_blank">Eurostat Crime Justice Table</a>
 
-**3- Data description**
+# **Data description**
 
-*Eurostat Crime and Criminal Justice Dataset - *
+## *Eurostat Crime and Criminal Justice Dataset*
 The Eurostat Crime and Criminal Justice dataset provides yearly statistics on the citizens and non-citizens within the justice system across European Union member states, covering the period from 2008 to 2022. It includes data on suspicion and conviction rates per 1,000 inhabitants, offering insights into both the number of individuals suspected of crimes and those convicted. By distinguishing between citizens and non-citizens, this dataset sheds light on potential disparities in how these groups are treated within the legal system. Such information is crucial for understanding systemic inequities and evaluating the impact of policies on different demographics. 
 
-*Manifesto Project Dataset - *
+## *Manifesto Project Dataset - *
 The Manifesto Project dataset offers a systematic analysis of political party manifestos across various countries, including EU member states. Spanning elections from 1946 to 2017 (with country-specific coverage), it captures the percentage of text devoted to key themes such as "law and order," "national security," and "national values." This dataset is particularly valuable for studying the evolution of political discourse over time and across contexts. The dataset’s coding of text into quantifiable measures makes it a powerful tool for understanding the role of party platforms in shaping public opinion and influencing policy. Its detailed historical scope enables longitudinal studies of political ideologies and their relationship with contemporary governance trends.
 
-*EU Political Barometer Dataset - *
+## *EU Political Barometer Dataset - *
 The EU Political Barometer dataset provides bi-monthly data on public opinion and political preferences across EU member states from 2019 to 2023. It tracks ideological shifts, political attitudes, and public reactions to major societal events and political campaigns. Key indicators include changes in support for various ideologies and parties, offering a granular view of how public sentiment evolves over time. This dataset is particularly useful for analyzing short-term trends and understanding the relationship between political discourse and public opinion. By examining fluctuations in attitudes during specific events or election campaigns, we can identify patterns in voter behavior and ideological alignment. Its frequent updates make it a critical resource for real-time political analysis and policy evaluation.
 
-**4- Description table**
+# **Description table**
 
 ```{r, echo=FALSE}
 get_summary <- function(data, name, year_column, date_format, country_column) {
@@ -111,15 +113,15 @@ knitr::kable(summary_table)
 
 ```
 
-**5- Short description of the most important variables**
+# **Short description of the most important variables**
 
-*Crime dataset*
+## *Crime dataset*
 
 - *"leg_stat"*: "PER_SUSP" indicates individuals who are suspected of committing crimes, "PER_CNV" indicates individuals who are convicted of crimes.
 
 - *"citizen"*: "NAT" indicates nationals (citizens of the reporting country), "FOR" represents foreigners (non-citizens).
 
-*Ideology dataset*
+## *Ideology dataset*
 
 - *"left_ideology"*: numeric score (0-10) representing the left-wing ideological positioning in the country, where a higher value corresponds to stronger left ideology.
 
@@ -127,7 +129,7 @@ knitr::kable(summary_table)
 
 - *"dalton"*: named after the political scientist Russell Dalton, a numeric score (0-10) that shows the degree of ideological polarization in a country, where a higher score corresponds to higher polarization.
 
-*Manifesto dataset*
+## *Manifesto dataset*
 
 - *"per101 to per109"*: represent the percentage of the political party's manifesto dedicated to specific themes related to national security, crime, and immigration. They focus on topics like law and order, national security, crime prevention, and the role of the state in dealing with security threats. Specifically: per101: Law and Order, per102: National Security, per103: Crime and Punishment, per104: Prison and Penal System, per105: Immigration, per106: International Relations (related to security), per107: Economic Issues, per108: Welfare and Social Issues, per109: Cultural and National Identity
 
@@ -135,9 +137,9 @@ knitr::kable(summary_table)
 
 - *"per301 to per305"*: focus on social welfare, social issues, and public goods, which might also intersect with debates around immigration and crime in relation to societal well being and state responsibility. Specifically, per301: Social Welfare, per302: Education, per303: Health Care, per304: Family Support, per305: Environment and Sustainability.
 
-**6- Cleaning of the data**
+# **Cleaning of the data**
 
-a) Cleaning of Eurostat Data, Crime
+## *Cleaning of Eurostat Data, Crime*
 ```{r, include=FALSE}
 # Keep only number of citizens and non-citizens convicted and suspected in Crime
 crime <- crime %>%
@@ -173,8 +175,8 @@ crime <- crime %>%
 
 ```
 
-c) Cleaning of Barometer Data, ideology
-```{r}
+## *Cleaning of Barometer Data, ideology*
+```{r, include=FALSE}
 # Keep only real values
 ideology <- ideology %>%
   filter(data_type != "ewma")
@@ -183,8 +185,8 @@ ideology <- ideology %>%
   filter(date < as.Date("2023-01-01"))
 ```
 
-d) Joint Cleaning
-```{r}
+## *Joint Cleaning*
+```{r, include=FALSE}
 # Keep only countries present in both Manifesto and Crime datasets
 crime <- crime %>%
   semi_join(manifesto, by = c("geo" = "countryname"))
@@ -194,10 +196,7 @@ manifesto <- manifesto %>%
   semi_join(crime, by = c("countryname" = "geo"))
 ```
 
-b) Cleaning of Manifesto Data, manifesto
-
-***We need to aggregate the manifesto data set so that we have 1 observation per country and per year (aggregate political parties, and date so that only 1 observation per year)***
-
+## *Cleaning of Manifesto Data, manifesto*
 ```{r, include=FALSE}
 # Delete data in Manifesto from before our first Crime data points, before 2008
 manifesto <- manifesto %>%
@@ -209,8 +208,8 @@ manifesto <- manifesto %>%
 ```
 
 
-Group by date and country
-```{r}
+## *Group by date and country*
+```{r, include=FALSE}
 
 #### MANIFESTO #####
 
@@ -264,7 +263,8 @@ ideology2 <- ideology2 %>%
 
 ```
 
-```{r}
+## *Merge datasets*
+```{r, include=FALSE}
 crime_cleaned <- crime %>%
   rename(year = TIME_PERIOD, country = geo)
 
@@ -284,19 +284,19 @@ merged_data <- full_join(crime_cleaned, manifesto_cleaned, by = c("country", "ye
 
 
 
-**7- A description of the research question**
+# **A description of the research question**
 
-*Research question:* What is the association between immigration and crime suspicions and convictions in the EU, considering political ideology?
+## *Research question:* What is the association between immigration and crime suspicions and convictions in the EU, considering political ideology?
 
 The research explores the relationship between immigration status and crime outcomes (suspicion and conviction rates) in EU countries. It questions whether claims by political entities, particularly right-wing parties, that immigration drives up crime rates hold true, and explores how other intervening factors, such as the demographic profile of immigrants, might contribute to this perception.
 
 Background context and relevance
 Right-wing political narratives often link immigration with rising crime rates without acknowledging broader contextual factors. For example, statistical evidence suggests that most crimes are committed by young males—a group overrepresented among immigrant populations. Across the EU, a significant proportion of non-citizens are young males: non-national men aged 20–49 constitute 29% of their demographic group, compared to 18% for nationals. Additionally, 54–60% of unauthorized immigrants are male, with a majority under 35 years old. Such demographic realities could skew perceptions of immigrant involvement in crime when not carefully controlled for.
-*Source: https://ec.europa.eu/eurostat/web/interactive-publications/migration-2023
+*Source: <a href="https://ec.europa.eu/eurostat/web/interactive-publications/migration-2023" target="_blank">Migration 2023</a>
 
 This research aims to integrate crime statistics and demographic data with measures of political ideology to disentangle these associations. By doing so, it challenges simplistic narratives and aims to explore whether shifts in political rhetoric influence crime outcomes or merely exacerbate perceptions of immigrant criminality.
 
-Data and methodology
+## *Data and methodology*
 1. Crime Data:
    Eurostat provides comprehensive data on annual suspicion and conviction rates per 1,000 residents, dis-aggregated by citizenship (non-citizens vs. citizens) for 2008–2022. This allows for trend analysis of disparities between groups.
 
@@ -306,22 +306,20 @@ Data and methodology
 
 A Difference-in-Differences (DiD) approach will compare changes in crime-related outcomes before and after election periods with shifts in ideological rhetoric. Non-election years serve as a control group, isolating the causal effect of political discourse.
 
-Core issues addressed 
+## *Core issues addressed* 
 The research will investigate:
 1. Whether increased suspicion of immigrant crime correlates with heightened right-wing rhetoric.
 2. If young male over representation among immigrants, rather than immigrant status itself, explains these crime rates.  
 3. Do conviction rates—representing judicial outcomes—reflect ideological trends, or are they more stable and less subject to political influence?
 
-Significance and expected outcomes  
+## *Significance and expected outcomes*
 This study seeks to clarify how political discourse shapes public perceptions and crime outcomes involving immigrants. Preliminary hypotheses suggest that while suspicion rates rise in line with ideological shifts, conviction rates remain relatively stable, suggesting biases in suspicion rather than evidence-based outcomes. By emphasizing intervening factors like demographics, the research highlights the importance of nuanced policymaking and avoids perpetuating harmful stereotypes.
 
+# **Target variable**
 
+## *The change in suspicion and conviction rates of non-citizens (immigrants).*
 
-**8- Target variable**
-
-*The change in suspicion and conviction rates of non-citizens (immigrants).*
-
-*The change in suspicion and conviction rates of citizens.*
+## *The change in suspicion and conviction rates of citizens.*
 
 ```{r, echo=FALSE}
 filtered_data <- crime_cleaned %>%
