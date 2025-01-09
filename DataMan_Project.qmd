@@ -193,9 +193,26 @@ crime <- crime %>%
 ```{r}
 plot_data <- pop %>%
   mutate(country = countrycode(geo, origin = "iso2c", destination = "country.name", warn = FALSE)) %>%
-  filter(!is.na(country), age == "TOTAL", sex == "T")
-  
-  # Split and process citizens and non-citizens data
+  filter(!is.na(country), age == "TOTAL", sex == "T") %>%
+  # Create a new citizen category
+  mutate(citizen_type = case_when(
+    citizen == "NAT" ~ "citizens",
+    citizen %in% c("FOR_STLS", "UNK") ~ "non_citizens"
+  )) %>%
+  group_by(country, year, citizen_type) %>%
+  summarise(
+    population = sum(values, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  pivot_wider(
+    names_from = citizen_type,
+    values_from = population,
+    names_prefix = "population_"
+  )
+
+plot_data <- pop %>%
+  mutate(country = countrycode(geo, origin = "iso2c", destination = "country.name", warn = FALSE)) %>%
+  filter(!is.na(country), age == "TOTAL", sex == "T") %>%
   group_by(country, year, citizen) %>%
   summarise(
     population = sum(values, na.rm = TRUE),
@@ -206,11 +223,17 @@ plot_data <- pop %>%
     values_from = population,
     values_fill = 0
   ) %>%
-  rename(
+  mutate(
     population_citizens = NAT,
     population_non_citizens = FOR_STLS + UNK
   ) %>%
-  
+  inner_join(merged_data, by = c("country", "year")) %>%
+  mutate(
+    convicted_p_citizens = (`Convicted Citizens` / population_citizens) * 100,
+    convicted_p_non_citizens = (`Convicted Non-Citizens` / population_non_citizens) * 100,
+    suspected_p_citizens = (`Suspected Citizens` / population_citizens) * 100,
+    suspected_p_non_citizens = (`Suspected Non-Citizens` / population_non_citizens) * 100
+  )
 ```
 
 ## *Cleaning of Barometer Data, ideology*
@@ -424,15 +447,19 @@ ggplot(filtered_data, aes(x = year)) +
 
 ## *Average Crime Suspicion Rates Over Time for Citizens and Non-Citizens as a Percentage of their Population Share*
 ```{r, echo=FALSE}
-plot_data_avg <- avg_data %>%
+plot_data %>%
+  group_by(year) %>%
+  summarise(
+    avg_citizens = mean(suspected_p_citizens, na.rm = TRUE),
+    avg_non_citizens = mean(suspected_p_non_citizens, na.rm = TRUE)
+  ) %>%
   pivot_longer(
-    cols = c(avg_percentage_citizens, avg_percentage_non_citizens),
+    cols = c(avg_citizens, avg_non_citizens),
     names_to = "group",
     values_to = "value_percentage"
   ) %>%
-  mutate(group = ifelse(group == "avg_percentage_citizens", "Citizens", "Non-Citizens"))
-
-ggplot(plot_data_avg, aes(x = year, y = value_percentage, color = group, linetype = group)) +
+  mutate(group = ifelse(group == "avg_citizens", "Citizens", "Non-Citizens")) %>%
+  ggplot(aes(x = year, y = value_percentage, color = group, linetype = group)) +
   geom_line(size = 1.2) +
   labs(
     title = "Average Percentage of Suspected Citizens and Non-Citizens",
@@ -443,70 +470,23 @@ ggplot(plot_data_avg, aes(x = year, y = value_percentage, color = group, linetyp
   ) +
   theme_minimal()
 
-# Process and prepare data in one pipeline
-plot_data <- pop %>%
-  # Initial data preparation
-  mutate(country = countrycode(geo, origin = "iso2c", destination = "country.name", warn = FALSE)) %>%
-  filter(!is.na(country), age == "TOTAL", sex == "T") %>%
-  rename(year = TIME_PERIOD) %>%
-  
-  # Split and process citizens and non-citizens data
-  group_by(country, year, citizen) %>%
-  summarise(
-    population = sum(values, na.rm = TRUE),
-    .groups = "drop"
-  ) %>%
-  pivot_wider(
-    names_from = citizen,
-    values_from = population,
-    values_fill = 0
-  ) %>%
-  rename(
-    population_citizens = NAT,
-    population_non_citizens = FOR_STLS + UNK
-  ) %>%
-  
-  # Merge with conviction data and calculate percentages
-  inner_join(merged_data, by = c("country", "year")) %>%
-  mutate(
-    percentage_Ccitizens = (`Convicted Citizens` / population_citizens) * 100,
-    percentage_Cnon_citizens = (`Convicted Non-Citizens` / population_non_citizens) * 100
-  ) %>%
-  
-  # Prepare for plotting
-  select(country, year, percentage_Ccitizens, percentage_Cnon_citizens) %>%
-  pivot_longer(
-    cols = c(percentage_Ccitizens, percentage_Cnon_citizens),
-    names_to = "group",
-    values_to = "value_percentage_C"
-  ) %>%
-  mutate(group = ifelse(group == "percentage_Ccitizens", "Citizens", "Non-Citizens"))
-
-# Create the plot
-ggplot(plot_data, aes(x = year, y = value_percentage_C, color = country, linetype = group)) +
-  geom_line() +
-  labs(
-    title = "Convicted Citizens and Non-Citizens as Percentage of Population",
-    x = "Year",
-    y = "Percentage",
-    color = "Country",
-    linetype = "Group"
-  ) +
-  theme_minimal()
-
 ```
 
 ## *Average Crime Conviction Rates Over Time for Citizens and Non-Citizens as a Percentage of their Population Share*
 ```{r, echo=FALSE}
-plot_data_avg <- avg_data %>%
+plot_data %>%
+  group_by(year) %>%
+  summarise(
+    avg_citizens = mean(convicted_p_citizens, na.rm = TRUE),
+    avg_non_citizens = mean(convicted_p_non_citizens, na.rm = TRUE)
+  ) %>%
   pivot_longer(
-    cols = c(avg_percentage_citizens, avg_percentage_non_citizens),
+    cols = c(avg_citizens, avg_non_citizens),
     names_to = "group",
     values_to = "value_percentage"
   ) %>%
-  mutate(group = ifelse(group == "avg_percentage_citizens", "Citizens", "Non-Citizens"))
-
-ggplot(plot_data_avg, aes(x = year, y = value_percentage, color = group, linetype = group)) +
+  mutate(group = ifelse(group == "avg_citizens", "Citizens", "Non-Citizens")) %>%
+  ggplot(aes(x = year, y = value_percentage, color = group, linetype = group)) +
   geom_line(size = 1.2) +
   labs(
     title = "Average Percentage of Convicted Citizens and Non-Citizens",
