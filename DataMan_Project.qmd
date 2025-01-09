@@ -44,12 +44,14 @@ pop <- get_eurostat("migr_pop2ctz", time_format = "num", stringsAsFactors = TRUE
 - <a href="https://eupoliticalbarometer.uc3m.es/api/ideologyDownload" target="_blank">Ideology Download</a>
 - <a href="https://manifesto-project.wzb.eu/down/data/2024a/datasets/MPDataset_MPDS2024a.csv" target="_blank">Manifesto Dataset</a>
 - <a href="https://ec.europa.eu/eurostat/databrowser/view/crim_just_ctz/default/table?lang=en" target="_blank">Eurostat Crime Data</a>
+- <a href="https://ec.europa.eu/eurostat/databrowser/view/migr_pop2ctz/default/table?lang=en&category=demo.demo_pop" target="_blank">Eurostat Population Data</a>
 
 ## *Websites links from which data was extracted*
 
 - <a href="https://eupoliticalbarometer.uc3m.es/dashboard/ideology" target="_blank">EU Political Barometer Dashboard</a>
 - <a href="https://manifesto-project.wzb.eu/datasets" target="_blank">Manifesto Project Datasets</a>
 - <a href="https://ec.europa.eu/eurostat/databrowser/view/crim_just_ctz/default/table?lang=en" target="_blank">Eurostat Crime Justice Table</a>
+- <a href="https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/migr_pop2ctz?format=TSV&compressed=true" target="_blank">Eurostat Population Data</a>
 
 # **Data description**
 
@@ -309,7 +311,7 @@ merged_data <- full_join(crime_cleaned, manifesto_cleaned, by = c("country", "ye
 ```
 
 # ADDITIONS 
-To enhance the graph, it would be more informative to present the data as percentages rather than raw numbers. For example, we can display the proportion of suspected non-citizens relative to the total population of non-citizens, and compare this to the proportion of suspected citizens relative to the total population of citizens. This approach allows for a clearer and more meaningful comparison between the two groups. 
+To enhance the graph, it would be more informative to present the data as percentages rather than raw numbers. For example, we can display the proportion of suspected non-citizens relative to the total population of non-citizens, and compare this to the proportion of suspected citizens relative to the total population of citizens. This approach allows for a clearer and more meaningful comparison between the two groups.
 To achieve this, we can utilize the following dataset:
 ##* Cleaning and Merging of Population Data*
 ```{r, echo=FALSE}
