@@ -1,8 +1,10 @@
 ---
 title: "Crime, Ideology, and Manifestos: A Comparative Study of European Political Trends"
 author: "Alex Martinez & Serry Ezbidi"
-format: 
-  html: 
+format:
+  html:
+    number-sections: true
+  pdf:
     number-sections: true
 ---
 
@@ -21,12 +23,14 @@ library(knitr)
 library(tibble)
 library(kableExtra)
 library(countrycode)
+library(tinytex)
 ```
 
 ```{r, include=FALSE}
 crime <- get_eurostat("crim_just_ctz", time_format = "num", stringsAsFactors = TRUE)
 manifesto <- vroom(("https://manifesto-project.wzb.eu/down/data/2024a/datasets/MPDataset_MPDS2024a.csv"))
 ideology <- vroom(("https://eupoliticalbarometer.uc3m.es/api/ideologyDownload"))
+pop <- get_eurostat("migr_pop2ctz", time_format = "num", stringsAsFactors = TRUE)
 ```
 
 # **Link to GitHub**
@@ -142,7 +146,7 @@ knitr::kable(summary_table)
 ```{r, include=FALSE}
 # Keep only number of citizens and non-citizens convicted and suspected in Crime
 crime <- crime %>%
-  filter(citizen != "TOTAL" & leg_stat != "PER_PRSC" & unit != "NR")
+  filter(citizen != "TOTAL" & leg_stat != "PER_PRSC" & unit != "P_HTHAB")
 ```
 - *Filtering and cleaning:* remove irrelevant categories (e.g., "TOTAL" citizens and "PER_PRSC" status), keeping only the data for citizens and non-citizens related to crime suspicion and conviction.
 
@@ -184,6 +188,30 @@ crime <- crime %>%
   )
 ```
 - *Data reshaping:* pivot the data to have a single row per country per year, with columns for each of the four categories (convicted and suspected citizens/non-citizens).
+
+##* Cleaning of Population Data*
+```{r}
+plot_data <- pop %>%
+  mutate(country = countrycode(geo, origin = "iso2c", destination = "country.name", warn = FALSE)) %>%
+  filter(!is.na(country), age == "TOTAL", sex == "T")
+  
+  # Split and process citizens and non-citizens data
+  group_by(country, year, citizen) %>%
+  summarise(
+    population = sum(values, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  pivot_wider(
+    names_from = citizen,
+    values_from = population,
+    values_fill = 0
+  ) %>%
+  rename(
+    population_citizens = NAT,
+    population_non_citizens = FOR_STLS + UNK
+  ) %>%
+  
+```
 
 ## *Cleaning of Barometer Data, ideology*
 ```{r, include=FALSE}
@@ -335,79 +363,278 @@ The research will investigate:
 ## *Significance and expected outcomes*
 This study seeks to clarify how political discourse shapes public perceptions and crime outcomes involving immigrants. Preliminary hypotheses suggest that while suspicion rates rise in line with ideological shifts, conviction rates remain relatively stable, suggesting biases in suspicion rather than evidence-based outcomes. By emphasizing intervening factors like demographics, the research highlights the importance of nuanced policymaking and avoids perpetuating harmful stereotypes.
 
-# **Target variable**
+# **Target Variable**
 
-## *Crime suspicion rates over time for citizens and non-citizens (immigrants) for selected countries*
+## *Total Crime Suspicion Rates Over Time for Citizens and Non-Citizens in Selected Countries*
 ```{r, echo=FALSE}
 filtered_data <- crime_cleaned %>%
   filter(country %in% c("France", "Germany", "Austria", "Bulgaria"))
 
 # Plot the graph with separate lines for each category
 ggplot(filtered_data, aes(x = year)) +
-  geom_line(aes(y = `Suspected Non-Citizens`, color = "Suspected Non-Citizens"), size = 1) +
-  geom_line(aes(y = `Suspected Citizens`, color = "Suspected Citizens"), size = 1) +
+  geom_line(aes(y = `Suspected Non-Citizens`, color = "Suspected Non-Citizens"), linewidth = 1) +
+  geom_line(aes(y = `Suspected Citizens`, color = "Suspected Citizens"), linewidth = 1) +
   facet_wrap(~country, scales = "free_y") +  # Split by country
-  labs(title = "Crime suspicion over time",
-       x = "Year",
-       y = "Number of People",
-       color = "Category") +
+  labs(
+    title = "Crime Suspicion Over Time",
+    x = "Year",
+    y = "Number of People",
+    color = "Category"
+  ) +
   theme_minimal() +
-  scale_color_manual(values = c("Suspected Non-Citizens" = "red", 
-                                "Suspected Citizens" = "orange"))
+  theme(
+    legend.position = "bottom"  # Move the legend below the graph
+  ) +
+  scale_color_manual(
+    values = c(
+      "Suspected Non-Citizens" = "red", 
+      "Suspected Citizens" = "orange"
+    )
+  )
 ```
 
-## *Crime conviction rates over time for citizens and non-citizens (immigrants) for selected countries*
+## *Total Crime Conviction Rates Over Time for Citizens and Non-Citizens in Selected Countries*
 ```{r, echo=FALSE}
 filtered_data <- crime_cleaned %>%
   filter(country %in% c("France", "Germany", "Austria", "Bulgaria"))
 
 # Plot the graph with separate lines for each category
 ggplot(filtered_data, aes(x = year)) +
-  geom_line(aes(y = `Convicted Non-Citizens`, color = "Convicted Non-Citizens"), size = 1) +
-  geom_line(aes(y = `Convicted Citizens`, color = "Convicted Citizens"), size = 1) +
+  geom_line(aes(y = `Convicted Non-Citizens`, color = "Convicted Non-Citizens"), linewidth = 1) +
+  geom_line(aes(y = `Convicted Citizens`, color = "Convicted Citizens"), linewidth = 1) +
   facet_wrap(~country, scales = "free_y") +  # Split by country
-  labs(title = "Crime conviction and over time",
-       x = "Year",
-       y = "Number of People",
-       color = "Category") +
+  labs(
+    title = "Crime Conviction Over Time",
+    x = "Year",
+    y = "Number of People",
+    color = "Category"
+  ) +
   theme_minimal() +
-  scale_color_manual(values = c("Convicted Non-Citizens" = "blue", 
-                                "Convicted Citizens" = "green"))
+  theme(
+    legend.position = "bottom"  # Move the legend below the graph
+  ) +
+  scale_color_manual(
+    values = c(
+      "Convicted Non-Citizens" = "red", 
+      "Convicted Citizens" = "orange"
+    )
+  )
+
 ```
 
+## *Average Crime Suspicion Rates Over Time for Citizens and Non-Citizens as a Percentage of their Population Share*
+```{r, echo=FALSE}
+plot_data_avg <- avg_data %>%
+  pivot_longer(
+    cols = c(avg_percentage_citizens, avg_percentage_non_citizens),
+    names_to = "group",
+    values_to = "value_percentage"
+  ) %>%
+  mutate(group = ifelse(group == "avg_percentage_citizens", "Citizens", "Non-Citizens"))
 
-```{r, include=FALSE}
-filtered_data <- crime_cleaned %>%
-  filter(country %in% c("France", "Germany", "Austria", "Bulgaria"))
+ggplot(plot_data_avg, aes(x = year, y = value_percentage, color = group, linetype = group)) +
+  geom_line(size = 1.2) +
+  labs(
+    title = "Average Percentage of Suspected Citizens and Non-Citizens",
+    x = "Year",
+    y = "Average Percentage",
+    color = "Group",
+    linetype = "Group"
+  ) +
+  theme_minimal()
 
-# Plot the graph with separate lines for each category
-ggplot(filtered_data, aes(x = year)) +
-  geom_line(aes(y = `Convicted Non-Citizens`, color = "Convicted Non-Citizens"), size = 1) +
-  geom_line(aes(y = `Convicted Citizens`, color = "Convicted Citizens"), size = 1) +
-  geom_line(aes(y = `Suspected Non-Citizens`, color = "Suspected Non-Citizens"), size = 1) +
-  geom_line(aes(y = `Suspected Citizens`, color = "Suspected Citizens"), size = 1) +
-  facet_wrap(~country, scales = "free_y") +  # Split by country
-  labs(title = "Convictions and Suspicions Over Time",
-       x = "Year",
-       y = "Number of People",
-       color = "Category") +
-  theme_minimal() +
-  scale_color_manual(values = c("Convicted Non-Citizens" = "blue", 
-                                "Convicted Citizens" = "green", 
-                                "Suspected Non-Citizens" = "red", 
-                                "Suspected Citizens" = "orange"))
+# Process and prepare data in one pipeline
+plot_data <- pop %>%
+  # Initial data preparation
+  mutate(country = countrycode(geo, origin = "iso2c", destination = "country.name", warn = FALSE)) %>%
+  filter(!is.na(country), age == "TOTAL", sex == "T") %>%
+  rename(year = TIME_PERIOD) %>%
+  
+  # Split and process citizens and non-citizens data
+  group_by(country, year, citizen) %>%
+  summarise(
+    population = sum(values, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  pivot_wider(
+    names_from = citizen,
+    values_from = population,
+    values_fill = 0
+  ) %>%
+  rename(
+    population_citizens = NAT,
+    population_non_citizens = FOR_STLS + UNK
+  ) %>%
+  
+  # Merge with conviction data and calculate percentages
+  inner_join(merged_data, by = c("country", "year")) %>%
+  mutate(
+    percentage_Ccitizens = (`Convicted Citizens` / population_citizens) * 100,
+    percentage_Cnon_citizens = (`Convicted Non-Citizens` / population_non_citizens) * 100
+  ) %>%
+  
+  # Prepare for plotting
+  select(country, year, percentage_Ccitizens, percentage_Cnon_citizens) %>%
+  pivot_longer(
+    cols = c(percentage_Ccitizens, percentage_Cnon_citizens),
+    names_to = "group",
+    values_to = "value_percentage_C"
+  ) %>%
+  mutate(group = ifelse(group == "percentage_Ccitizens", "Citizens", "Non-Citizens"))
+
+# Create the plot
+ggplot(plot_data, aes(x = year, y = value_percentage_C, color = country, linetype = group)) +
+  geom_line() +
+  labs(
+    title = "Convicted Citizens and Non-Citizens as Percentage of Population",
+    x = "Year",
+    y = "Percentage",
+    color = "Country",
+    linetype = "Group"
+  ) +
+  theme_minimal()
+
+```
+
+## *Average Crime Conviction Rates Over Time for Citizens and Non-Citizens as a Percentage of their Population Share*
+```{r, echo=FALSE}
+plot_data_avg <- avg_data %>%
+  pivot_longer(
+    cols = c(avg_percentage_citizens, avg_percentage_non_citizens),
+    names_to = "group",
+    values_to = "value_percentage"
+  ) %>%
+  mutate(group = ifelse(group == "avg_percentage_citizens", "Citizens", "Non-Citizens"))
+
+ggplot(plot_data_avg, aes(x = year, y = value_percentage, color = group, linetype = group)) +
+  geom_line(size = 1.2) +
+  labs(
+    title = "Average Percentage of Convicted Citizens and Non-Citizens",
+    x = "Year",
+    y = "Average Percentage",
+    color = "Group",
+    linetype = "Group"
+  ) +
+  theme_minimal()
 ```
 
 # ADDITIONS 
-to make a better graph we should show the numbers as a percentage of total rather than just numbers. so, suspected non-citizens as a % of total non-citizens, and compare that to suspected citizens as a % of total citizens, etc...
-to do that, we can use the following dataset:
-*Population on 1 January by age, sex and broad group of citizenship (migr_pop2ctz)*
-```{r, include=FALSE}
-pop <- get_eurostat("migr_pop2ctz", time_format = "num", stringsAsFactors = TRUE)
+To enhance the graph, it would be more informative to present the data as percentages rather than raw numbers. For example, we can display the proportion of suspected non-citizens relative to the total population of non-citizens, and compare this to the proportion of suspected citizens relative to the total population of citizens. This approach allows for a clearer and more meaningful comparison between the two groups. 
+To achieve this, we can utilize the following dataset:
+```{r}
+
+
+# Define the countries we want to show
+selected_countries <- c("France", "Germany", "Bulgaria", "Austria", "Italy", "Poland")
+
+# Get population data once
+pop <- get_eurostat("migr_pop2ctz", time_format = "num", stringsAsFactors = TRUE) %>%
+  mutate(
+    country = countrycode(geo, origin = "iso2c", destination = "country.name", warn = FALSE)
+  ) %>%
+  filter(!is.na(country), country %in% selected_countries) %>%  # Filter for selected countries
+  rename(year = TIME_PERIOD)
+
+# Create function to prepare population data
+prepare_pop_data <- function() {
+  # Citizens data
+  pop_data_citizens <- pop %>%
+    filter(age == "TOTAL", sex == "T", citizen == "NAT") %>%
+    select(country, year, values) %>%
+    rename(population_citizens = values)
+  
+  # Non-citizens data
+  pop_data_non_citizens <- pop %>%
+    filter(age == "TOTAL", sex == "T", citizen %in% c("FOR_STLS", "UNK")) %>%
+    group_by(country, year) %>%
+    summarise(population_non_citizens = sum(values, na.rm = TRUE), .groups = "drop")
+  
+  # Combine
+  inner_join(pop_data_citizens, pop_data_non_citizens, by = c("country", "year"))
+}
+
+# Create function to generate plots
+create_plots <- function(data, type) {
+  # Prepare final merged data
+  merged_data_final <- merged_data %>%
+    filter(country %in% selected_countries) %>%  # Filter for selected countries
+    inner_join(data, by = c("country", "year")) %>%
+    mutate(
+      percentage_citizens = (!!sym(paste0(type, " Citizens")) / population_citizens) * 100,
+      percentage_non_citizens = (!!sym(paste0(type, " Non-Citizens")) / population_non_citizens) * 100
+    )
+  
+  # Prepare data for country-wise plot
+  plot_data <- merged_data_final %>%
+    select(country, year, percentage_citizens, percentage_non_citizens) %>%
+    pivot_longer(
+      cols = c(percentage_citizens, percentage_non_citizens),
+      names_to = "group",
+      values_to = "value_percentage"
+    ) %>%
+    mutate(group = ifelse(group == "percentage_citizens", "Citizens", "Non-Citizens"))
+  
+  # Prepare data for average plot
+  avg_data <- merged_data_final %>%
+    group_by(year) %>%
+    summarise(
+      avg_percentage_citizens = mean(percentage_citizens, na.rm = TRUE),
+      avg_percentage_non_citizens = mean(percentage_non_citizens, na.rm = TRUE)
+    ) %>%
+    pivot_longer(
+      cols = c(avg_percentage_citizens, avg_percentage_non_citizens),
+      names_to = "group",
+      values_to = "value_percentage"
+    ) %>%
+    mutate(group = ifelse(group == "avg_percentage_citizens", "Citizens", "Non-Citizens"))
+  
+  # Create plots
+  country_plot <- ggplot(plot_data, aes(x = year, y = value_percentage, color = country, linetype = group)) +
+    geom_line(size = 1) +
+    labs(
+      title = paste(type, "Citizens and Non-Citizens as Percentage of Population"),
+      x = "Year",
+      y = "Percentage",
+      color = "Country",
+      linetype = "Group"
+    ) +
+    theme_minimal() +
+    theme(legend.position = "right",
+          plot.title = element_text(size = 10),
+          legend.text = element_text(size = 8),
+          legend.title = element_text(size = 9))
+  
+  avg_plot <- ggplot(avg_data, aes(x = year, y = value_percentage, color = group, linetype = group)) +
+    geom_line(size = 1.2) +
+    labs(
+      title = paste("Average Percentage of", type, "Citizens and Non-Citizens\nAcross Selected Countries"),
+      x = "Year",
+      y = "Average Percentage",
+      color = "Group",
+      linetype = "Group"
+    ) +
+    theme_minimal() +
+    theme(plot.title = element_text(size = 10),
+          legend.text = element_text(size = 8),
+          legend.title = element_text(size = 9))
+  
+  return(list(country_plot = country_plot, avg_plot = avg_plot))
+}
+
+# Prepare population data
+pop_data_combined <- prepare_pop_data()
+
+# Create all plots
+convicted_plots <- create_plots(pop_data_combined, "Convicted")
+suspected_plots <- create_plots(pop_data_combined, "Suspected")
+
+
 ```
 
-convicted
-```{r}
+
+*Population on 1 January by age, sex and broad group of citizenship (migr_pop2ctz)*
+
+```{r, include=FALSE}
 pop <- pop %>%
   mutate(
     country = countrycode(geo, origin = "iso2c", destination = "country.name", warn = FALSE)
@@ -422,7 +649,7 @@ pop_data_citizens <- pop %>%
   select(country, year, values) %>%
   rename(population_citizens = values)
 
-pop_data_non_citizens <- pop_data %>%
+pop_data_non_citizens <- pop %>%
   filter(age == "TOTAL", sex == "T", citizen %in% c("FOR_STLS", "UNK")) %>%
   group_by(country, year) %>%
   summarise(population_non_citizens = sum(values, na.rm = TRUE), .groups = "drop")
@@ -461,8 +688,8 @@ ggplot(plot_data, aes(x = year, y = value_percentage, color = country, linetype 
   ) +
   theme_minimal()
 ```
-avg convicted
-```{r}
+##* Average Convicted
+```{r, include=FALSE}
 pop <- get_eurostat("migr_pop2ctz", time_format = "num", stringsAsFactors = TRUE)
 
 pop <- pop %>%
@@ -527,7 +754,7 @@ ggplot(plot_data_avg, aes(x = year, y = value_percentage, color = group, linetyp
 
 ```
 
-suspected by country
+##* Suspected by country
 ```{r}
 pop <- get_eurostat("migr_pop2ctz", time_format = "num", stringsAsFactors = TRUE)
 
@@ -545,7 +772,7 @@ pop_data_citizens <- pop %>%
   select(country, year, values) %>%
   rename(population_citizens = values)
 
-pop_data_non_citizens <- pop_data %>%
+pop_data_non_citizens <- pop %>%
   filter(age == "TOTAL", sex == "T", citizen %in% c("FOR_STLS", "UNK")) %>%
   group_by(country, year) %>%
   summarise(population_non_citizens = sum(values, na.rm = TRUE), .groups = "drop")
@@ -696,7 +923,7 @@ model_suspected <- lm(total_suspected ~ percentage_non_citizens_in_population, d
 summary(model_suspected)
 
 ```
-Interacrtion effects
+Interaction effects
 ```{r}
 model_interaction <- lm(total_convicted ~ percentage_non_citizens_in_population * country, data = merged_data_final)
 summary(model_interaction)
@@ -720,7 +947,7 @@ ggplot(merged_data_final, aes(x = dalton, y = total_convicted)) +
 
 ```
 
-effect of polarizqatino on total conviction.
+effect of polarizatino on total conviction.
 ```{r}
 model_with_polynomial <- lm(total_convicted ~ dalton + poly(year, 2), data = merged_data_final)
 summary(model_with_polynomial)
