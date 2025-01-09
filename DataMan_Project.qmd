@@ -33,32 +33,33 @@ ideology <- vroom(("https://eupoliticalbarometer.uc3m.es/api/ideologyDownload"))
 pop <- get_eurostat("migr_pop2ctz", time_format = "num", stringsAsFactors = TRUE)
 ```
 
-# **Link to GitHub**
+# **INTRODUCTION**
+
+## *Link to GitHub*
 
 <a href="https://github.com/alexmar313/Data-Management-Project.git" target="_blank">GitHub Repository</a>
-
-# **Links to the sources**
 
 ## *Sources download links*
 
 - <a href="https://eupoliticalbarometer.uc3m.es/api/ideologyDownload" target="_blank">Ideology Download</a>
 - <a href="https://manifesto-project.wzb.eu/down/data/2024a/datasets/MPDataset_MPDS2024a.csv" target="_blank">Manifesto Dataset</a>
 - <a href="https://ec.europa.eu/eurostat/databrowser/view/crim_just_ctz/default/table?lang=en" target="_blank">Eurostat Crime Data</a>
-- <a href="https://ec.europa.eu/eurostat/databrowser/view/migr_pop2ctz/default/table?lang=en&category=demo.demo_pop" target="_blank">Eurostat Population Data</a>
 
 ## *Websites links from which data was extracted*
 
 - <a href="https://eupoliticalbarometer.uc3m.es/dashboard/ideology" target="_blank">EU Political Barometer Dashboard</a>
 - <a href="https://manifesto-project.wzb.eu/datasets" target="_blank">Manifesto Project Datasets</a>
 - <a href="https://ec.europa.eu/eurostat/databrowser/view/crim_just_ctz/default/table?lang=en" target="_blank">Eurostat Crime Justice Table</a>
-- <a href="https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/migr_pop2ctz?format=TSV&compressed=true" target="_blank">Eurostat Population Data</a>
 
 # **Data description**
 
 ## *Eurostat Crime and Criminal Justice Dataset*
 The Eurostat Crime and Criminal Justice dataset provides yearly statistics on the citizens and non-citizens within the justice system across European Union member states, covering the period from 2008 to 2022. It includes data on suspicion and conviction rates per 1,000 inhabitants, offering insights into both the number of individuals suspected of crimes and those convicted. By distinguishing between citizens and non-citizens, this dataset sheds light on potential disparities in how these groups are treated within the legal system. Such information is crucial for understanding systemic inequities and evaluating the impact of policies on different demographics. 
 
-## *Manifesto Project Dataset - *
+## *Eurostat Population*
+The Eurostat Migration dataset provides annual data on the population of citizens and non-citizens across EU member states from 2008 to 2022. Non-citizens include foreigners, stateless individuals, and those with unknown status. This dataset allows for detailed analysis of demographic compositions and is crucial for understanding disparities between citizens and non-citizens. We aim to use it to determine the number of citizens and non-citizens in each country, highlighting migration trends and their societal implications.
+
+## *Manifesto Project Dataset*
 The Manifesto Project dataset offers a systematic analysis of political party manifestos across various countries, including EU member states. Spanning elections from 1946 to 2017 (with country-specific coverage), it captures the percentage of text devoted to key themes such as "law and order," "national security," and "national values." This dataset is particularly valuable for studying the evolution of political discourse over time and across contexts. The dataset’s coding of text into quantifiable measures makes it a powerful tool for understanding the role of party platforms in shaping public opinion and influencing policy. Its detailed historical scope enables longitudinal studies of political ideologies and their relationship with contemporary governance trends.
 
 ## *EU Political Barometer Dataset - *
@@ -106,7 +107,8 @@ get_summary <- function(data, name, year_column, date_format, country_column) {
 datasets <- list(
   list(name = "Crime Dataset", data = crime, year_column = "TIME_PERIOD", date_format = "year", country_column = "geo"),
   list(name = "Ideology Dataset", data = ideology, year_column = "date", date_format = "year-month-day", country_column = "country_name"),
-  list(name = "Manifesto Dataset", data = manifesto, year_column = "edate", date_format = "day/month/year", country_column = "countryname")
+  list(name = "Manifesto Dataset", data = manifesto, year_column = "edate", date_format = "year-month-day", country_column = "countryname"),
+  list(name = "Population Dataset", data = pop, year_column = "TIME_PERIOD", date_format = "year", country_column = "geo")
 )
 
 summaries <- lapply(datasets, function(ds) {
@@ -311,7 +313,7 @@ merged_data <- full_join(crime_cleaned, manifesto_cleaned, by = c("country", "ye
 ```
 
 # ADDITIONS 
-To enhance the graph, it would be more informative to present the data as percentages rather than raw numbers. For example, we can display the proportion of suspected non-citizens relative to the total population of non-citizens, and compare this to the proportion of suspected citizens relative to the total population of citizens. This approach allows for a clearer and more meaningful comparison between the two groups.
+To enhance the graph, it would be more informative to present the data as percentages rather than raw numbers. For example, we can display the proportion of suspected non-citizens relative to the total population of non-citizens, and compare this to the proportion of suspected citizens relative to the total population of citizens. This approach allows for a clearer and more meaningful comparison between the two groups. 
 To achieve this, we can utilize the following dataset:
 ##* Cleaning and Merging of Population Data*
 ```{r, echo=FALSE}
