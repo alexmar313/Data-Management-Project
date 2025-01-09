@@ -24,6 +24,9 @@ library(tibble)
 library(kableExtra)
 library(countrycode)
 library(tinytex)
+library(gridExtra)
+library(gridExtra)
+library(grid)
 ```
 
 ```{r, include=FALSE}
@@ -33,7 +36,7 @@ ideology <- vroom(("https://eupoliticalbarometer.uc3m.es/api/ideologyDownload"))
 pop <- get_eurostat("migr_pop2ctz", time_format = "num", stringsAsFactors = TRUE)
 ```
 
-# **INTRODUCTION**
+# **Introduction**
 
 ## *Link to GitHub*
 
@@ -41,17 +44,19 @@ pop <- get_eurostat("migr_pop2ctz", time_format = "num", stringsAsFactors = TRUE
 
 ## *Sources download links*
 
-- <a href="https://eupoliticalbarometer.uc3m.es/api/ideologyDownload" target="_blank">Ideology Download</a>
+- <a href="https://ec.europa.eu/eurostat/databrowser/view/crim_just_ctz/default/table?lang=en" target="_blank">Eurostat Crime Dataset</a>
+- <a href="https://ec.europa.eu/eurostat/databrowser/view/migr_pop2ctz/default/table?lang=en&category=demo.demo_pop">Eurostat Population Dataset</a>
 - <a href="https://manifesto-project.wzb.eu/down/data/2024a/datasets/MPDataset_MPDS2024a.csv" target="_blank">Manifesto Dataset</a>
-- <a href="https://ec.europa.eu/eurostat/databrowser/view/crim_just_ctz/default/table?lang=en" target="_blank">Eurostat Crime Data</a>
+- <a href="https://eupoliticalbarometer.uc3m.es/api/ideologyDownload" target="_blank">Ideology Dataset</a>
 
 ## *Websites links from which data was extracted*
 
+- <a href="https://ec.europa.eu/eurostat/databrowser/view/crim_just_ctz/default/table?lang=en" target="_blank">Eurostat Crime Dataset</a>
+- <a href="https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/migr_pop2ctz?format=TSV&compressed=true">Eurostat Population Dataset<a>
+- <a href="https://manifesto-project.wzb.eu/datasets" target="_blank">Manifesto Project Dataset</a>
 - <a href="https://eupoliticalbarometer.uc3m.es/dashboard/ideology" target="_blank">EU Political Barometer Dashboard</a>
-- <a href="https://manifesto-project.wzb.eu/datasets" target="_blank">Manifesto Project Datasets</a>
-- <a href="https://ec.europa.eu/eurostat/databrowser/view/crim_just_ctz/default/table?lang=en" target="_blank">Eurostat Crime Justice Table</a>
 
-# **Data description**
+# **Data Description**
 
 ## *Eurostat Crime and Criminal Justice Dataset*
 The Eurostat Crime and Criminal Justice dataset provides yearly statistics on the citizens and non-citizens within the justice system across European Union member states, covering the period from 2008 to 2022. It includes data on suspicion and conviction rates per 1,000 inhabitants, offering insights into both the number of individuals suspected of crimes and those convicted. By distinguishing between citizens and non-citizens, this dataset sheds light on potential disparities in how these groups are treated within the legal system. Such information is crucial for understanding systemic inequities and evaluating the impact of policies on different demographics. 
@@ -62,10 +67,10 @@ The Eurostat Migration dataset provides annual data on the population of citizen
 ## *Manifesto Project Dataset*
 The Manifesto Project dataset offers a systematic analysis of political party manifestos across various countries, including EU member states. Spanning elections from 1946 to 2017 (with country-specific coverage), it captures the percentage of text devoted to key themes such as "law and order," "national security," and "national values." This dataset is particularly valuable for studying the evolution of political discourse over time and across contexts. The dataset’s coding of text into quantifiable measures makes it a powerful tool for understanding the role of party platforms in shaping public opinion and influencing policy. Its detailed historical scope enables longitudinal studies of political ideologies and their relationship with contemporary governance trends.
 
-## *EU Political Barometer Dataset - *
+## *EU Political Barometer Dataset*
 The EU Political Barometer dataset provides bi-monthly data on public opinion and political preferences across EU member states from 2019 to 2023. It tracks ideological shifts, political attitudes, and public reactions to major societal events and political campaigns. Key indicators include changes in support for various ideologies and parties, offering a granular view of how public sentiment evolves over time. This dataset is particularly useful for analyzing short-term trends and understanding the relationship between political discourse and public opinion. By examining fluctuations in attitudes during specific events or election campaigns, we can identify patterns in voter behavior and ideological alignment. Its frequent updates make it a critical resource for real-time political analysis and policy evaluation.
 
-# **Description table**
+## *Description Table*
 
 ```{r, echo=FALSE}
 get_summary <- function(data, name, year_column, date_format, country_column) {
@@ -120,15 +125,21 @@ knitr::kable(summary_table)
 
 ```
 
-# **Short description of the most important variables**
+# **Description of Variables of Interest**
 
-## *Crime dataset*
+## *Crime Dataset*
 
 - *"leg_stat"*: "PER_SUSP" indicates individuals who are suspected of committing crimes, "PER_CNV" indicates individuals who are convicted of crimes.
 
 - *"citizen"*: "NAT" indicates nationals (citizens of the reporting country), "FOR" represents foreigners (non-citizens).
 
-## *Ideology dataset*
+## *Population Dataset*
+
+- *"citizen"*: "FOR_STLS" indicates individuals who are foreigners or stateless, "NAT" indicates individuals who have a citizenship.
+
+- *"sex"*: "F" & "M" indicates whether individuals are women or men, "T" represents the total.
+
+## *Ideology Dataset*
 
 - *"left_ideology"*: numeric score (0-10) representing the left-wing ideological positioning in the country, where a higher value corresponds to stronger left ideology.
 
@@ -136,7 +147,7 @@ knitr::kable(summary_table)
 
 - *"dalton"*: named after the political scientist Russell Dalton, a numeric score (0-10) that shows the degree of ideological polarization in a country, where a higher score corresponds to higher polarization.
 
-## *Manifesto dataset*
+## *Manifesto Dataset*
 
 - *"per101 to per109"*: represent the percentage of the political party's manifesto dedicated to specific themes related to national security, crime, and immigration. They focus on topics like law and order, national security, crime prevention, and the role of the state in dealing with security threats. Specifically: per101: Law and Order, per102: National Security, per103: Crime and Punishment, per104: Prison and Penal System, per105: Immigration, per106: International Relations (related to security), per107: Economic Issues, per108: Welfare and Social Issues, per109: Cultural and National Identity
 
@@ -144,18 +155,16 @@ knitr::kable(summary_table)
 
 - *"per301 to per305"*: focus on social welfare, social issues, and public goods, which might also intersect with debates around immigration and crime in relation to societal well being and state responsibility. Specifically, per301: Social Welfare, per302: Education, per303: Health Care, per304: Family Support, per305: Environment and Sustainability.
 
-# **Cleaning of the data**
+# **Data Cleaning Process**
 
 ## *Cleaning of Eurostat Data, Crime*
 ```{r, include=FALSE}
-# Keep only number of citizens and non-citizens convicted and suspected in Crime
 crime <- crime %>%
   filter(citizen != "TOTAL" & leg_stat != "PER_PRSC" & unit != "P_HTHAB")
 ```
-- *Filtering and cleaning:* remove irrelevant categories (e.g., "TOTAL" citizens and "PER_PRSC" status), keeping only the data for citizens and non-citizens related to crime suspicion and conviction.
+- *Filtering and cleaning:* remove irrelevant categories (e.g., "TOTAL" citizens and "PER_PRSC" status), keeping only the data as total number of citizens and non-citizens suspicted and convicted to crimes.
 
 ```{r, include=FALSE}
-# Create a new variable in Crime to have country names instead of just codes 
 crime <- crime %>%
   mutate(geo = countrycode(geo, origin = "iso2c", destination = "country.name"))
 crime <- crime %>%
@@ -164,7 +173,6 @@ crime <- crime %>%
 - *Country name assignment:* convert country codes to full country names using the "countrycode" package.
 
 ```{r, include=FALSE}
-# Create a new variable Category in Crime dataset
 crime <- crime %>%
   mutate(Category = case_when(
     citizen == "NAT" & leg_stat == "PER_CNV" ~ "Convicted Citizens",
@@ -177,52 +185,68 @@ crime <- crime %>%
 - *Category creation:* classify data into four categories based on citizenship and legal status: "Convicted Citizens," "Convicted Non-Citizens," "Suspected Citizens," and "Suspected Non-Citizens."
 
 ```{r, include=FALSE}
-# Keep only variables of interest
 crime <- crime %>%
   select(geo, TIME_PERIOD, Category, values)
+crime <- crime %>%
+  rename(
+    year = TIME_PERIOD,
+    country = geo
+  )
 ```
-- *Drop irrelevant variables:* include only variables of interest: country, date, citizenship and legal status category, and crime rates.
+- *Drop irrelevant variables:* rename and include only variables of interest: country, date, citizenship & legal status category, and crime rates.
 
 ```{r, include=FALSE}
-# Pivot the table to only have one row per country for a year
 crime <- crime %>%
   pivot_wider(
-    names_from = Category,  # Specify the column with the categories
-    values_from = values     # Specify the column with the values
+    names_from = Category,
+    values_from = values    
   )
 ```
 - *Data reshaping:* pivot the data to have a single row per country per year, with columns for each of the four categories (convicted and suspected citizens/non-citizens).
 
 
-## *Cleaning of Barometer Data, ideology*
+## *Cleaning of Eurostat Data, Population*
 ```{r, include=FALSE}
-# Keep only real values
-ideology <- ideology %>%
-  filter(data_type != "ewma")
+Tpop <- pop %>%
+  filter(age == "TOTAL", sex == "T", citizen != "UNK", citizen != "TOTAL") %>%
+  rename(year = TIME_PERIOD) 
 ```
-- *Filter invalid data:* removes data related to "ewma" (exponentially weighted moving average) and retain only real ideological scores.
+- *Filtering and cleaning:* remove irrelevant categories ("UNK" or "TOTAL" citizens), keeping only the data as total numbers, not separating per sex or age.
 
 ```{r, include=FALSE}
-ideology <- ideology %>%
-  filter(date < as.Date("2023-01-01"))
+Tpop <- Tpop %>%
+  mutate(country = countrycode(geo, origin = "iso2c", destination = "country.name", warn = FALSE)) %>%
+  filter(!is.na(country)) 
 ```
-- *Date filtering:* filter the dataset to include only data up until 2023.
+- *Country name assignment:* convert country codes to full country names using the "countrycode" package.
 
-## *Joint Cleaning*
-```{r, include=FALSE}
-# Keep only countries present in both Manifesto and Crime datasets
-crime <- crime %>%
-  semi_join(manifesto, by = c("geo" = "countryname"))
-ideology <- ideology %>%
-  semi_join(manifesto, by = c("country_name" = "countryname"))
-manifesto <- manifesto %>%
-  semi_join(crime, by = c("countryname" = "geo"))
+```{r}
+Tpop <- Tpop %>%
+  group_by(country, year, citizen) %>%
+  summarise(
+    population = sum(values, na.rm = TRUE),
+    .groups = "drop"
+  )
 ```
-- *Data intersection:* ensure that only countries present in both the Crime, Manifesto, and Ideology datasets remain in each dataset. This is achieved through a semi_join to keep only the common countries.
+- *Summarize the data:* group the data by country, year, and citizen and calculate the total population for each group.
+
+```{r}
+Tpop <- Tpop %>%
+  pivot_wider(
+    names_from = citizen,
+    values_from = population,
+    values_fill = 0
+  ) %>%
+  mutate(
+    population_citizens = NAT,
+    population_non_citizens = FOR_STLS
+  )
+```
+-*Reshape Data for Citizens and Non-Citizens:* Reshapes the data to separate populations of citizens (NAT) and non-citizens (FOR_STLS)
+
 
 ## *Cleaning of Manifesto Data, manifesto*
 ```{r, include=FALSE}
-# Delete data in Manifesto from before our first Crime data points, before 2008
 manifesto <- manifesto %>%
   mutate(edate = dmy(edate)) %>%
   filter(edate >= as.Date("2008-01-01"))
@@ -235,20 +259,14 @@ manifesto <- manifesto %>%
 ```
 - *Column selection:* Keeps only relevant columns in the manifesto dataset (e.g., political themes related to law and order, national security, immigration).
 
-
-## *Group by date and country*
 ```{r, include=FALSE}
-#### MANIFESTO #####
+manifesto <- manifesto %>%
+  mutate(date = year(edate)) 
 
-# Extract the year from the 'edate' column
-manifesto2 <- manifesto %>%
-  mutate(date = year(edate))  # Create 'date' column for year
-
-manifesto2 <- manifesto2 %>%
+manifesto <- manifesto %>%
   select(countryname, date, per101, per102, per103, per104, per105, per106, per107, per108, per109, per201, per203, per202, per204, per301, per302, per303, per304, per305)
 
-# Group by 'countryname' and 'date' (year), then calculate the average for each 'per...' variable
-manifesto_cleaned <- manifesto2 %>%
+manifesto <- manifesto %>%
   group_by(countryname, date) %>%
   summarise(
     per101 = mean(per101, na.rm = TRUE),
@@ -271,18 +289,32 @@ manifesto_cleaned <- manifesto2 %>%
     per305 = mean(per305, na.rm = TRUE)
   ) %>%
   ungroup()
+
+manifesto <- manifesto %>%
+  rename(year = date,
+         country = countryname)
 ```
-- *Manifesto Data:* extract the year from the date and group the data by country and year to compute the average percentage of the manifesto dedicated to specific themes like law and order, national security, and immigration.
+- *Group by date and country:* extract the year from the date and group the data by country and year to compute the average percentage of the manifesto dedicated to specific themes like law and order, national security, and immigration.
+
+
+## *Cleaning of Barometer Data, ideology*
+```{r, include=FALSE}
+ideology <- ideology %>%
+  filter(data_type != "ewma")
+```
+- *Filter invalid data:* removes data related to "ewma" (exponentially weighted moving average) and retain only real ideological scores.
 
 ```{r, include=FALSE}
-#### IDEOLOGY #####
+ideology <- ideology %>%
+  filter(date < as.Date("2023-01-01"))
+```
+- *Date filtering:* filter the dataset to include only data up until 2023.
 
-# Extract the year from the date column
-ideology2 <- ideology %>%
+```{r, include=FALSE}
+ideology <- ideology %>%
   mutate(year = year(date))
 
-# Group by 'year' and calculate the average for each column of interest (e.g., ideological scores)
-ideology2 <- ideology2 %>%
+ideology <- ideology %>%
   group_by(country_name, year) %>%
   summarise(
     left_ideology = mean(left_ideology, na.rm = TRUE),
@@ -290,75 +322,53 @@ ideology2 <- ideology2 %>%
     dalton = mean(dalton, na.rm = TRUE)
   ) %>%
   ungroup()
+
+ideology <- ideology %>%
+  rename(country = country_name)
 ```
 _ *Ideology Data:* extract the year from the date and groups the data by country and year to calculate the average ideological scores (left, right, and Dalton's polarization index).
 
-## *Merge datasets*
+
+## *Joint Cleaning*
 ```{r, include=FALSE}
-crime_cleaned <- crime %>%
-  rename(year = TIME_PERIOD, country = geo)
-
-manifesto_cleaned <- manifesto_cleaned %>%
-  rename(year = date, country = countryname)
-
-ideology_cleaned <- ideology2 %>%
-  rename(year = year, country = country_name)
-
-crime_cleaned$year <- as.numeric(crime_cleaned$year)
-manifesto_cleaned$year <- as.numeric(manifesto_cleaned$year)
-ideology_cleaned$year <- as.numeric(ideology_cleaned$year)
-
-merged_data <- full_join(crime_cleaned, manifesto_cleaned, by = c("country", "year")) %>%
-  full_join(ideology_cleaned, by = c("country", "year"))
+crime <- crime %>%
+  semi_join(Tpop, by = c("country" = "country"))
+Tpop <- Tpop %>%
+  semi_join(crime, by = c("country" = "country"))
+ideology <- ideology %>%
+  semi_join(crime, by = c("country" = "country"))
+manifesto <- manifesto %>%
+  semi_join(crime, by = c("country" = "country"))
 ```
+- *Data intersection:* ensure that only countries present in the Crime and Population are kept in the Manifesto and Ideology data sets. This is achieved through a semi_join to keep only the common countries.
 
-# ADDITIONS 
-To enhance the graph, it would be more informative to present the data as percentages rather than raw numbers. For example, we can display the proportion of suspected non-citizens relative to the total population of non-citizens, and compare this to the proportion of suspected citizens relative to the total population of citizens. This approach allows for a clearer and more meaningful comparison between the two groups. 
-To achieve this, we can utilize the following dataset:
-##* Cleaning and Merging of Population Data*
-```{r, echo=FALSE}
 
-plot_data <- pop %>%
-  mutate(country = countrycode(geo, origin = "iso2c", destination = "country.name", warn = FALSE)) %>%
-  filter(!is.na(country), age == "TOTAL", sex == "T") %>%
-  rename(year = TIME_PERIOD) %>%  # Rename TIME_PERIOD to year
-  group_by(country, year, citizen) %>%
-  summarise(
-    population = sum(values, na.rm = TRUE),
-    .groups = "drop"
-  ) %>%
-  pivot_wider(
-    names_from = citizen,
-    values_from = population,
-    values_fill = 0
-  ) %>%
-  mutate(
-    population_citizens = NAT,
-    population_non_citizens = FOR_STLS + UNK
-  ) %>%
-  # Join with merged_data and calculate percentages
-  inner_join(merged_data, by = c("country", "year")) %>%  # Using "year" instead of "TIME_PERIOD"
-  mutate(
-    convicted_p_citizens = (`Convicted Citizens` / population_citizens) * 100,
-    convicted_p_non_citizens = (`Convicted Non-Citizens` / population_non_citizens) * 100,
-    suspected_p_citizens = (`Suspected Citizens` / population_citizens) * 100,
-    suspected_p_non_citizens = (`Suspected Non-Citizens` / population_non_citizens) * 100
-  )
+## *Merge data sets*
+```{r, include=FALSE}
+crime$year <- as.numeric(crime$year)
+manifesto$year <- as.numeric(manifesto$year)
+ideology$year <- as.numeric(ideology$year)
 
+merged_data <- full_join(crime, manifesto, by = c("country", "year")) %>%
+  full_join(ideology, by = c("country", "year"))
+```
+-*Merge Crime, Manifesto and Ideology*: previously renamed columns in all three data sets for consistency and merge them into one unified data set. "full_join" is used to ensure no data is lost while combining them based on country and year.
+
+```{r}
+merged_data <- Tpop %>%
+  inner_join(merged_data, by = c("country", "year"))
 merged_data <- merged_data %>%
-  left_join(
-    plot_data %>% 
-      select(country, year, 
-             population_citizens, population_non_citizens,
-             convicted_p_citizens, convicted_p_non_citizens,
-             suspected_p_citizens, suspected_p_non_citizens),
-    by = c("country", "year")
+  mutate(
+    convicted_p_c = (`Convicted Citizens` / `population_citizens`) * 100,
+    convicted_p_nc = (`Convicted Non-Citizens` / `population_non_citizens`) * 100,
+    suspected_p_c = (`Suspected Citizens` / `population_citizens`) * 100,
+    suspected_p_nc = (`Suspected Non-Citizens` / `population_non_citizens`) * 100
   )
 ```
+-*Merge also with Population Data:* add the fourth data set. It would be informative to present the data as percentages in addition to raw numbers. For example, we can display the proportion of suspected non-citizens relative to the total population of non-citizens, and compare this to the proportion of suspected citizens relative to the total population of citizens. We hence also calculate percentages for convictions and suspicions for both citizens and non-citizens
 
-- *Renaming and merging:* Rename columns in the Crime, Manifesto, and Ideology datasets for consistency and merge them into one unified dataset. "full_join" is used to ensure no data is lost while combining them based on country and year.
 
-# **A description of the research question**
+# **Description of the Research Question**
 
 ## *Research question:* What is the association between immigration and crime suspicions and convictions in the EU, considering political ideology?
 
@@ -393,14 +403,13 @@ This study seeks to clarify how political discourse shapes public perceptions an
 
 ## *Total Crime Suspicion Rates Over Time for Citizens and Non-Citizens in Selected Countries*
 ```{r, echo=FALSE}
-filtered_data <- crime_cleaned %>%
+filtered_data <- crime %>%
   filter(country %in% c("France", "Germany", "Austria", "Bulgaria"))
 
-# Plot the graph with separate lines for each category
 ggplot(filtered_data, aes(x = year)) +
   geom_line(aes(y = `Suspected Non-Citizens`, color = "Suspected Non-Citizens"), linewidth = 1) +
   geom_line(aes(y = `Suspected Citizens`, color = "Suspected Citizens"), linewidth = 1) +
-  facet_wrap(~country, scales = "free_y") +  # Split by country
+  facet_wrap(~country, scales = "free_y") + 
   labs(
     title = "Crime Suspicion Over Time",
     x = "Year",
@@ -421,10 +430,6 @@ ggplot(filtered_data, aes(x = year)) +
 
 ## *Total Crime Conviction Rates Over Time for Citizens and Non-Citizens in Selected Countries*
 ```{r, echo=FALSE}
-filtered_data <- crime_cleaned %>%
-  filter(country %in% c("France", "Germany", "Austria", "Bulgaria"))
-
-# Plot the graph with separate lines for each category
 ggplot(filtered_data, aes(x = year)) +
   geom_line(aes(y = `Convicted Non-Citizens`, color = "Convicted Non-Citizens"), linewidth = 1) +
   geom_line(aes(y = `Convicted Citizens`, color = "Convicted Citizens"), linewidth = 1) +
@@ -445,16 +450,15 @@ ggplot(filtered_data, aes(x = year)) +
       "Convicted Citizens" = "orange"
     )
   )
-
 ```
 
 ## *Average Crime Suspicion Rates Over Time for Citizens and Non-Citizens as a Percentage of their Population Share*
 ```{r, echo=FALSE}
-plot_data %>%
+merged_data %>%
   group_by(year) %>%
   summarise(
-    avg_citizens = mean(suspected_p_citizens, na.rm = TRUE),
-    avg_non_citizens = mean(suspected_p_non_citizens, na.rm = TRUE)
+    avg_citizens = mean(suspected_p_c, na.rm = TRUE),
+    avg_non_citizens = mean(suspected_p_nc, na.rm = TRUE)
   ) %>%
   pivot_longer(
     cols = c(avg_citizens, avg_non_citizens),
@@ -477,11 +481,11 @@ plot_data %>%
 
 ## *Average Crime Conviction Rates Over Time for Citizens and Non-Citizens as a Percentage of their Population Share*
 ```{r, echo=FALSE}
-plot_data %>%
+merged_data %>%
   group_by(year) %>%
   summarise(
-    avg_citizens = mean(convicted_p_citizens, na.rm = TRUE),
-    avg_non_citizens = mean(convicted_p_non_citizens, na.rm = TRUE)
+    avg_citizens = mean(convicted_p_c, na.rm = TRUE),
+    avg_non_citizens = mean(convicted_p_nc, na.rm = TRUE)
   ) %>%
   pivot_longer(
     cols = c(avg_citizens, avg_non_citizens),
@@ -501,88 +505,17 @@ plot_data %>%
   theme_minimal()
 ```
 
-
 ```{r, echo=FALSE}
-# List of selected countries
 countries <- c("France", "Germany", "Austria", "Bulgaria")
 
-# For citizens
-for(country_name in countries) {
-  p <- plot_data %>%
-    filter(country == country_name) %>%
+for(country in countries) {
+
+  p1 <- merged_data %>%
+    filter(country == country) %>%
     group_by(year) %>%
     summarise(
-      convicted = mean(convicted_p_citizens, na.rm = TRUE),
-      suspected = mean(suspected_p_citizens, na.rm = TRUE)
-    ) %>%
-    pivot_longer(
-      cols = c(convicted, suspected),
-      names_to = "type",
-      values_to = "percentage"
-    ) %>%
-    mutate(type = str_to_title(type)) %>%
-    ggplot(aes(x = year, y = percentage, color = type, linetype = type)) +
-    geom_line(size = 1.2) +
-    labs(
-      title = paste(country_name, "- Citizens: Convicted vs Suspected (%)"),
-      x = "Year",
-      y = "Percentage",
-      color = "Type",
-      linetype = "Type"
-    ) +
-    theme_minimal()
-  
-  print(p)
-}
-
-# For non-citizens
-for(country_name in countries) {
-  p <- plot_data %>%
-    filter(country == country_name) %>%
-    group_by(year) %>%
-    summarise(
-      convicted = mean(convicted_p_non_citizens, na.rm = TRUE),
-      suspected = mean(suspected_p_non_citizens, na.rm = TRUE)
-    ) %>%
-    pivot_longer(
-      cols = c(convicted, suspected),
-      names_to = "type",
-      values_to = "percentage"
-    ) %>%
-    mutate(type = str_to_title(type)) %>%
-    ggplot(aes(x = year, y = percentage, color = type, linetype = type)) +
-    geom_line(size = 1.2) +
-    labs(
-      title = paste(country_name, "- Non-Citizens: Convicted vs Suspected (%)"),
-      x = "Year",
-      y = "Percentage",
-      color = "Type",
-      linetype = "Type"
-    ) +
-    theme_minimal()
-  
-  print(p)
-}
-```
-
-```{r, echo=FALSE}
-library(dplyr)
-library(ggplot2)
-library(tidyr)
-library(gridExtra)
-
-# List of selected countries
-countries <- c("France", "Germany", "Austria", "Bulgaria")
-
-# Create and arrange plots for each country
-for(country_name in countries) {
-  # Citizens plot
-  p1 <- plot_data %>%
-    filter(country == country_name) %>%
-    group_by(year) %>%
-    summarise(
-      convicted = mean(convicted_p_citizens, na.rm = TRUE),
-      suspected = mean(suspected_p_citizens, na.rm = TRUE)
+      convicted = mean(convicted_p_c, na.rm = TRUE),
+      suspected = mean(suspected_p_c, na.rm = TRUE)
     ) %>%
     pivot_longer(
       cols = c(convicted, suspected),
@@ -593,21 +526,21 @@ for(country_name in countries) {
     ggplot(aes(x = year, y = percentage, color = type, linetype = type)) +
     geom_line(linewidth = 1.2) +
     labs(
-      title = paste(country_name, "- Citizens"),
+      title = paste(country, "- Citizens"),
       x = "Year",
       y = "Percentage",
       color = "Type",
       linetype = "Type"
     ) +
-    theme_minimal()
-
-  # Non-citizens plot
-  p2 <- plot_data %>%
-    filter(country == country_name) %>%
+    theme_minimal() +
+    theme(legend.position = "bottom")
+  
+  p2 <- merged_data %>%
+    filter(country == country) %>%
     group_by(year) %>%
     summarise(
-      convicted = mean(convicted_p_non_citizens, na.rm = TRUE),
-      suspected = mean(suspected_p_non_citizens, na.rm = TRUE)
+      convicted = mean(convicted_p_nc, na.rm = TRUE),
+      suspected = mean(suspected_p_nc, na.rm = TRUE)
     ) %>%
     pivot_longer(
       cols = c(convicted, suspected),
@@ -618,131 +551,22 @@ for(country_name in countries) {
     ggplot(aes(x = year, y = percentage, color = type, linetype = type)) +
     geom_line(linewidth = 1.2) +
     labs(
-      title = paste(country_name, "- Non-Citizens"),
+      title = paste(country, "- Non-Citizens"),
       x = "Year",
       y = "Percentage",
       color = "Type",
       linetype = "Type"
     ) +
-    theme_minimal()
+    theme_minimal() + 
+    theme(legend.position = "bottom")
 
   grid.arrange(p1, p2, ncol = 2, top = "Convicted vs Suspected Percentages")
 }
-  # Arrange the two plots for this<span class="ml-2" /><span class="inline-block w-3 h-3 rounded-full bg-neutral-a12 align-middle mb-[0.1rem]" /> 
+
 ```
 
-```{r, echo=FALSE}
-library(dplyr)
-library(ggplot2)
-library(tidyr)
-library(gridExtra)
-library(grid)
 
-# List of selected countries
-countries <- c("France", "Germany", "Austria", "Bulgaria")
-
-# Create a function for the common theme and aesthetics
-plot_theme <- function() {
-  theme_minimal() +
-    theme(
-      legend.position = "none",  # Remove individual legends
-      plot.title = element_text(hjust = 0.5)
-    )
-}
-
-# Create and store all plots
-all_plots <- list()
-for(country_name in countries) {
-  # Citizens plot
-  p1 <- plot_data %>%
-    filter(country == country_name) %>%
-    group_by(year) %>%
-    summarise(
-      convicted = mean(convicted_p_citizens, na.rm = TRUE),
-      suspected = mean(suspected_p_citizens, na.rm = TRUE)
-    ) %>%
-    pivot_longer(
-      cols = c(convicted, suspected),
-      names_to = "type",
-      values_to = "percentage"
-    ) %>%
-    mutate(type = tools::toTitleCase(type)) %>%
-    ggplot(aes(x = year, y = percentage, color = type, linetype = type)) +
-    geom_line(linewidth = 1.2) +
-    labs(
-      title = paste(country_name, "- Citizens"),
-      x = "Year",
-      y = "Percentage"
-    ) +
-    plot_theme()
-
-  # Non-citizens plot
-  p2 <- plot_data %>%
-    filter(country == country_name) %>%
-    group_by(year) %>%
-    summarise(
-      convicted = mean(convicted_p_non_citizens, na.rm = TRUE),
-      suspected = mean(suspected_p_non_citizens, na.rm = TRUE)
-    ) %>%
-    pivot_longer(
-      cols = c(convicted, suspected),
-      names_to = "type",
-      values_to = "percentage"
-    ) %>%
-    mutate(type = tools::toTitleCase(type)) %>%
-    ggplot(aes(x = year, y = percentage, color = type, linetype = type)) +
-    geom_line(linewidth = 1.2) +
-    labs(
-      title = paste(country_name, "- Non-Citizens"),
-      x = "Year",
-      y = "Percentage"
-    ) +
-    plot_theme()
-
-  all_plots[[length(all_plots) + 1]] <- p1
-  all_plots[[length(all_plots) + 1]] <- p2
-}
-
-# Create a legend-only plot
-legend_plot <- plot_data %>%
-  filter(country == countries[1]) %>%  # Use any country for legend
-  group_by(year) %>%
-  summarise(
-    convicted = mean(convicted_p_citizens, na.rm = TRUE),
-    suspected = mean(suspected_p_citizens, na.rm = TRUE)
-  ) %>%
-  pivot_longer(
-    cols = c(convicted, suspected),
-    names_to = "type",
-    values_to = "percentage"
-  ) %>%
-  mutate(type = tools::toTitleCase(type)) %>%
-  ggplot(aes(x = year, y = percentage, color = type, linetype = type)) +
-  geom_line() +
-  theme_minimal() +
-  theme(legend.position = "bottom")
-
-# Extract the legend
-get_legend <- function(myggplot) {
-  tmp <- ggplot_gtable(ggplot_build(myggplot))
-  leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
-  legend <- tmp$grobs[[leg]]
-  return(legend)
-}
-legend <- get_legend(legend_plot)
-
-# Arrange all plots with the shared legend at the bottom
-grid.arrange(
-  arrangeGrob(
-    grobs = all_plots,
-    ncol = 2
-  ),
-  legend,
-  heights = c(0.95, 0.05),
-  top = textGrob("Convicted vs Suspected Percentages", gp = gpar(fontsize = 14))
-)
-```
-
+# **Description of the Analysis**
 
 *Population on 1 January by age, sex and broad group of citizenship (migr_pop2ctz)*
 

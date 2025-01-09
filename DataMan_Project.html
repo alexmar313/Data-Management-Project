@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -70,55 +104,60 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="link-to-github" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> <strong>Link to GitHub</strong></h1>
+<section id="introduction" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> <strong>Introduction</strong></h1>
+<section id="link-to-github" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="link-to-github"><span class="header-section-number">1.1</span> <em>Link to GitHub</em></h2>
 <p><a href="https://github.com/alexmar313/Data-Management-Project.git" target="_blank">GitHub Repository</a></p>
 </section>
-<section id="links-to-the-sources" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> <strong>Links to the sources</strong></h1>
-<section id="sources-download-links" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="sources-download-links"><span class="header-section-number">2.1</span> <em>Sources download links</em></h2>
+<section id="sources-download-links" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="sources-download-links"><span class="header-section-number">1.2</span> <em>Sources download links</em></h2>
 <ul>
-<li><a href="https://eupoliticalbarometer.uc3m.es/api/ideologyDownload" target="_blank">Ideology Download</a></li>
+<li><a href="https://ec.europa.eu/eurostat/databrowser/view/crim_just_ctz/default/table?lang=en" target="_blank">Eurostat Crime Dataset</a></li>
+<li><a href="https://ec.europa.eu/eurostat/databrowser/view/migr_pop2ctz/default/table?lang=en&amp;category=demo.demo_pop">Eurostat Population Dataset</a></li>
 <li><a href="https://manifesto-project.wzb.eu/down/data/2024a/datasets/MPDataset_MPDS2024a.csv" target="_blank">Manifesto Dataset</a></li>
-<li><a href="https://ec.europa.eu/eurostat/databrowser/view/crim_just_ctz/default/table?lang=en" target="_blank">Eurostat Crime Data</a></li>
+<li><a href="https://eupoliticalbarometer.uc3m.es/api/ideologyDownload" target="_blank">Ideology Dataset</a></li>
 </ul>
 </section>
-<section id="websites-links-from-which-data-was-extracted" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="websites-links-from-which-data-was-extracted"><span class="header-section-number">2.2</span> <em>Websites links from which data was extracted</em></h2>
+<section id="websites-links-from-which-data-was-extracted" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="websites-links-from-which-data-was-extracted"><span class="header-section-number">1.3</span> <em>Websites links from which data was extracted</em></h2>
 <ul>
+<li><a href="https://ec.europa.eu/eurostat/databrowser/view/crim_just_ctz/default/table?lang=en" target="_blank">Eurostat Crime Dataset</a></li>
+<li><a href="https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/migr_pop2ctz?format=TSV&amp;compressed=true">Eurostat Population Dataset</a><a href=""></a></li><a href="">
+</a><li><a href=""></a><a href="https://manifesto-project.wzb.eu/datasets" target="_blank">Manifesto Project Dataset</a></li>
 <li><a href="https://eupoliticalbarometer.uc3m.es/dashboard/ideology" target="_blank">EU Political Barometer Dashboard</a></li>
-<li><a href="https://manifesto-project.wzb.eu/datasets" target="_blank">Manifesto Project Datasets</a></li>
-<li><a href="https://ec.europa.eu/eurostat/databrowser/view/crim_just_ctz/default/table?lang=en" target="_blank">Eurostat Crime Justice Table</a></li>
 </ul>
 </section>
 </section>
-<section id="data-description" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> <strong>Data description</strong></h1>
-<section id="eurostat-crime-and-criminal-justice-dataset" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="eurostat-crime-and-criminal-justice-dataset"><span class="header-section-number">3.1</span> <em>Eurostat Crime and Criminal Justice Dataset</em></h2>
+<section id="data-description" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> <strong>Data Description</strong></h1>
+<section id="eurostat-crime-and-criminal-justice-dataset" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="eurostat-crime-and-criminal-justice-dataset"><span class="header-section-number">2.1</span> <em>Eurostat Crime and Criminal Justice Dataset</em></h2>
 <p>The Eurostat Crime and Criminal Justice dataset provides yearly statistics on the citizens and non-citizens within the justice system across European Union member states, covering the period from 2008 to 2022. It includes data on suspicion and conviction rates per 1,000 inhabitants, offering insights into both the number of individuals suspected of crimes and those convicted. By distinguishing between citizens and non-citizens, this dataset sheds light on potential disparities in how these groups are treated within the legal system. Such information is crucial for understanding systemic inequities and evaluating the impact of policies on different demographics.</p>
 </section>
-<section id="manifesto-project-dataset--" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="manifesto-project-dataset--"><span class="header-section-number">3.2</span> <em>Manifesto Project Dataset - </em></h2>
+<section id="eurostat-population" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="eurostat-population"><span class="header-section-number">2.2</span> <em>Eurostat Population</em></h2>
+<p>The Eurostat Migration dataset provides annual data on the population of citizens and non-citizens across EU member states from 2008 to 2022. Non-citizens include foreigners, stateless individuals, and those with unknown status. This dataset allows for detailed analysis of demographic compositions and is crucial for understanding disparities between citizens and non-citizens. We aim to use it to determine the number of citizens and non-citizens in each country, highlighting migration trends and their societal implications.</p>
+</section>
+<section id="manifesto-project-dataset" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="manifesto-project-dataset"><span class="header-section-number">2.3</span> <em>Manifesto Project Dataset</em></h2>
 <p>The Manifesto Project dataset offers a systematic analysis of political party manifestos across various countries, including EU member states. Spanning elections from 1946 to 2017 (with country-specific coverage), it captures the percentage of text devoted to key themes such as “law and order,” “national security,” and “national values.” This dataset is particularly valuable for studying the evolution of political discourse over time and across contexts. The dataset’s coding of text into quantifiable measures makes it a powerful tool for understanding the role of party platforms in shaping public opinion and influencing policy. Its detailed historical scope enables longitudinal studies of political ideologies and their relationship with contemporary governance trends.</p>
 </section>
-<section id="eu-political-barometer-dataset--" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="eu-political-barometer-dataset--"><span class="header-section-number">3.3</span> <em>EU Political Barometer Dataset - </em></h2>
+<section id="eu-political-barometer-dataset" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="eu-political-barometer-dataset"><span class="header-section-number">2.4</span> <em>EU Political Barometer Dataset</em></h2>
 <p>The EU Political Barometer dataset provides bi-monthly data on public opinion and political preferences across EU member states from 2019 to 2023. It tracks ideological shifts, political attitudes, and public reactions to major societal events and political campaigns. Key indicators include changes in support for various ideologies and parties, offering a granular view of how public sentiment evolves over time. This dataset is particularly useful for analyzing short-term trends and understanding the relationship between political discourse and public opinion. By examining fluctuations in attitudes during specific events or election campaigns, we can identify patterns in voter behavior and ideological alignment. Its frequent updates make it a critical resource for real-time political analysis and policy evaluation.</p>
 </section>
-</section>
-<section id="description-table" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> <strong>Description table</strong></h1>
+<section id="description-table" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="description-table"><span class="header-section-number">2.5</span> <em>Description Table</em></h2>
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
-<col style="width: 21%">
-<col style="width: 6%">
+<col style="width: 22%">
+<col style="width: 8%">
 <col style="width: 9%">
-<col style="width: 17%">
-<col style="width: 24%">
+<col style="width: 16%">
+<col style="width: 23%">
 <col style="width: 20%">
 </colgroup>
 <thead>
@@ -152,34 +191,50 @@ ul.task-list li input[type="checkbox"] {
 <td style="text-align: left;">Manifesto Dataset</td>
 <td style="text-align: right;">5151</td>
 <td style="text-align: right;">175</td>
-<td style="text-align: left;">1920 - 2023</td>
+<td style="text-align: left;">1 - 31</td>
 <td style="text-align: right;">67</td>
 <td style="text-align: right;">901425</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Population Dataset</td>
+<td style="text-align: right;">624046</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">1998 - 2023</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">4992368</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
 </section>
-<section id="short-description-of-the-most-important-variables" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> <strong>Short description of the most important variables</strong></h1>
-<section id="crime-dataset" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="crime-dataset"><span class="header-section-number">5.1</span> <em>Crime dataset</em></h2>
+</section>
+<section id="description-of-variables-of-interest" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> <strong>Description of Variables of Interest</strong></h1>
+<section id="crime-dataset" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="crime-dataset"><span class="header-section-number">3.1</span> <em>Crime Dataset</em></h2>
 <ul>
 <li><p><em>“leg_stat”</em>: “PER_SUSP” indicates individuals who are suspected of committing crimes, “PER_CNV” indicates individuals who are convicted of crimes.</p></li>
 <li><p><em>“citizen”</em>: “NAT” indicates nationals (citizens of the reporting country), “FOR” represents foreigners (non-citizens).</p></li>
 </ul>
 </section>
-<section id="ideology-dataset" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="ideology-dataset"><span class="header-section-number">5.2</span> <em>Ideology dataset</em></h2>
+<section id="population-dataset" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="population-dataset"><span class="header-section-number">3.2</span> <em>Population Dataset</em></h2>
+<ul>
+<li><p><em>“citizen”</em>: “FOR_STLS” indicates individuals who are foreigners or stateless, “NAT” indicates individuals who have a citizenship.</p></li>
+<li><p><em>“sex”</em>: “F” &amp; “M” indicates whether individuals are women or men, “T” represents the total.</p></li>
+</ul>
+</section>
+<section id="ideology-dataset" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="ideology-dataset"><span class="header-section-number">3.3</span> <em>Ideology Dataset</em></h2>
 <ul>
 <li><p><em>“left_ideology”</em>: numeric score (0-10) representing the left-wing ideological positioning in the country, where a higher value corresponds to stronger left ideology.</p></li>
 <li><p><em>“right_ideology”</em>: numeric score (0-10) representing the right-wing ideological positioning in the country, where a higher value corresponds to stronger right ideology.</p></li>
 <li><p><em>“dalton”</em>: named after the political scientist Russell Dalton, a numeric score (0-10) that shows the degree of ideological polarization in a country, where a higher score corresponds to higher polarization.</p></li>
 </ul>
 </section>
-<section id="manifesto-dataset" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="manifesto-dataset"><span class="header-section-number">5.3</span> <em>Manifesto dataset</em></h2>
+<section id="manifesto-dataset" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="manifesto-dataset"><span class="header-section-number">3.4</span> <em>Manifesto Dataset</em></h2>
 <ul>
 <li><p><em>“per101 to per109”</em>: represent the percentage of the political party’s manifesto dedicated to specific themes related to national security, crime, and immigration. They focus on topics like law and order, national security, crime prevention, and the role of the state in dealing with security threats. Specifically: per101: Law and Order, per102: National Security, per103: Crime and Punishment, per104: Prison and Penal System, per105: Immigration, per106: International Relations (related to security), per107: Economic Issues, per108: Welfare and Social Issues, per109: Cultural and National Identity</p></li>
 <li><p><em>“per201 to per204”</em>: focus on economic policies, social support, and public services, potentially linking to discussions about immigration’s impact on the economy and social welfare. Specifically, per201: Economic Growth, per202: Employment, per203: Social Security, per204: Public Services</p></li>
@@ -187,66 +242,98 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 </section>
 </section>
-<section id="cleaning-of-the-data" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> <strong>Cleaning of the data</strong></h1>
-<section id="cleaning-of-eurostat-data-crime" class="level2" data-number="6.1">
-<h2 data-number="6.1" class="anchored" data-anchor-id="cleaning-of-eurostat-data-crime"><span class="header-section-number">6.1</span> <em>Cleaning of Eurostat Data, Crime</em></h2>
+<section id="data-cleaning-process" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> <strong>Data Cleaning Process</strong></h1>
+<section id="cleaning-of-eurostat-data-crime" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="cleaning-of-eurostat-data-crime"><span class="header-section-number">4.1</span> <em>Cleaning of Eurostat Data, Crime</em></h2>
 <ul>
-<li><p><em>Filtering and cleaning:</em> remove irrelevant categories (e.g., “TOTAL” citizens and “PER_PRSC” status), keeping only the data for citizens and non-citizens related to crime suspicion and conviction.</p></li>
+<li><p><em>Filtering and cleaning:</em> remove irrelevant categories (e.g., “TOTAL” citizens and “PER_PRSC” status), keeping only the data as total number of citizens and non-citizens suspicted and convicted to crimes.</p></li>
 <li><p><em>Country name assignment:</em> convert country codes to full country names using the “countrycode” package.</p></li>
 <li><p><em>Category creation:</em> classify data into four categories based on citizenship and legal status: “Convicted Citizens,” “Convicted Non-Citizens,” “Suspected Citizens,” and “Suspected Non-Citizens.”</p></li>
-<li><p><em>Drop irrelevant variables:</em> include only variables of interest: country, date, citizenship and legal status category, and crime rates.</p></li>
+<li><p><em>Drop irrelevant variables:</em> rename and include only variables of interest: country, date, citizenship &amp; legal status category, and crime rates.</p></li>
 <li><p><em>Data reshaping:</em> pivot the data to have a single row per country per year, with columns for each of the four categories (convicted and suspected citizens/non-citizens).</p></li>
 </ul>
 </section>
-<section id="cleaning-of-barometer-data-ideology" class="level2" data-number="6.2">
-<h2 data-number="6.2" class="anchored" data-anchor-id="cleaning-of-barometer-data-ideology"><span class="header-section-number">6.2</span> <em>Cleaning of Barometer Data, ideology</em></h2>
+<section id="cleaning-of-eurostat-data-population" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="cleaning-of-eurostat-data-population"><span class="header-section-number">4.2</span> <em>Cleaning of Eurostat Data, Population</em></h2>
+<ul>
+<li><p><em>Filtering and cleaning:</em> remove irrelevant categories (“UNK” or “TOTAL” citizens), keeping only the data as total numbers, not separating per sex or age.</p></li>
+<li><p><em>Country name assignment:</em> convert country codes to full country names using the “countrycode” package.</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Tpop <span class="ot">&lt;-</span> Tpop <span class="sc">%&gt;%</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(country, year, citizen) <span class="sc">%&gt;%</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">population =</span> <span class="fu">sum</span>(values, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><em>Summarize the data:</em> group the data by country, year, and citizen and calculate the total population for each group.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Tpop <span class="ot">&lt;-</span> Tpop <span class="sc">%&gt;%</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> citizen,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> population,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_fill =</span> <span class="dv">0</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">population_citizens =</span> NAT,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">population_non_citizens =</span> FOR_STLS</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>-<em>Reshape Data for Citizens and Non-Citizens:</em> Reshapes the data to separate populations of citizens (NAT) and non-citizens (FOR_STLS)</p>
+</section>
+<section id="cleaning-of-manifesto-data-manifesto" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="cleaning-of-manifesto-data-manifesto"><span class="header-section-number">4.3</span> <em>Cleaning of Manifesto Data, manifesto</em></h2>
+<ul>
+<li><p><em>Date filtering:</em> remove data before 2008 (the first available year in the Crime dataset).</p></li>
+<li><p><em>Column selection:</em> Keeps only relevant columns in the manifesto dataset (e.g., political themes related to law and order, national security, immigration).</p></li>
+<li><p><em>Group by date and country:</em> extract the year from the date and group the data by country and year to compute the average percentage of the manifesto dedicated to specific themes like law and order, national security, and immigration.</p></li>
+</ul>
+</section>
+<section id="cleaning-of-barometer-data-ideology" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="cleaning-of-barometer-data-ideology"><span class="header-section-number">4.4</span> <em>Cleaning of Barometer Data, ideology</em></h2>
 <ul>
 <li><p><em>Filter invalid data:</em> removes data related to “ewma” (exponentially weighted moving average) and retain only real ideological scores.</p></li>
 <li><p><em>Date filtering:</em> filter the dataset to include only data up until 2023.</p></li>
 </ul>
-</section>
-<section id="joint-cleaning" class="level2" data-number="6.3">
-<h2 data-number="6.3" class="anchored" data-anchor-id="joint-cleaning"><span class="header-section-number">6.3</span> <em>Joint Cleaning</em></h2>
-<ul>
-<li><em>Data intersection:</em> ensure that only countries present in both the Crime, Manifesto, and Ideology datasets remain in each dataset. This is achieved through a semi_join to keep only the common countries.</li>
-</ul>
-</section>
-<section id="cleaning-of-manifesto-data-manifesto" class="level2" data-number="6.4">
-<h2 data-number="6.4" class="anchored" data-anchor-id="cleaning-of-manifesto-data-manifesto"><span class="header-section-number">6.4</span> <em>Cleaning of Manifesto Data, manifesto</em></h2>
-<ul>
-<li><p><em>Date filtering:</em> remove data before 2008 (the first available year in the Crime dataset).</p></li>
-<li><p><em>Column selection:</em> Keeps only relevant columns in the manifesto dataset (e.g., political themes related to law and order, national security, immigration).</p></li>
-</ul>
-</section>
-<section id="group-by-date-and-country" class="level2" data-number="6.5">
-<h2 data-number="6.5" class="anchored" data-anchor-id="group-by-date-and-country"><span class="header-section-number">6.5</span> <em>Group by date and country</em></h2>
-<ul>
-<li><em>Manifesto Data:</em> extract the year from the date and group the data by country and year to compute the average percentage of the manifesto dedicated to specific themes like law and order, national security, and immigration.</li>
-</ul>
 <p>_ <em>Ideology Data:</em> extract the year from the date and groups the data by country and year to calculate the average ideological scores (left, right, and Dalton’s polarization index).</p>
 </section>
-<section id="merge-datasets" class="level2" data-number="6.6">
-<h2 data-number="6.6" class="anchored" data-anchor-id="merge-datasets"><span class="header-section-number">6.6</span> <em>Merge datasets</em></h2>
-</section>
-</section>
-<section id="additions" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> ADDITIONS</h1>
-<p>To enhance the graph, it would be more informative to present the data as percentages rather than raw numbers. For example, we can display the proportion of suspected non-citizens relative to the total population of non-citizens, and compare this to the proportion of suspected citizens relative to the total population of citizens. This approach allows for a clearer and more meaningful comparison between the two groups. To achieve this, we can utilize the following dataset: ##* Cleaning and Merging of Population Data*</p>
+<section id="joint-cleaning" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="joint-cleaning"><span class="header-section-number">4.5</span> <em>Joint Cleaning</em></h2>
 <ul>
-<li><em>Renaming and merging:</em> Rename columns in the Crime, Manifesto, and Ideology datasets for consistency and merge them into one unified dataset. “full_join” is used to ensure no data is lost while combining them based on country and year.</li>
+<li><em>Data intersection:</em> ensure that only countries present in the Crime, Population, Manifesto, and Ideology datasets remain in each dataset. This is achieved through a semi_join to keep only the common countries.</li>
 </ul>
 </section>
-<section id="a-description-of-the-research-question" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> <strong>A description of the research question</strong></h1>
-<section id="research-question-what-is-the-association-between-immigration-and-crime-suspicions-and-convictions-in-the-eu-considering-political-ideology" class="level2" data-number="8.1">
-<h2 data-number="8.1" class="anchored" data-anchor-id="research-question-what-is-the-association-between-immigration-and-crime-suspicions-and-convictions-in-the-eu-considering-political-ideology"><span class="header-section-number">8.1</span> <em>Research question:</em> What is the association between immigration and crime suspicions and convictions in the EU, considering political ideology?</h2>
+<section id="merge-datasets" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="merge-datasets"><span class="header-section-number">4.6</span> <em>Merge datasets</em></h2>
+<p>-<em>Merge Crime, Manifesto and Ideology</em>: previously renamed columns in all three datasets for consistency and merge them into one unified dataset. “full_join” is used to ensure no data is lost while combining them based on country and year.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>merged_data <span class="ot">&lt;-</span> Tpop <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(merged_data, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"country"</span>, <span class="st">"year"</span>))</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>merged_data <span class="ot">&lt;-</span> merged_data <span class="sc">%&gt;%</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">convicted_p_c =</span> (<span class="st">`</span><span class="at">Convicted Citizens</span><span class="st">`</span> <span class="sc">/</span> <span class="st">`</span><span class="at">population_citizens</span><span class="st">`</span>) <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">convicted_p_nc =</span> (<span class="st">`</span><span class="at">Convicted Non-Citizens</span><span class="st">`</span> <span class="sc">/</span> <span class="st">`</span><span class="at">population_non_citizens</span><span class="st">`</span>) <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">suspected_p_c =</span> (<span class="st">`</span><span class="at">Suspected Citizens</span><span class="st">`</span> <span class="sc">/</span> <span class="st">`</span><span class="at">population_citizens</span><span class="st">`</span>) <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">suspected_p_nc =</span> (<span class="st">`</span><span class="at">Suspected Non-Citizens</span><span class="st">`</span> <span class="sc">/</span> <span class="st">`</span><span class="at">population_non_citizens</span><span class="st">`</span>) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>-<em>Merge also with Population Data:</em> add the fourth dataset. It would be informative to present the data as percentages in addition to raw numbers. For example, we can display the proportion of suspected non-citizens relative to the total population of non-citizens, and compare this to the proportion of suspected citizens relative to the total population of citizens. We hence also calculate percentages for convictions and suspicions for both citizens and non-citizens</p>
+</section>
+</section>
+<section id="description-of-the-research-question" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> <strong>Description of the Research Question</strong></h1>
+<section id="research-question-what-is-the-association-between-immigration-and-crime-suspicions-and-convictions-in-the-eu-considering-political-ideology" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="research-question-what-is-the-association-between-immigration-and-crime-suspicions-and-convictions-in-the-eu-considering-political-ideology"><span class="header-section-number">5.1</span> <em>Research question:</em> What is the association between immigration and crime suspicions and convictions in the EU, considering political ideology?</h2>
 <p>The research explores the relationship between immigration status and crime outcomes (suspicion and conviction rates) in EU countries. It questions whether claims by political entities, particularly right-wing parties, that immigration drives up crime rates hold true, and explores how other intervening factors, such as the demographic profile of immigrants, might contribute to this perception.</p>
 <p>Background context and relevance Right-wing political narratives often link immigration with rising crime rates without acknowledging broader contextual factors. For example, statistical evidence suggests that most crimes are committed by young males—a group overrepresented among immigrant populations. Across the EU, a significant proportion of non-citizens are young males: non-national men aged 20–49 constitute 29% of their demographic group, compared to 18% for nationals. Additionally, 54–60% of unauthorized immigrants are male, with a majority under 35 years old. Such demographic realities could skew perceptions of immigrant involvement in crime when not carefully controlled for. *Source: <a href="https://ec.europa.eu/eurostat/web/interactive-publications/migration-2023" target="_blank">Migration 2023</a></p>
 <p>This research aims to integrate crime statistics and demographic data with measures of political ideology to disentangle these associations. By doing so, it challenges simplistic narratives and aims to explore whether shifts in political rhetoric influence crime outcomes or merely exacerbate perceptions of immigrant criminality.</p>
 </section>
-<section id="data-and-methodology" class="level2" data-number="8.2">
-<h2 data-number="8.2" class="anchored" data-anchor-id="data-and-methodology"><span class="header-section-number">8.2</span> <em>Data and methodology</em></h2>
+<section id="data-and-methodology" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="data-and-methodology"><span class="header-section-number">5.2</span> <em>Data and methodology</em></h2>
 <ol type="1">
 <li><p>Crime Data: Eurostat provides comprehensive data on annual suspicion and conviction rates per 1,000 residents, dis-aggregated by citizenship (non-citizens vs.&nbsp;citizens) for 2008–2022. This allows for trend analysis of disparities between groups.</p></li>
 <li><p>Political ideology data:</p>
@@ -258,44 +345,44 @@ ul.task-list li input[type="checkbox"] {
 </ol>
 <p>A Difference-in-Differences (DiD) approach will compare changes in crime-related outcomes before and after election periods with shifts in ideological rhetoric. Non-election years serve as a control group, isolating the causal effect of political discourse.</p>
 </section>
-<section id="core-issues-addressed" class="level2" data-number="8.3">
-<h2 data-number="8.3" class="anchored" data-anchor-id="core-issues-addressed"><span class="header-section-number">8.3</span> <em>Core issues addressed</em></h2>
+<section id="core-issues-addressed" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="core-issues-addressed"><span class="header-section-number">5.3</span> <em>Core issues addressed</em></h2>
 <p>The research will investigate: 1. Whether increased suspicion of immigrant crime correlates with heightened right-wing rhetoric. 2. If young male over representation among immigrants, rather than immigrant status itself, explains these crime rates.<br>
 3. Do conviction rates—representing judicial outcomes—reflect ideological trends, or are they more stable and less subject to political influence?</p>
 </section>
-<section id="significance-and-expected-outcomes" class="level2" data-number="8.4">
-<h2 data-number="8.4" class="anchored" data-anchor-id="significance-and-expected-outcomes"><span class="header-section-number">8.4</span> <em>Significance and expected outcomes</em></h2>
+<section id="significance-and-expected-outcomes" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="significance-and-expected-outcomes"><span class="header-section-number">5.4</span> <em>Significance and expected outcomes</em></h2>
 <p>This study seeks to clarify how political discourse shapes public perceptions and crime outcomes involving immigrants. Preliminary hypotheses suggest that while suspicion rates rise in line with ideological shifts, conviction rates remain relatively stable, suggesting biases in suspicion rather than evidence-based outcomes. By emphasizing intervening factors like demographics, the research highlights the importance of nuanced policymaking and avoids perpetuating harmful stereotypes.</p>
 </section>
 </section>
-<section id="target-variable" class="level1" data-number="9">
-<h1 data-number="9"><span class="header-section-number">9</span> <strong>Target Variable</strong></h1>
-<section id="total-crime-suspicion-rates-over-time-for-citizens-and-non-citizens-in-selected-countries" class="level2" data-number="9.1">
-<h2 data-number="9.1" class="anchored" data-anchor-id="total-crime-suspicion-rates-over-time-for-citizens-and-non-citizens-in-selected-countries"><span class="header-section-number">9.1</span> <em>Total Crime Suspicion Rates Over Time for Citizens and Non-Citizens in Selected Countries</em></h2>
+<section id="target-variable" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> <strong>Target Variable</strong></h1>
+<section id="total-crime-suspicion-rates-over-time-for-citizens-and-non-citizens-in-selected-countries" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="total-crime-suspicion-rates-over-time-for-citizens-and-non-citizens-in-selected-countries"><span class="header-section-number">6.1</span> <em>Total Crime Suspicion Rates Over Time for Citizens and Non-Citizens in Selected Countries</em></h2>
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="total-crime-conviction-rates-over-time-for-citizens-and-non-citizens-in-selected-countries" class="level2" data-number="9.2">
-<h2 data-number="9.2" class="anchored" data-anchor-id="total-crime-conviction-rates-over-time-for-citizens-and-non-citizens-in-selected-countries"><span class="header-section-number">9.2</span> <em>Total Crime Conviction Rates Over Time for Citizens and Non-Citizens in Selected Countries</em></h2>
+<section id="total-crime-conviction-rates-over-time-for-citizens-and-non-citizens-in-selected-countries" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="total-crime-conviction-rates-over-time-for-citizens-and-non-citizens-in-selected-countries"><span class="header-section-number">6.2</span> <em>Total Crime Conviction Rates Over Time for Citizens and Non-Citizens in Selected Countries</em></h2>
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="average-crime-suspicion-rates-over-time-for-citizens-and-non-citizens-as-a-percentage-of-their-population-share" class="level2" data-number="9.3">
-<h2 data-number="9.3" class="anchored" data-anchor-id="average-crime-suspicion-rates-over-time-for-citizens-and-non-citizens-as-a-percentage-of-their-population-share"><span class="header-section-number">9.3</span> <em>Average Crime Suspicion Rates Over Time for Citizens and Non-Citizens as a Percentage of their Population Share</em></h2>
+<section id="average-crime-suspicion-rates-over-time-for-citizens-and-non-citizens-as-a-percentage-of-their-population-share" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="average-crime-suspicion-rates-over-time-for-citizens-and-non-citizens-as-a-percentage-of-their-population-share"><span class="header-section-number">6.3</span> <em>Average Crime Suspicion Rates Over Time for Citizens and Non-Citizens as a Percentage of their Population Share</em></h2>
 <div class="cell">
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
@@ -304,147 +391,49 @@ ul.task-list li input[type="checkbox"] {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="average-crime-conviction-rates-over-time-for-citizens-and-non-citizens-as-a-percentage-of-their-population-share" class="level2" data-number="9.4">
-<h2 data-number="9.4" class="anchored" data-anchor-id="average-crime-conviction-rates-over-time-for-citizens-and-non-citizens-as-a-percentage-of-their-population-share"><span class="header-section-number">9.4</span> <em>Average Crime Conviction Rates Over Time for Citizens and Non-Citizens as a Percentage of their Population Share</em></h2>
+<section id="average-crime-conviction-rates-over-time-for-citizens-and-non-citizens-as-a-percentage-of-their-population-share" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="average-crime-conviction-rates-over-time-for-citizens-and-non-citizens-as-a-percentage-of-their-population-share"><span class="header-section-number">6.4</span> <em>Average Crime Conviction Rates Over Time for Citizens and Non-Citizens as a Percentage of their Population Share</em></h2>
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 1 row containing missing values or values outside the scale range
-(`geom_line()`).</code></pre>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-22-2.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-22-3.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-22-4.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 1 row containing missing values or values outside the scale range
-(`geom_line()`).</code></pre>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-22-5.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-22-6.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-22-7.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-22-8.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'gridExtra'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following object is masked from 'package:dplyr':
-
-    combine</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 1 row containing missing values or values outside the scale range
-(`geom_line()`).
-Removed 1 row containing missing values or values outside the scale range
-(`geom_line()`).</code></pre>
-</div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-23-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-26-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-23-3.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-26-3.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-23-4.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 1 row containing missing values or values outside the scale range
-(`geom_line()`).
-Removed 1 row containing missing values or values outside the scale range
-(`geom_line()`).
-Removed 1 row containing missing values or values outside the scale range
-(`geom_line()`).</code></pre>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-26-4.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
