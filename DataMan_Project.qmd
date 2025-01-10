@@ -43,41 +43,113 @@ pop <- get_eurostat("migr_pop2ctz", time_format = "num", stringsAsFactors = TRUE
 ```
 
 # **Introduction**
+## *GitHub Link*
+- [GitHub Repository](https://github.com/alexmar313/Data-Management-Project.git)
 
-## *Link to GitHub*
+## *Research question:* What are the associations between immigration and crime suspicions and convictions in the EU, considering political ideology?
 
-<a href="https://github.com/alexmar313/Data-Management-Project.git" target="_blank">GitHub Repository</a>
+The research explores the relationship between immigration status and crime outcomes (suspicion and conviction rates) in EU countries. It questions whether claims by political entities, particularly right-wing parties, that immigration drives up crime rates hold true, and explores how other intervening factors, such as the demographic profile of immigrants, might contribute to this perception.
 
-## *Sources download links*
+## *Background Context and Relevance*
+Right-wing political narratives often link immigration with rising crime rates, neglecting broader contextual factors. For instance, statistical evidence shows that most crimes are committed by young males—a demographic disproportionately represented among immigrants.
 
-- <a href="https://ec.europa.eu/eurostat/databrowser/view/crim_just_ctz/default/table?lang=en" target="_blank">Eurostat Crime Dataset</a>
-- <a href="https://ec.europa.eu/eurostat/databrowser/view/migr_pop2ctz/default/table?lang=en&category=demo.demo_pop">Eurostat Population Dataset</a>
-- <a href="https://manifesto-project.wzb.eu/down/data/2024a/datasets/MPDataset_MPDS2024a.csv" target="_blank">Manifesto Dataset</a>
-- <a href="https://eupoliticalbarometer.uc3m.es/api/ideologyDownload" target="_blank">Ideology Dataset</a>
+In the EU, a significant proportion of non-citizens are young males. For example:
+- Non-national men aged 20–49 make up 29% of their demographic group, compared to 18% for nationals.
+- Additionally, 54–60% of unauthorized immigrants are male, with most under the age of 35.
 
-## *Websites links from which data was extracted*
+These demographic realities can skew perceptions of immigrant involvement in crime when not carefully controlled for, contributing to oversimplified populist narratives.
+*Source: [Migration 2023](https://ec.europa.eu/eurostat/web/interactive-publications/migration-2023)*
 
-- <a href="https://ec.europa.eu/eurostat/databrowser/view/crim_just_ctz/default/table?lang=en" target="_blank">Eurostat Crime Dataset</a>
-- <a href="https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/migr_pop2ctz?format=TSV&compressed=true">Eurostat Population Dataset<a>
-- <a href="https://manifesto-project.wzb.eu/datasets" target="_blank">Manifesto Project Dataset</a>
-- <a href="https://eupoliticalbarometer.uc3m.es/dashboard/ideology" target="_blank">EU Political Barometer Dashboard</a>
+This study integrates crime statistics, demographic data, and measures of political ideology to disentangle these associations. By doing so, it challenges oversimplified narratives and explores whether shifts in political rhetoric influence actual crime outcomes or merely exacerbate perceptions of immigrant criminality.
 
-# **Data Description**
+## *Sub-Questions*
+As this study aims to clarify how political discourse influences public perceptions and crime outcomes involving immigrants, three key sub-questions emerge as a guiding framework, among others:
+1. Does increased suspicion of immigrant crime correlate with heightened right-wing rhetoric?
+2. Is the over-representation of young males among immigrants, rather than immigrant status itself, a more significant factor in crime rates?
+3. Do conviction rates, as judicial outcomes, reflect ideological trends, or are they more stable and less influenced by political discourse?
 
-## *Eurostat Crime and Criminal Justice Dataset*
+## *Hypotheses*
+Preliminary hypotheses indicate that suspicion rates tend to increase in response to ideological, whereas conviction rates remain relatively stable, pointing to potential biases in suspicion rather than outcomes grounded in evidence. By accounting for intervening factors such as demographics, this research underscores the importance of nuanced policy making and seeks to challenge and prevent the perpetuation of harmful stereotypes.
+
+# **Empirical Strategy and Data**
+## *Methodology*
+To address the research question, this analysis is structured to investigate the relationship between immigration and crime, as well as the broader sociopolitical factors that may influence this dynamic. The process begins with a visual examination of the primary variables of interest: the target variable, crime, and the main explanatory variable, immigration. Trends over the years 2008 to 2022 are decomposed to identify patterns and changes over time, providing critical context for interpreting the relationship between immigration and crime. By leveraging visual representation, this step aims to make the data more intuitive and accessible, establishing a solid foundation for subsequent statistical analysis.
+
+The next stage involves conducting regression analyses to quantitatively assess the association between changes in the percentage of non-citizens in a country and crime-related outcomes, such as suspicion and conviction rates. This phase is crucial for isolating and understanding potential links between immigration and crime while controlling for other relevant factors. These regressions offer robust statistical insights into the strength and direction of the relationship, determining whether increases in immigration are associated with significant changes in crime outcomes.
+
+Beyond the direct relationship between immigration and crime, the analysis expands to include additional variables that may shape or mediate this association. Two key contextual factors are considered: the level of political polarization within a country, measured by the Dalton Index, and the prevalence of right-wing ideology. Political polarization reflects the degree of societal division, which could influence both perceptions of immigration and its relationship to crime. Similarly, the prevalence of right-wing ideology may shape public discourse and policy responses to immigration, potentially affecting crime rates or their reporting. Incorporating these factors enriches the analysis, enabling a deeper exploration of how political and ideological contexts intersect with immigration and crime.
+
+The analysis also examines immigration-related terminology in political party manifestos during election years in the sampled countries. By analyzing the language used in these documents, we aim to understand how political rhetoric shapes public perceptions and potentially influences crime-related outcomes. This component connects immigration and crime trends to broader sociopolitical narratives, offering a more comprehensive perspective on the issue.
+
+Through this multi-faceted approach—combining visual analysis, regression models, and contextual exploration of political and ideological factors—the analysis seeks to uncover nuanced insights into the relationship between immigration and crime. Situating this relationship within its broader societal and political context provides a richer, more holistic framework for addressing the research question.
+
+To achieve these goals, the following data sets were utilized:
+
+## *Eurostat Crime and Criminal Justice Data Set*
+
+### *Download Link*
+- [Eurostat Crime Dataset](https://ec.europa.eu/eurostat/databrowser/view/crim_just_ctz/default/table?lang=en)
+
+### *Website Link*
+- [Eurostat Crime Website](https://ec.europa.eu/eurostat/databrowser/view/crim_just_ctz/default/table?lang=en)
+
+### *Data Set Description*
 The Eurostat Crime and Criminal Justice dataset provides yearly statistics on the citizens and non-citizens within the justice system across European Union member states, covering the period from 2008 to 2022. It includes data on suspicion and conviction rates per 1,000 inhabitants, offering insights into both the number of individuals suspected of crimes and those convicted. By distinguishing between citizens and non-citizens, this dataset sheds light on potential disparities in how these groups are treated within the legal system. Such information is crucial for understanding systemic inequities and evaluating the impact of policies on different demographics. 
 
-## *Eurostat Population*
-The Eurostat Migration dataset provides annual data on the population of citizens and non-citizens across EU member states from 2008 to 2022. Non-citizens include foreigners, stateless individuals, and those with unknown status. This dataset allows for detailed analysis of demographic compositions and is crucial for understanding disparities between citizens and non-citizens. We aim to use it to determine the number of citizens and non-citizens in each country, highlighting migration trends and their societal implications.
+### *Description of Variables of Interest*
+- *"leg_stat"*: "PER_SUSP" indicates individuals who are suspected of committing crimes, "PER_CNV" indicates individuals who are convicted of crimes.
+- *"citizen"*: "NAT" indicates nationals (citizens of the reporting country), "FOR" represents foreigners (non-citizens).
 
-## *Manifesto Project Dataset*
-The Manifesto Project dataset offers a systematic analysis of political party manifestos across various countries, including EU member states. Spanning elections from 1946 to 2017 (with country-specific coverage), it captures the percentage of text devoted to key themes such as "law and order," "national security," and "national values." This dataset is particularly valuable for studying the evolution of political discourse over time and across contexts. The dataset’s coding of text into quantifiable measures makes it a powerful tool for understanding the role of party platforms in shaping public opinion and influencing policy. Its detailed historical scope enables longitudinal studies of political ideologies and their relationship with contemporary governance trends.
+## *Eurostat Population Data Set*
 
-## *EU Political Barometer Dataset*
-The EU Political Barometer dataset provides bi-monthly data on public opinion and political preferences across EU member states from 2019 to 2023. It tracks ideological shifts, political attitudes, and public reactions to major societal events and political campaigns. Key indicators include changes in support for various ideologies and parties, offering a granular view of how public sentiment evolves over time. This dataset is particularly useful for analyzing short-term trends and understanding the relationship between political discourse and public opinion. By examining fluctuations in attitudes during specific events or election campaigns, we can identify patterns in voter behavior and ideological alignment. Its frequent updates make it a critical resource for real-time political analysis and policy evaluation.
+### *Download Link*
+- [Eurostat Population Dataset](https://ec.europa.eu/eurostat/databrowser/view/migr_pop2ctz/default/table?lang=en&category=demo.demo_pop)
+
+### *Website Link*
+- [Eurostat Population Website](https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/migr_pop2ctz?format=TSV&compressed=true)
+
+### *Data Set Description*
+Eurostat Crime provides detailed annual data on suspicion and conviction numbers, dis-aggregated by citizenship (non-citizens vs. citizens) for the period 2008–2022. This data set enables trend analysis to identify disparities between these groups. By combining this data with population statistics, we can calculate new variables representing the rates of suspicion and conviction for both citizens and non-citizens as proportions of their respective population sizes in the countries of interest.
+The Eurostat Population data set provides annual data on the population of citizens and non-citizens across EU member states from 2008 to 2022. Non-citizens include foreigners and stateless individuals. This data set allows for detailed analysis of demographic compositions and is crucial for understanding disparities between citizens and non-citizens. We aim to use it to determine the number of citizens and non-citizens suspected and convicted in each country as a percentage, allowing for a deeper understanding.
+
+### *Description of Variables of Interest*
+- *"citizen"*: "FOR_STLS" indicates individuals who are foreigners or stateless, "NAT" indicates individuals who are citizens to the country.
+- *"other demographic variables"*: the variables *age* and *sex* allow us if wished to assess how more specific trends, for instance we could observ whether changes in results occur if we consider only men.
+
+## *Manifesto Project Data set*
+
+### *Download Link*
+- [Manifesto Dataset](https://manifesto-project.wzb.eu/down/data/2024a/datasets/MPDataset_MPDS2024a.csv)
+
+### *Website Link*
+- [Manifesto Website](https://manifesto-project.wzb.eu/datasets)
+
+### *Data Set Description*
+The Manifesto Project data set offers a systematic analysis of political party manifestos across various countries, including EU member states. Spanning elections from 1946 to 2017 (with country-specific coverage), it captures the percentage of text devoted to key themes such as "law and order," "national security," and "national values." This data set is particularly valuable for studying the evolution of political discourse over time and across contexts. The dataset’s coding of text into quantifiable measures makes it a powerful tool for understanding the role of party platforms in shaping public opinion and influencing policy. Its detailed historical scope enables longitudinal studies of political ideologies and their relationship with contemporary governance trends.
+
+### *Description of Variables of Interest*
+- *"per101 to per109"*: represent the percentage of the political party's manifesto dedicated to specific themes related to national security, crime, and immigration. They focus on topics like law and order, national security, crime prevention, and the role of the state in dealing with security threats. Specifically: per101: Law and Order, per102: National Security, per103: Crime and Punishment, per104: Prison and Penal System, per105: Immigration, per106: International Relations (related to security), per107: Economic Issues, per108: Welfare and Social Issues, per109: Cultural and National Identity
+- *"per201 to per204"*: focus on economic policies, social support, and public services, potentially linking to discussions about immigration’s impact on the economy and social welfare. Specifically, per201: Economic Growth, per202: Employment, per203: Social Security, per204: Public Services
+- *"per301 to per305"*: focus on social welfare, social issues, and public goods, which might also intersect with debates around immigration and crime in relation to societal well being and state responsibility. Specifically, per301: Social Welfare, per302: Education, per303: Health Care, per304: Family Support, per305: Environment and Sustainability.
+
+## *EU Political Barometer Data set*
+
+### *Download Link*
+- [Ideology Dataset](https://eupoliticalbarometer.uc3m.es/api/ideologyDownload)
+
+### *Website Link*
+- [EU Political Barometer Dashboard](https://eupoliticalbarometer.uc3m.es/dashboard/ideology)
+
+### *Data Set Description*
+The EU Political Barometer data set provides bi-monthly data on public opinion and political preferences across EU member states from 2019 to 2023. It tracks ideological shifts, political attitudes, and public reactions to major societal events and political campaigns. Key indicators include changes in support for various ideologies and parties, offering a granular view of how public sentiment evolves over time. This data set is particularly useful for analyzing short-term trends and understanding the relationship between political discourse and public opinion. By examining fluctuations in attitudes during specific events or election campaigns, we can identify patterns in voter behavior and ideological alignment. Its frequent updates make it a critical resource for real-time political analysis and policy evaluation.
+
+### *Description of Variables of Interest*
+- *"left_ideology"*: numeric score (0-10) representing the left-wing ideological positioning in the country, where a higher value corresponds to stronger left ideology.
+- *"right_ideology"*: numeric score (0-10) representing the right-wing ideological positioning in the country, where a higher value corresponds to stronger right ideology.
+- *"dalton"*: named after the political scientist Russell Dalton, a numeric score (0-10) that shows the degree of ideological polarization in a country, where a higher score corresponds to higher polarization.
+
 
 ## *Description Table*
-
 ```{r, echo=FALSE}
 get_summary <- function(data, name, year_column, date_format, country_column) {
 
@@ -131,37 +203,8 @@ knitr::kable(summary_table)
 
 ```
 
-# **Description of Variables of Interest**
-
-## *Crime Dataset*
-
-- *"leg_stat"*: "PER_SUSP" indicates individuals who are suspected of committing crimes, "PER_CNV" indicates individuals who are convicted of crimes.
-
-- *"citizen"*: "NAT" indicates nationals (citizens of the reporting country), "FOR" represents foreigners (non-citizens).
-
-## *Population Dataset*
-
-- *"citizen"*: "FOR_STLS" indicates individuals who are foreigners or stateless, "NAT" indicates individuals who have a citizenship.
-
-- *"sex"*: "F" & "M" indicates whether individuals are women or men, "T" represents the total.
-
-## *Ideology Dataset*
-
-- *"left_ideology"*: numeric score (0-10) representing the left-wing ideological positioning in the country, where a higher value corresponds to stronger left ideology.
-
-- *"right_ideology"*: numeric score (0-10) representing the right-wing ideological positioning in the country, where a higher value corresponds to stronger right ideology.
-
-- *"dalton"*: named after the political scientist Russell Dalton, a numeric score (0-10) that shows the degree of ideological polarization in a country, where a higher score corresponds to higher polarization.
-
-## *Manifesto Dataset*
-
-- *"per101 to per109"*: represent the percentage of the political party's manifesto dedicated to specific themes related to national security, crime, and immigration. They focus on topics like law and order, national security, crime prevention, and the role of the state in dealing with security threats. Specifically: per101: Law and Order, per102: National Security, per103: Crime and Punishment, per104: Prison and Penal System, per105: Immigration, per106: International Relations (related to security), per107: Economic Issues, per108: Welfare and Social Issues, per109: Cultural and National Identity
-
-- *"per201 to per204"*: focus on economic policies, social support, and public services, potentially linking to discussions about immigration’s impact on the economy and social welfare. Specifically, per201: Economic Growth, per202: Employment, per203: Social Security, per204: Public Services
-
-- *"per301 to per305"*: focus on social welfare, social issues, and public goods, which might also intersect with debates around immigration and crime in relation to societal well being and state responsibility. Specifically, per301: Social Welfare, per302: Education, per303: Health Care, per304: Family Support, per305: Environment and Sustainability.
-
 # **Data Cleaning Process**
+The following section outlines the comprehensive data cleaning and integration process required to prepare the data for analysis. Given that this study incorporates four distinct data sets, each with varying coverage in terms of years, countries, and data frequencies, significant effort was invested in harmonizing these sources. These data sets, while rich in information, hence presented challenges such as inconsistent time periods, differing country classifications, and variations in data granularity. The cleaning process involved standardizing formats, ensuring compatibility across data sets, and removing variables that were not relevant to the research objectives. Additionally, data joining steps were undertaken to merge these sources into a unified data set that could support the analysis. To this end, tables had to be pivoted and reshaped to facilitate merging by year and country. This meticulous preparation was essential to ensure the reliability and consistency of the findings while enabling robust exploration of the relationships between immigration, crime, and political ideology.
 
 ## *Cleaning of Eurostat Data, Crime*
 ```{r, include=FALSE}
@@ -169,7 +212,6 @@ crime <- crime %>%
   filter(citizen != "TOTAL" & leg_stat != "PER_PRSC" & unit != "P_HTHAB")
 ```
 - *Filtering and cleaning:* remove irrelevant categories (e.g., "TOTAL" citizens and "PER_PRSC" status), keeping only the data as total number of citizens and non-citizens suspicted and convicted to crimes.
-
 ```{r, include=FALSE}
 crime <- crime %>%
   mutate(geo = countrycode(geo, origin = "iso2c", destination = "country.name"))
@@ -177,7 +219,6 @@ crime <- crime %>%
   filter(!is.na(geo))
 ```
 - *Country name assignment:* convert country codes to full country names using the "countrycode" package.
-
 ```{r, include=FALSE}
 crime <- crime %>%
   mutate(Category = case_when(
@@ -189,7 +230,6 @@ crime <- crime %>%
   ))
 ```
 - *Category creation:* classify data into four categories based on citizenship and legal status: "Convicted Citizens," "Convicted Non-Citizens," "Suspected Citizens," and "Suspected Non-Citizens."
-
 ```{r, include=FALSE}
 crime <- crime %>%
   select(geo, TIME_PERIOD, Category, values)
@@ -200,7 +240,6 @@ crime <- crime %>%
   )
 ```
 - *Drop irrelevant variables:* rename and include only variables of interest: country, date, citizenship & legal status category, and crime rates.
-
 ```{r, include=FALSE}
 crime <- crime %>%
   pivot_wider(
@@ -210,22 +249,24 @@ crime <- crime %>%
 ```
 - *Data reshaping:* pivot the data to have a single row per country per year, with columns for each of the four categories (convicted and suspected citizens/non-citizens).
 
-
 ## *Cleaning of Eurostat Data, Population*
 ```{r, include=FALSE}
 Tpop <- pop %>%
   filter(age == "TOTAL", sex == "T", citizen != "UNK", citizen != "TOTAL") %>%
   rename(year = TIME_PERIOD) 
 ```
-- *Filtering and cleaning:* remove irrelevant categories ("UNK" or "TOTAL" citizens), keeping only the data as total numbers, not separating per sex or age.
-
+- *Filtering and cleaning:* remove irrelevant category (e.g. "UNK" or "TOTAL" citizens), keeping only the data as total numbers. Creating a new data set in which we do not separate per sex or age.
+```{r, include=FALSE}
+Tpop <- Tpop %>%
+  filter(year >= 2008)
+```
+- *Date filtering:* remove data before 2008 (the first available year in the Crime data set).
 ```{r, include=FALSE}
 Tpop <- Tpop %>%
   mutate(country = countrycode(geo, origin = "iso2c", destination = "country.name", warn = FALSE)) %>%
   filter(!is.na(country)) 
 ```
 - *Country name assignment:* convert country codes to full country names using the "countrycode" package.
-
 ```{r, include=FALSE}
 Tpop <- Tpop %>%
   group_by(country, year, citizen) %>%
@@ -235,7 +276,6 @@ Tpop <- Tpop %>%
   )
 ```
 - *Summarize the data:* group the data by country, year, and citizen and calculate the total population for each group.
-
 ```{r, include=FALSE}
 Tpop <- Tpop %>%
   pivot_wider(
@@ -245,26 +285,24 @@ Tpop <- Tpop %>%
   ) %>%
   mutate(
     population_citizens = NAT,
-    population_non_citizens = FOR_STLS
+    population_non_citizens = FOR_STLS,
+    population_total = NAT + FOR_STLS
   )
 ```
--*Reshape Data for Citizens and Non-Citizens:* Reshapes the data to separate populations of citizens (NAT) and non-citizens (FOR_STLS)
+- *Reshape Data for Citizens and Non-Citizens:* Reshapes the data to separate populations of citizens (NAT) and non-citizens (FOR_STLS).
 
-
-## *Cleaning of Manifesto Data, manifesto*
+## *Cleaning of Manifesto Data, Manifesto*
 ```{r, include=FALSE}
 manifesto <- manifesto %>%
   mutate(edate = dmy(edate)) %>%
   filter(edate >= as.Date("2008-01-01"))
 ```
 - *Date filtering:* remove data before 2008 (the first available year in the Crime dataset).
-
 ```{r, include=FALSE}
 manifesto <- manifesto %>%
   select(countryname, partyname, edate, per101, per102, per103, per104, per105, per106, per107, per108, per109, per201, per203, per202, per204, per301, per302, per303, per304, per305)
 ```
 - *Column selection:* Keeps only relevant columns in the manifesto dataset (e.g., political themes related to law and order, national security, immigration).
-
 ```{r, include=FALSE}
 manifesto <- manifesto %>%
   mutate(date = year(edate)) 
@@ -302,20 +340,17 @@ manifesto <- manifesto %>%
 ```
 - *Group by date and country:* extract the year from the date and group the data by country and year to compute the average percentage of the manifesto dedicated to specific themes like law and order, national security, and immigration.
 
-
-## *Cleaning of Barometer Data, ideology*
+## *Cleaning of Barometer Data, Ideology*
 ```{r, include=FALSE}
 ideology <- ideology %>%
   filter(data_type != "ewma")
 ```
 - *Filter invalid data:* removes data related to "ewma" (exponentially weighted moving average) and retain only real ideological scores.
-
 ```{r, include=FALSE}
 ideology <- ideology %>%
   filter(date < as.Date("2023-01-01"))
 ```
-- *Date filtering:* filter the dataset to include only data up until 2023.
-
+- *Date filtering:* filter the data set to include only data up until 2023.
 ```{r, include=FALSE}
 ideology <- ideology %>%
   mutate(year = year(date))
@@ -332,8 +367,7 @@ ideology <- ideology %>%
 ideology <- ideology %>%
   rename(country = country_name)
 ```
-_ *Ideology Data:* extract the year from the date and groups the data by country and year to calculate the average ideological scores (left, right, and Dalton's polarization index).
-
+- *Ideology Data:* extract the year from the date and groups the data by country and year to calculate the average ideological scores (left, right, and Dalton's polarization index).
 
 ## *Joint Cleaning*
 ```{r, include=FALSE}
@@ -348,8 +382,7 @@ manifesto <- manifesto %>%
 ```
 - *Data intersection:* ensure that only countries present in the Crime and Population are kept in the Manifesto and Ideology data sets. This is achieved through a semi_join to keep only the common countries.
 
-
-## *Merge data sets*
+## *Merging of Data Sets*
 ```{r, include=FALSE}
 crime$year <- as.numeric(crime$year)
 manifesto$year <- as.numeric(manifesto$year)
@@ -358,8 +391,7 @@ ideology$year <- as.numeric(ideology$year)
 merged_data <- full_join(crime, manifesto, by = c("country", "year")) %>%
   full_join(ideology, by = c("country", "year"))
 ```
--*Merge Crime, Manifesto and Ideology*: previously renamed columns in all three data sets for consistency and merge them into one unified data set. "full_join" is used to ensure no data is lost while combining them based on country and year.
-
+- *Merge Crime, Manifesto and Ideology*: previously renamed columns in all three data sets for consistency and merge them into one unified data set. "full_join" is used to ensure no data is lost while combining them based on country and year.
 ```{r, include=FALSE}
 merged_data <- Tpop %>%
   inner_join(merged_data, by = c("country", "year"))
@@ -371,121 +403,130 @@ merged_data <- merged_data %>%
     suspected_p_nc = (`Suspected Non-Citizens` / `population_non_citizens`) * 100
   )
 ```
--*Merge also with Population Data:* add the fourth data set. It would be informative to present the data as percentages in addition to raw numbers. For example, we can display the proportion of suspected non-citizens relative to the total population of non-citizens, and compare this to the proportion of suspected citizens relative to the total population of citizens. We hence also calculate percentages for convictions and suspicions for both citizens and non-citizens
+- *Merge also with Population Data:* add the fourth data set. It would be informative to present the data as percentages in addition to raw numbers. For example, we can display the proportion of suspected non-citizens relative to the total population of non-citizens, and compare this to the proportion of suspected citizens relative to the total population of citizens. We hence also calculate percentages for convictions and suspicions for both citizens and non-citizens
 
 
-# **Description of the Research Question**
 
-## *Research question:* What is the association between immigration and crime suspicions and convictions in the EU, considering political ideology?
 
-The research explores the relationship between immigration status and crime outcomes (suspicion and conviction rates) in EU countries. It questions whether claims by political entities, particularly right-wing parties, that immigration drives up crime rates hold true, and explores how other intervening factors, such as the demographic profile of immigrants, might contribute to this perception.
 
-Background context and relevance
-Right-wing political narratives often link immigration with rising crime rates without acknowledging broader contextual factors. For example, statistical evidence suggests that most crimes are committed by young males—a group overrepresented among immigrant populations. Across the EU, a significant proportion of non-citizens are young males: non-national men aged 20–49 constitute 29% of their demographic group, compared to 18% for nationals. Additionally, 54–60% of unauthorized immigrants are male, with a majority under 35 years old. Such demographic realities could skew perceptions of immigrant involvement in crime when not carefully controlled for.
-*Source: <a href="https://ec.europa.eu/eurostat/web/interactive-publications/migration-2023" target="_blank">Migration 2023</a>
+```{r, include=FALSE}
+## THIS IS JUST TO FIND THAT THE AVERAGE GROWTH RATE PER YEAR OF THE SHARE OF NON-CITIZENS IS 4.47% PER YEAR OVER ALL COUNTRIES ##
+merged_data <- merged_data %>%
+  mutate(share_non_citizens = population_non_citizens / population_total)
 
-This research aims to integrate crime statistics and demographic data with measures of political ideology to disentangle these associations. By doing so, it challenges simplistic narratives and aims to explore whether shifts in political rhetoric influence crime outcomes or merely exacerbate perceptions of immigrant criminality.
+merged_data <- merged_data %>%
+  group_by(country) %>%
+  arrange(year) %>%  # Ensure data is sorted by year
+  mutate(growth_rate = (share_non_citizens - lag(share_non_citizens)) / lag(share_non_citizens)) %>%
+  ungroup()  # Remove grouping by country
 
-## *Data and methodology*
-1. Crime Data:
-   Eurostat provides comprehensive data on annual suspicion and conviction rates per 1,000 residents, dis-aggregated by citizenship (non-citizens vs. citizens) for 2008–2022. This allows for trend analysis of disparities between groups.
+overall_average_growth_rate <- merged_data %>%
+  summarize(avg_growth_rate = mean(growth_rate, na.rm = TRUE))
 
-2. Political ideology data:
-   - Manifesto Project Database: Tracks the content of political party platforms during election years, focusing on themes such as “law and order” and “security.”  
-   - EU Political Barometer: Captures public opinion on political ideologies monthly from 2019–2023.
 
-A Difference-in-Differences (DiD) approach will compare changes in crime-related outcomes before and after election periods with shifts in ideological rhetoric. Non-election years serve as a control group, isolating the causal effect of political discourse.
-
-## *Core issues addressed* 
-The research will investigate:
-1. Whether increased suspicion of immigrant crime correlates with heightened right-wing rhetoric.
-2. If young male over representation among immigrants, rather than immigrant status itself, explains these crime rates.  
-3. Do conviction rates—representing judicial outcomes—reflect ideological trends, or are they more stable and less subject to political influence?
-
-## *Significance and expected outcomes*
-This study seeks to clarify how political discourse shapes public perceptions and crime outcomes involving immigrants. Preliminary hypotheses suggest that while suspicion rates rise in line with ideological shifts, conviction rates remain relatively stable, suggesting biases in suspicion rather than evidence-based outcomes. By emphasizing intervening factors like demographics, the research highlights the importance of nuanced policymaking and avoids perpetuating harmful stereotypes.
-
-# **Target Variable**
-
-## *Total Crime Suspicion Rates Over Time for Citizens and Non-Citizens in Selected Countries*
-```{r, echo=FALSE}
-filtered_data <- crime %>%
-  filter(country %in% c("France", "Germany", "Austria", "Bulgaria"))
-
-ggplot(filtered_data, aes(x = year)) +
-  geom_line(aes(y = `Suspected Non-Citizens`, color = "Suspected Non-Citizens"), linewidth = 1) +
-  geom_line(aes(y = `Suspected Citizens`, color = "Suspected Citizens"), linewidth = 1) +
-  facet_wrap(~country, scales = "free_y") + 
-  labs(
-    title = "Crime Suspicion Over Time",
-    x = "Year",
-    y = "Number of People",
-    color = "Category"
-  ) +
-  theme_minimal() +
-  theme(
-    legend.position = "bottom"  # Move the legend below the graph
-  ) +
-  scale_color_manual(
-    values = c(
-      "Suspected Non-Citizens" = "red", 
-      "Suspected Citizens" = "orange"
-    )
-  )
+overall_average_growth_rate
 ```
 
-## *Total Crime Conviction Rates Over Time for Citizens and Non-Citizens in Selected Countries*
-```{r, echo=FALSE}
-ggplot(filtered_data, aes(x = year)) +
-  geom_line(aes(y = `Convicted Non-Citizens`, color = "Convicted Non-Citizens"), linewidth = 1) +
-  geom_line(aes(y = `Convicted Citizens`, color = "Convicted Citizens"), linewidth = 1) +
-  facet_wrap(~country, scales = "free_y") +  # Split by country
-  labs(
-    title = "Crime Conviction Over Time",
-    x = "Year",
-    y = "Number of People",
-    color = "Category"
-  ) +
-  theme_minimal() +
-  theme(
-    legend.position = "bottom"  # Move the legend below the graph
-  ) +
-  scale_color_manual(
-    values = c(
-      "Convicted Non-Citizens" = "red", 
-      "Convicted Citizens" = "orange"
-    )
-  )
+# **Results**
+
+## *Trends in Crime Suspicion and Conviction*
+The analysis begins by examining crime suspicion and conviction rates over time, focusing on citizens and non-citizens across selected countries.
+
+### *Figure 1: Crime Suspicion Over Time*
+This graph highlights that non-citizens are consistently suspected of crimes at higher rates compared to citizens. While absolute numbers of citizens suspected are higher, this disparity is explained by their larger population size. Notable trends include:
+
+A significant spike in suspicion rates for non-citizens in 2014.
+Citizen suspicion rates remain relatively stable over the years, averaging between 0% and 1%. These trends suggest that suspicion rates for non-citizens may be more sensitive to external factors, potentially including political and societal influences.
+
+### *Figure 2: Crime Conviction Over Time*
+Conviction rates for non-citizens similarly exceed those for citizens. Key observations include:
+
+Non-citizens exhibit a decline in conviction rates from approximately 3% (2008–2014) to 1.5% by 2020.
+Citizen conviction rates, while initially around 1%, steadily decrease to near zero by 2022. This divergence highlights potential systemic differences in the treatment of these groups within the criminal justice system.
+
+## *Relative Crime Rates: Citizens vs. Non-Citizens*
+
+### *Figure 3: Average Percentage of Suspected Citizens and Non-Citizens*
+When adjusted for population size, non-citizens are significantly more likely to be suspected of crimes, averaging around 4%, compared to 0–1% for citizens. The 2014 spike is particularly pronounced for non-citizens.
+This reinforces the notion that suspicion rates are disproportionately higher for non-citizens, aligning with political narratives that often link immigration with crime.
+
+Figure 4: Average Percentage of Convicted Citizens and Non-Citizens
+Similar patterns emerge for convictions, with non-citizens consistently convicted at higher rates. However, the gradual decline in non-citizen conviction rates after 2014 suggests changing dynamics, possibly due to shifts in policies or societal attitudes.
+
+Immigration and Population Trends
+Figure 5: Percentage of Non-Citizens Over Time
+This graph illustrates a steady increase in the share of non-citizens in the population across most countries. For example:
+Austria shows the highest growth, reaching 17% in 2022.
+Bulgaria exhibits a decline in non-citizen percentage, diverging from the broader trend.
+These shifts provide crucial context for understanding the demographic composition underlying the crime data.
+Relationships Between Immigration, Crime, and Political Factors
+Figure 6: Relationship Between Percentage of Non-Citizens and Total Convictions
+A weak negative relationship is observed, suggesting no direct link between higher percentages of non-citizens and total convictions. This finding challenges simplistic narratives associating immigration with increased crime.
+
+Figure 7: Relationship Between Percentage of Non-Citizens and Total Suspicions
+A similar pattern emerges, with no strong association between the share of non-citizens and total suspicions.
+
+Figure 8: Relationship Between Percentage of Non-Citizens and Suspicion Rates of Non-Citizens
+When focusing on non-citizens, suspicion rates increase with their share in the population, indicating that non-citizens are disproportionately targeted as their numbers grow.
+
+Figure 9: Relationship Between Percentage of Non-Citizens and Conviction Rates of Non-Citizens
+A positive relationship is evident, although weaker than for suspicion rates. This suggests systemic factors influencing conviction outcomes.
+
+Impact of Political Context
+Figure 10: Relationship Between Polarization (Dalton Index) and Crime Outcomes
+Higher political polarization is associated with increased suspicion rates for non-citizens, as well as slight increases in conviction rates. This finding underscores the influence of societal divisions on perceptions of immigrant crime.
+
+Figure 11: Relationship Between Right Ideology and Crime Outcomes
+Stronger right-wing ideological influence correlates with higher suspicion rates for non-citizens, but the relationship with conviction rates is less pronounced. This highlights the role of political discourse in shaping public and institutional responses to immigration.
+
+The graphs reveal several important trends when examining the conviction and suspicion rates of citizens and non-citizens over time. First, we observe that in absolute terms, the number of citizens convicted or suspected of crimes is consistently higher than that of non-citizens. This finding holds true across our subset of the sample, which includes . However, this observation alone does not provide the full picture, as it does not account for the relative size of the citizen and non-citizen populations in each country. To better address our research question, we instead examine the number of convicted and suspected individuals as a percentage of the total population of citizens or non-citizens within a country.
+
+When analyzing these relative measures, non-citizens consistently exhibit higher conviction and suspicion rates compared to citizens. On average, approximately 4% of non-citizens in our sample are suspected of crimes. This trend includes a significant spike in 2014, where suspicion rates sharply increase before returning to the 4% average in subsequent years. In contrast, the suspicion rate for citizens is significantly lower and more stable, averaging between 0% and 1%, with a slight upward spike observed in 2013.
+   
+Similarly, conviction rates exhibit distinct patterns for citizens and non-citizens. For non-citizens, the average percentage convicted of crimes is around 3% between 2008 and 2014. This figure declines steadily in later years, reaching approximately 1.5% by 2020. For citizens, the average conviction rate is initially around 1% during the same period but gradually decreases, reaching almost zero by 2022. These trends suggest a pronounced difference in the treatment or behavior of citizens versus non-citizens within the criminal justice system.
+
+
+
+To gain a deeper understanding of our main explanatory variable of interest, we analyzed the percentage of non-citizens in selected countries—Austria, Bulgaria, France, and Germany—alongside the average percentage of non-citizens across the entire sample. For the selected countries, a clear upward trend in the share of non-citizens is evident between 2008 and 2022, although the levels vary significantly between countries. Austria, for instance, stands out with a remarkably high share of non-citizens, reaching approximately 17% in 2022. In contrast, Bulgaria deviates from this general trend, experiencing a decline in the percentage of non-citizens from 1.6% to 1% between 2021 and 2022. 
+
+When we look at the entire sample, the average growth rate of the percentage of non-citizens per year is an impressive 4.47%, highlighting a consistent and significant upward trend. While these findings are descriptive and do not establish causality, they are crucial for contextualizing the broader analysis. They reveal that, on average, the number of non-citizens has grown disproportionately compared to the number of citizens across the countries in our dataset. This disproportionate increase suggests that non-citizens are likely composed of a demographic profile that differs fundamentally from that of citizens. Specifically, the influx of new immigrants tends to be disproportionately male and younger, traits associated with a demographic that is statistically more likely to be suspected or convicted of crime.
+
+This observation is particularly important for understanding the broader context of our study. It offers a plausible explanation for the higher percentage of non-citizens suspected or convicted of crime compared to citizens. By acknowledging the demographic dynamics driving these differences, we can better interpret the patterns observed in the data. Before proceeding with any causal analysis, it is essential to highlight these trends, as they provide a foundational understanding of the structural and demographic factors at play. These findings underscore the importance of considering how the characteristics of non-citizen populations may influence the overall patterns of suspicion and conviction rates observed in the data.
+
+
+# *Robustness checks*
+```{r}
+## Chi sqr test, etc....
 ```
 
-## *Average Crime Suspicion Rates Over Time for Citizens and Non-Citizens as a Percentage of their Population Share*
+MORE YAP YAP
+
+# Conclusion and discussion
+YAPYAPYAP
+
+# **Appendix**
+
+### *Figure 1:*
 ```{r, echo=FALSE}
-merged_data %>%
+merged_data <- merged_data %>%
+  mutate(percent_non_citizens = (population_non_citizens / population_total) * 100)
+
+average_non_citizens <- merged_data %>%
   group_by(year) %>%
-  summarise(
-    avg_citizens = mean(suspected_p_c, na.rm = TRUE),
-    avg_non_citizens = mean(suspected_p_nc, na.rm = TRUE)
-  ) %>%
-  pivot_longer(
-    cols = c(avg_citizens, avg_non_citizens),
-    names_to = "group",
-    values_to = "value_percentage"
-  ) %>%
-  mutate(group = ifelse(group == "avg_citizens", "Citizens", "Non-Citizens")) %>%
-  ggplot(aes(x = year, y = value_percentage, color = group, linetype = group)) +
-  geom_line(size = 1.2) +
+  summarize(avg_percent_non_citizens = mean(percent_non_citizens, na.rm = TRUE))
+
+ggplot(average_non_citizens, aes(x = year, y = avg_percent_non_citizens)) +
+  geom_line(color = "blue", size = 1) +
+  geom_point(color = "blue", size = 2) +
   labs(
-    title = "Average Percentage of Suspected Citizens and Non-Citizens",
+    title = "Average Percentage of Non-Citizens Across All Countries",
     x = "Year",
-    y = "Average Percentage",
-    color = "Group",
-    linetype = "Group"
+    y = "Average Percentage of Non-Citizens"
   ) +
   theme_minimal()
-
 ```
 
-## *Average Crime Conviction Rates Over Time for Citizens and Non-Citizens as a Percentage of their Population Share*
+### *Figure 2:*
 ```{r, echo=FALSE}
 merged_data %>%
   group_by(year) %>%
@@ -508,16 +549,135 @@ merged_data %>%
     color = "Group",
     linetype = "Group"
   ) +
-  theme_minimal()
+  theme_minimal()+
+  theme(
+    legend.position = "bottom"  # Moves the legend below the graph
+  ) +
+  scale_color_manual(
+    values = c(
+      "Non-Citizens" = "red", 
+      "Citizens" = "orange"
+    )
+  )
 ```
 
+### *Figure 3:*
 ```{r, echo=FALSE}
+merged_data %>%
+  group_by(year) %>%
+  summarise(
+    avg_citizens = mean(suspected_p_c, na.rm = TRUE),
+    avg_non_citizens = mean(suspected_p_nc, na.rm = TRUE)
+  ) %>%
+  pivot_longer(
+    cols = c(avg_citizens, avg_non_citizens),
+    names_to = "group",
+    values_to = "value_percentage"
+  ) %>%
+  mutate(group = ifelse(group == "avg_citizens", "Citizens", "Non-Citizens")) %>%
+  ggplot(aes(x = year, y = value_percentage, color = group, linetype = group)) +
+  geom_line(size = 1.2) +
+  labs(
+    title = "Average Percentage of Suspected Citizens and Non-Citizens",
+    x = "Year",
+    y = "Average Percentage",
+    color = "Group",
+    linetype = "Group"
+  ) +
+  theme_minimal()+
+  theme(
+    legend.position = "bottom"  # Moves the legend below the graph
+  ) +
+  scale_color_manual(
+    values = c(
+      "Non-Citizens" = "red", 
+      "Citizens" = "orange"
+    )
+  )
+```
+
+### *Figure 4:*
+```{r, echo=FALSE}
+filtered_data <- merged_data %>%
+  filter(country %in% c("France", "Germany", "Austria", "Bulgaria"))
+
+ggplot(filtered_data, aes(x = year)) +
+  geom_line(aes(y = (FOR_STLS/population_total)*100, color = "Percentage of Non-Citizens"), linewidth = 1) +
+  facet_wrap(~country, scales = "free_y") +  # Split by country
+  labs(
+    title = "Percentage of Non-Citizens Over Time",
+    x = "Year",
+    y = "Percentage of People",
+    color = "Category"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "bottom"  # Move the legend below the graph
+  ) +
+  scale_color_manual(
+    values = c(
+      "Percentage of Non-Citizens" = "red" 
+    )
+  )
+```
+
+### *Figure 5:*
+```{r, echo=FALSE}
+ggplot(filtered_data, aes(x = year)) +
+  geom_line(aes(y = `Convicted Non-Citizens`, color = "Convicted Non-Citizens"), linewidth = 1) +
+  geom_line(aes(y = `Convicted Citizens`, color = "Convicted Citizens"), linewidth = 1) +
+  facet_wrap(~country, scales = "free_y") +  # Split by country
+  labs(
+    title = "Crime Conviction Over Time",
+    x = "Year",
+    y = "Number of People",
+    color = "Category"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "bottom"
+  ) +
+  scale_color_manual(
+    values = c(
+      "Convicted Non-Citizens" = "red", 
+      "Convicted Citizens" = "orange"
+    )
+  )
+```
+
+### *Figure 6:*
+```{r, echo=FALSE}
+ggplot(filtered_data, aes(x = year)) +
+  geom_line(aes(y = `Suspected Non-Citizens`, color = "Suspected Non-Citizens"), linewidth = 1) +
+  geom_line(aes(y = `Suspected Citizens`, color = "Suspected Citizens"), linewidth = 1) +
+  facet_wrap(~country, scales = "free_y") + 
+  labs(
+    title = "Crime Suspicion Over Time",
+    x = "Year",
+    y = "Number of People",
+    color = "Category"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "bottom"  
+  ) +
+  scale_color_manual(
+    values = c(
+      "Suspected Non-Citizens" = "red", 
+      "Suspected Citizens" = "orange"
+    )
+  )
+```
+
+### *Figure 7:*
+```{r, echo=FALSE}
+
 countries <- c("France", "Germany", "Austria", "Bulgaria")
 
-for(country in countries) {
-
-  p1 <- merged_data %>%
-    filter(country == country) %>%
+for(curr_country in countries) {
+  
+  p1 <- filtered_data %>%
+    filter(country == curr_country) %>% 
     group_by(year) %>%
     summarise(
       convicted = mean(convicted_p_c, na.rm = TRUE),
@@ -532,7 +692,7 @@ for(country in countries) {
     ggplot(aes(x = year, y = percentage, color = type, linetype = type)) +
     geom_line(linewidth = 1.2) +
     labs(
-      title = paste(country, "- Citizens"),
+      title = paste(curr_country, "- Citizens"),
       x = "Year",
       y = "Percentage",
       color = "Type",
@@ -541,8 +701,8 @@ for(country in countries) {
     theme_minimal() +
     theme(legend.position = "bottom")
   
-  p2 <- merged_data %>%
-    filter(country == country) %>%
+  p2 <- filtered_data %>%
+    filter(country == curr_country) %>%  # Use the loop variable 'curr_country'
     group_by(year) %>%
     summarise(
       convicted = mean(convicted_p_nc, na.rm = TRUE),
@@ -557,7 +717,7 @@ for(country in countries) {
     ggplot(aes(x = year, y = percentage, color = type, linetype = type)) +
     geom_line(linewidth = 1.2) +
     labs(
-      title = paste(country, "- Non-Citizens"),
+      title = paste(curr_country, "- Non-Citizens"),
       x = "Year",
       y = "Percentage",
       color = "Type",
@@ -565,16 +725,18 @@ for(country in countries) {
     ) +
     theme_minimal() + 
     theme(legend.position = "bottom")
-
-  grid.arrange(p1, p2, ncol = 2, top = "Convicted vs Suspected Percentages")
+  
+  grid.arrange(
+    p1, p2, 
+    ncol = 2, 
+    top = paste("Convicted vs Suspected as Percentages for", curr_country)
+  )
 }
 
 ```
 
 
-# **Data Analysis**
-
-## **Relationship between Percentage of Migrants and Total Convictions**
+### *Figure 7:* **Relationship between Percentage of Migrants and Total Convictions**
 ```{r, echo=FALSE}
 merged_data_final <- merged_data %>%
   mutate(
@@ -594,7 +756,10 @@ ggplot(convicted_analysis_data, aes(x = percentage_nc_pop, y = total_convicted, 
     x = "Percentage of Non-Citizens in Total Population",
     y = "Total Convictions"
   ) +
-  theme_minimal()
+  theme_minimal() +
+  theme(
+    legend.position = "none"
+  )
 
 model_convicted <- lm(total_convicted ~ percentage_nc_pop, 
                      data = merged_data_final)
@@ -611,9 +776,6 @@ Conviction_Model <- data.frame(
   kable_styling(bootstrap_options = c("striped", "hover"))
 
 Conviction_Model
-
-model_convicted <- lm(total_convicted ~ percentage_nc_pop, data = merged_data_final)
-summary(model_convicted)
 ```
 
 ## **Relationship between Percentage of Migrants and Total Suspicions**
@@ -629,7 +791,10 @@ ggplot(suspected_analysis_data, aes(x = percentage_nc_pop, y = total_suspected, 
     x = "Percentage of Non-Citizens in Total Population",
     y = "Total Suspicions"
   ) +
-  theme_minimal()
+  theme_minimal()+
+  theme(
+    legend.position = "none"
+  )
 
 model_suspected <- lm(total_suspected ~ percentage_nc_pop, 
                      data = merged_data_final)
@@ -647,8 +812,6 @@ Supspicion_Model <- data.frame(
 
 Supspicion_Model
 
-model_suspected <- lm(total_suspected ~ percentage_nc_pop, data = merged_data_final)
-summary(model_suspected)
 ```
 
 
@@ -667,7 +830,10 @@ ggplot(suspected_analysis_data, aes(x = percentage_nc_pop, y = suspected_p_nc, c
     x = "Percentage of Non-Citizens in Total Population",
     y = "Percentage of Non-citizens Suspected"
   ) +
-  theme_minimal()
+  theme_minimal()+
+  theme(
+    legend.position = "none"
+  )
 
 model_suspected_nc <- lm(suspected_p_nc ~ percentage_nc_pop, 
                      data = merged_data_final  %>% filter(country != "Bulgaria"))
@@ -699,24 +865,26 @@ ggplot(suspected_analysis_data, aes(x = percentage_nc_pop, y = convicted_p_nc, c
     x = "Percentage of Non-Citizens in Total Population",
     y = "Percentage of Non-citizens Convicted"
   ) +
-  theme_minimal()
+  theme_minimal()+
+  theme(
+    legend.position = "none"
+  )
 
 model_convicted_nc <- lm(convicted_p_nc ~ percentage_nc_pop, 
-                     data = merged_data_final)
+                         data = merged_data_final)
 
 Conviction_Model_nc <- data.frame(
   Term = c("Intercept", "% Non-Citizens"),
-  Estimate = coef(model_suspected),
-  `Std.Error` = summary(model_suspected)$coefficients[, 2],
-  `t.value` = summary(model_suspected)$coefficients[, 3],
-  `p.value` = summary(model_suspected)$coefficients[, 4]
+  Estimate = coef(model_convicted_nc),
+  `Std.Error` = summary(model_convicted_nc)$coefficients[, 2],
+  `t.value` = summary(model_convicted_nc)$coefficients[, 3],
+  `p.value` = summary(model_convicted_nc)$coefficients[, 4]
 ) %>%
   kbl(
-    caption = "Regression Results: Total Suspected Persons",
-    digits = 3,
-    align = 'c'
+    caption = "Regression Results: Total Convicted Persons",
+    digits = 3
   ) %>%
-  kable_styling(bootstrap_options = c("striped", "hover"), full_width = F)
+  kable_styling(bootstrap_options = c("striped", "hover"))
 
 Conviction_Model_nc
 ```
@@ -731,8 +899,22 @@ ggplot(merged_data_final, aes(x = dalton, y = total_convicted)) +
        y = "Total Convicted") +
   theme_minimal()
 
-model_with_polynomial <- lm(total_convicted ~ dalton + poly(year, 2), data = merged_data_final)
-summary(model_with_polynomial)
+model_with_polynomial_convicted_total <- lm(total_convicted ~ dalton + poly(year, 2), data = merged_data_final)
+
+Polynomial_Model_Convicted_Total <- data.frame(
+  Term = c("Intercept", "Dalton Index", "Year (Polynomial Term 1)", "Year (Polynomial Term 2)"),
+  Estimate = coef(model_with_polynomial_convicted_total),
+  `Std.Error` = summary(model_with_polynomial_convicted_total)$coefficients[, 2],
+  `t.value` = summary(model_with_polynomial_convicted_total)$coefficients[, 3],
+  `p.value` = summary(model_with_polynomial_convicted_total)$coefficients[, 4]
+) %>%
+  kbl(
+    caption = "Regression Results: Total Convicted (Polynomial Regression)",
+    digits = 3
+  ) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+
+Polynomial_Model_Convicted_Total
 ```
 
 ## **Relationship between Polarization and Percentage Migrants Convictions**
@@ -746,8 +928,22 @@ ggplot(merged_data_final, aes(x = dalton, y = convicted_p_nc)) +
   theme_minimal() +
    ylim(0, 5)
 
-model_with_polynomial <- lm(convicted_p_nc ~ dalton + poly(year, 2), data = merged_data_final)
-summary(model_with_polynomial)
+model_with_polynomial_convicted_nc <- lm(convicted_p_nc ~ dalton + poly(year, 2), data = merged_data_final)
+
+Polynomial_Model_Convicted_NC <- data.frame(
+  Term = c("Intercept", "Dalton Index", "Year (Polynomial Term 1)", "Year (Polynomial Term 2)"),
+  Estimate = coef(model_with_polynomial_convicted_nc),
+  `Std.Error` = summary(model_with_polynomial_convicted_nc)$coefficients[, 2],
+  `t.value` = summary(model_with_polynomial_convicted_nc)$coefficients[, 3],
+  `p.value` = summary(model_with_polynomial_convicted_nc)$coefficients[, 4]
+) %>%
+  kbl(
+    caption = "Regression Results: Convicted Non-Citizens (Polynomial Regression)",
+    digits = 3
+  ) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+
+Polynomial_Model_Convicted_NC
 ```
 
 ## **Relationship between Polarization and Percentage Migrants Suspicions**
@@ -761,8 +957,22 @@ ggplot(merged_data_final, aes(x = dalton, y = suspected_p_nc)) +
   theme_minimal() +
   ylim(0, 10)
 
-model_with_polynomial <- lm(suspected_p_nc ~ dalton + poly(year, 2), data = merged_data_final)
-summary(model_with_polynomial)
+model_with_polynomial_suspected_nc <- lm(suspected_p_nc ~ dalton + poly(year, 2), data = merged_data_final)
+
+Polynomial_Model_Suspected_NC <- data.frame(
+  Term = c("Intercept", "Dalton Index", "Year (Polynomial Term 1)", "Year (Polynomial Term 2)"),
+  Estimate = coef(model_with_polynomial_suspected_nc),
+  `Std.Error` = summary(model_with_polynomial_suspected_nc)$coefficients[, 2],
+  `t.value` = summary(model_with_polynomial_suspected_nc)$coefficients[, 3],
+  `p.value` = summary(model_with_polynomial_suspected_nc)$coefficients[, 4]
+) %>%
+  kbl(
+    caption = "Regression Results: Suspected Non-Citizens (Polynomial Regression)",
+    digits = 3
+  ) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+
+Polynomial_Model_Suspected_NC
 ```
 
 
@@ -776,8 +986,22 @@ ggplot(merged_data_final, aes(x = right_ideology, y = total_convicted)) +
        y = "Total Convictions") +
   theme_minimal()
 
-model_with_ideology <- lm(total_convicted ~ right_ideology + year, data = merged_data_final)
-summary(model_with_ideology)
+model_with_ideology_convicted_total <- lm(total_convicted ~ right_ideology + year, data = merged_data_final)
+
+Ideology_Model_Convicted_Total <- data.frame(
+  Term = c("Intercept", "Right-Wing Ideology", "Year"),
+  Estimate = coef(model_with_ideology_convicted_total),
+  `Std.Error` = summary(model_with_ideology_convicted_total)$coefficients[, 2],
+  `t.value` = summary(model_with_ideology_convicted_total)$coefficients[, 3],
+  `p.value` = summary(model_with_ideology_convicted_total)$coefficients[, 4]
+) %>%
+  kbl(
+    caption = "Regression Results: Total Convicted (Right-Wing Ideology)",
+    digits = 3
+  ) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+
+Ideology_Model_Convicted_Total
 
 ```
 
@@ -792,8 +1016,22 @@ ggplot(merged_data_final, aes(x = right_ideology, y = convicted_p_nc)) +
   theme_minimal() +
   ylim(0, 5)
 
-model_with_ideology <- lm(convicted_p_nc ~ right_ideology + year, data = merged_data_final)
-summary(model_with_ideology)
+model_with_ideology_convicted_nc <- lm(convicted_p_nc ~ right_ideology + year, data = merged_data_final)
+
+Ideology_Model_Convicted_NC <- data.frame(
+  Term = c("Intercept", "Right-Wing Ideology", "Year"),
+  Estimate = coef(model_with_ideology_convicted_nc),
+  `Std.Error` = summary(model_with_ideology_convicted_nc)$coefficients[, 2],
+  `t.value` = summary(model_with_ideology_convicted_nc)$coefficients[, 3],
+  `p.value` = summary(model_with_ideology_convicted_nc)$coefficients[, 4]
+) %>%
+  kbl(
+    caption = "Regression Results: Convicted Non-Citizens (Right-Wing Ideology)",
+    digits = 3
+  ) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+
+Ideology_Model_Convicted_NC
 
 ```
 
@@ -809,8 +1047,25 @@ ggplot(merged_data_final, aes(x = right_ideology, y = suspected_p_nc)) +
   theme_minimal() +
   ylim(0, 5)
 
-model_with_ideology <- lm(suspected_p_nc ~ right_ideology + year, data = merged_data_final)
-summary(model_with_ideology)
+model_with_ideology_suspected_nc <- lm(suspected_p_nc ~ right_ideology + year, data = merged_data_final)
 
+Ideology_Model_Suspected_NC <- data.frame(
+  Term = c("Intercept", "Right-Wing Ideology", "Year"),
+  Estimate = coef(model_with_ideology_suspected_nc),
+  `Std.Error` = summary(model_with_ideology_suspected_nc)$coefficients[, 2],
+  `t.value` = summary(model_with_ideology_suspected_nc)$coefficients[, 3],
+  `p.value` = summary(model_with_ideology_suspected_nc)$coefficients[, 4]
+) %>%
+  kbl(
+    caption = "Regression Results: Suspected Non-Citizens (Right-Wing Ideology)",
+    digits = 3
+  ) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+
+Ideology_Model_Suspected_NC
 ```
+
+
+
+
 

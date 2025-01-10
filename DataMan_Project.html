@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -74,49 +108,151 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="introduction" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> <strong>Introduction</strong></h1>
-<section id="link-to-github" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="link-to-github"><span class="header-section-number">1.1</span> <em>Link to GitHub</em></h2>
-<p><a href="https://github.com/alexmar313/Data-Management-Project.git" target="_blank">GitHub Repository</a></p>
-</section>
-<section id="sources-download-links" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="sources-download-links"><span class="header-section-number">1.2</span> <em>Sources download links</em></h2>
+<section id="github-link" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="github-link"><span class="header-section-number">1.1</span> <em>GitHub Link</em></h2>
 <ul>
-<li><a href="https://ec.europa.eu/eurostat/databrowser/view/crim_just_ctz/default/table?lang=en" target="_blank">Eurostat Crime Dataset</a></li>
-<li><a href="https://ec.europa.eu/eurostat/databrowser/view/migr_pop2ctz/default/table?lang=en&amp;category=demo.demo_pop">Eurostat Population Dataset</a></li>
-<li><a href="https://manifesto-project.wzb.eu/down/data/2024a/datasets/MPDataset_MPDS2024a.csv" target="_blank">Manifesto Dataset</a></li>
-<li><a href="https://eupoliticalbarometer.uc3m.es/api/ideologyDownload" target="_blank">Ideology Dataset</a></li>
+<li><a href="https://github.com/alexmar313/Data-Management-Project.git">GitHub Repository</a></li>
 </ul>
 </section>
-<section id="websites-links-from-which-data-was-extracted" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="websites-links-from-which-data-was-extracted"><span class="header-section-number">1.3</span> <em>Websites links from which data was extracted</em></h2>
+<section id="research-question-what-are-the-associations-between-immigration-and-crime-suspicions-and-convictions-in-the-eu-considering-political-ideology" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="research-question-what-are-the-associations-between-immigration-and-crime-suspicions-and-convictions-in-the-eu-considering-political-ideology"><span class="header-section-number">1.2</span> <em>Research question:</em> What are the associations between immigration and crime suspicions and convictions in the EU, considering political ideology?</h2>
+<p>The research explores the relationship between immigration status and crime outcomes (suspicion and conviction rates) in EU countries. It questions whether claims by political entities, particularly right-wing parties, that immigration drives up crime rates hold true, and explores how other intervening factors, such as the demographic profile of immigrants, might contribute to this perception.</p>
+</section>
+<section id="background-context-and-relevance" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="background-context-and-relevance"><span class="header-section-number">1.3</span> <em>Background Context and Relevance</em></h2>
+<p>Right-wing political narratives often link immigration with rising crime rates, neglecting broader contextual factors. For instance, statistical evidence shows that most crimes are committed by young males—a demographic disproportionately represented among immigrants.</p>
+<p>In the EU, a significant proportion of non-citizens are young males. For example: - Non-national men aged 20–49 make up 29% of their demographic group, compared to 18% for nationals. - Additionally, 54–60% of unauthorized immigrants are male, with most under the age of 35.</p>
+<p>These demographic realities can skew perceptions of immigrant involvement in crime when not carefully controlled for, contributing to oversimplified populist narratives. <em>Source: <a href="https://ec.europa.eu/eurostat/web/interactive-publications/migration-2023">Migration 2023</a></em></p>
+<p>This study integrates crime statistics, demographic data, and measures of political ideology to disentangle these associations. By doing so, it challenges oversimplified narratives and explores whether shifts in political rhetoric influence actual crime outcomes or merely exacerbate perceptions of immigrant criminality.</p>
+</section>
+<section id="sub-questions" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="sub-questions"><span class="header-section-number">1.4</span> <em>Sub-Questions</em></h2>
+<p>As this study aims to clarify how political discourse influences public perceptions and crime outcomes involving immigrants, three key sub-questions emerge as a guiding framework, among others: 1. Does increased suspicion of immigrant crime correlate with heightened right-wing rhetoric? 2. Is the over-representation of young males among immigrants, rather than immigrant status itself, a more significant factor in crime rates? 3. Do conviction rates, as judicial outcomes, reflect ideological trends, or are they more stable and less influenced by political discourse?</p>
+</section>
+<section id="hypotheses" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="hypotheses"><span class="header-section-number">1.5</span> <em>Hypotheses</em></h2>
+<p>Preliminary hypotheses indicate that suspicion rates tend to increase in response to ideological, whereas conviction rates remain relatively stable, pointing to potential biases in suspicion rather than outcomes grounded in evidence. By accounting for intervening factors such as demographics, this research underscores the importance of nuanced policy making and seeks to challenge and prevent the perpetuation of harmful stereotypes.</p>
+</section>
+</section>
+<section id="empirical-strategy-and-data" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> <strong>Empirical Strategy and Data</strong></h1>
+<section id="methodology" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="methodology"><span class="header-section-number">2.1</span> <em>Methodology</em></h2>
+<p>To address the research question, this analysis is structured to investigate the relationship between immigration and crime, as well as the broader sociopolitical factors that may influence this dynamic. The process begins with a visual examination of the primary variables of interest: the target variable, crime, and the main explanatory variable, immigration. Trends over the years 2008 to 2022 are decomposed to identify patterns and changes over time, providing critical context for interpreting the relationship between immigration and crime. By leveraging visual representation, this step aims to make the data more intuitive and accessible, establishing a solid foundation for subsequent statistical analysis.</p>
+<p>The next stage involves conducting regression analyses to quantitatively assess the association between changes in the percentage of non-citizens in a country and crime-related outcomes, such as suspicion and conviction rates. This phase is crucial for isolating and understanding potential links between immigration and crime while controlling for other relevant factors. These regressions offer robust statistical insights into the strength and direction of the relationship, determining whether increases in immigration are associated with significant changes in crime outcomes.</p>
+<p>Beyond the direct relationship between immigration and crime, the analysis expands to include additional variables that may shape or mediate this association. Two key contextual factors are considered: the level of political polarization within a country, measured by the Dalton Index, and the prevalence of right-wing ideology. Political polarization reflects the degree of societal division, which could influence both perceptions of immigration and its relationship to crime. Similarly, the prevalence of right-wing ideology may shape public discourse and policy responses to immigration, potentially affecting crime rates or their reporting. Incorporating these factors enriches the analysis, enabling a deeper exploration of how political and ideological contexts intersect with immigration and crime.</p>
+<p>The analysis also examines immigration-related terminology in political party manifestos during election years in the sampled countries. By analyzing the language used in these documents, we aim to understand how political rhetoric shapes public perceptions and potentially influences crime-related outcomes. This component connects immigration and crime trends to broader sociopolitical narratives, offering a more comprehensive perspective on the issue.</p>
+<p>Through this multi-faceted approach—combining visual analysis, regression models, and contextual exploration of political and ideological factors—the analysis seeks to uncover nuanced insights into the relationship between immigration and crime. Situating this relationship within its broader societal and political context provides a richer, more holistic framework for addressing the research question.</p>
+<p>To achieve these goals, the following data sets were utilized:</p>
+</section>
+<section id="eurostat-crime-and-criminal-justice-data-set" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="eurostat-crime-and-criminal-justice-data-set"><span class="header-section-number">2.2</span> <em>Eurostat Crime and Criminal Justice Data Set</em></h2>
+<section id="download-link" class="level3" data-number="2.2.1">
+<h3 data-number="2.2.1" class="anchored" data-anchor-id="download-link"><span class="header-section-number">2.2.1</span> <em>Download Link</em></h3>
 <ul>
-<li><a href="https://ec.europa.eu/eurostat/databrowser/view/crim_just_ctz/default/table?lang=en" target="_blank">Eurostat Crime Dataset</a></li>
-<li><a href="https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/migr_pop2ctz?format=TSV&amp;compressed=true">Eurostat Population Dataset</a><a href=""></a></li><a href="">
-</a><li><a href=""></a><a href="https://manifesto-project.wzb.eu/datasets" target="_blank">Manifesto Project Dataset</a></li>
-<li><a href="https://eupoliticalbarometer.uc3m.es/dashboard/ideology" target="_blank">EU Political Barometer Dashboard</a></li>
+<li><a href="https://ec.europa.eu/eurostat/databrowser/view/crim_just_ctz/default/table?lang=en">Eurostat Crime Dataset</a></li>
 </ul>
 </section>
+<section id="website-link" class="level3" data-number="2.2.2">
+<h3 data-number="2.2.2" class="anchored" data-anchor-id="website-link"><span class="header-section-number">2.2.2</span> <em>Website Link</em></h3>
+<ul>
+<li><a href="https://ec.europa.eu/eurostat/databrowser/view/crim_just_ctz/default/table?lang=en">Eurostat Crime Website</a></li>
+</ul>
 </section>
-<section id="data-description" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> <strong>Data Description</strong></h1>
-<section id="eurostat-crime-and-criminal-justice-dataset" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="eurostat-crime-and-criminal-justice-dataset"><span class="header-section-number">2.1</span> <em>Eurostat Crime and Criminal Justice Dataset</em></h2>
+<section id="data-set-description" class="level3" data-number="2.2.3">
+<h3 data-number="2.2.3" class="anchored" data-anchor-id="data-set-description"><span class="header-section-number">2.2.3</span> <em>Data Set Description</em></h3>
 <p>The Eurostat Crime and Criminal Justice dataset provides yearly statistics on the citizens and non-citizens within the justice system across European Union member states, covering the period from 2008 to 2022. It includes data on suspicion and conviction rates per 1,000 inhabitants, offering insights into both the number of individuals suspected of crimes and those convicted. By distinguishing between citizens and non-citizens, this dataset sheds light on potential disparities in how these groups are treated within the legal system. Such information is crucial for understanding systemic inequities and evaluating the impact of policies on different demographics.</p>
 </section>
-<section id="eurostat-population" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="eurostat-population"><span class="header-section-number">2.2</span> <em>Eurostat Population</em></h2>
-<p>The Eurostat Migration dataset provides annual data on the population of citizens and non-citizens across EU member states from 2008 to 2022. Non-citizens include foreigners, stateless individuals, and those with unknown status. This dataset allows for detailed analysis of demographic compositions and is crucial for understanding disparities between citizens and non-citizens. We aim to use it to determine the number of citizens and non-citizens in each country, highlighting migration trends and their societal implications.</p>
+<section id="description-of-variables-of-interest" class="level3" data-number="2.2.4">
+<h3 data-number="2.2.4" class="anchored" data-anchor-id="description-of-variables-of-interest"><span class="header-section-number">2.2.4</span> <em>Description of Variables of Interest</em></h3>
+<ul>
+<li><em>“leg_stat”</em>: “PER_SUSP” indicates individuals who are suspected of committing crimes, “PER_CNV” indicates individuals who are convicted of crimes.</li>
+<li><em>“citizen”</em>: “NAT” indicates nationals (citizens of the reporting country), “FOR” represents foreigners (non-citizens).</li>
+</ul>
 </section>
-<section id="manifesto-project-dataset" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="manifesto-project-dataset"><span class="header-section-number">2.3</span> <em>Manifesto Project Dataset</em></h2>
-<p>The Manifesto Project dataset offers a systematic analysis of political party manifestos across various countries, including EU member states. Spanning elections from 1946 to 2017 (with country-specific coverage), it captures the percentage of text devoted to key themes such as “law and order,” “national security,” and “national values.” This dataset is particularly valuable for studying the evolution of political discourse over time and across contexts. The dataset’s coding of text into quantifiable measures makes it a powerful tool for understanding the role of party platforms in shaping public opinion and influencing policy. Its detailed historical scope enables longitudinal studies of political ideologies and their relationship with contemporary governance trends.</p>
 </section>
-<section id="eu-political-barometer-dataset" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="eu-political-barometer-dataset"><span class="header-section-number">2.4</span> <em>EU Political Barometer Dataset</em></h2>
-<p>The EU Political Barometer dataset provides bi-monthly data on public opinion and political preferences across EU member states from 2019 to 2023. It tracks ideological shifts, political attitudes, and public reactions to major societal events and political campaigns. Key indicators include changes in support for various ideologies and parties, offering a granular view of how public sentiment evolves over time. This dataset is particularly useful for analyzing short-term trends and understanding the relationship between political discourse and public opinion. By examining fluctuations in attitudes during specific events or election campaigns, we can identify patterns in voter behavior and ideological alignment. Its frequent updates make it a critical resource for real-time political analysis and policy evaluation.</p>
+<section id="eurostat-population-data-set" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="eurostat-population-data-set"><span class="header-section-number">2.3</span> <em>Eurostat Population Data Set</em></h2>
+<section id="download-link-1" class="level3" data-number="2.3.1">
+<h3 data-number="2.3.1" class="anchored" data-anchor-id="download-link-1"><span class="header-section-number">2.3.1</span> <em>Download Link</em></h3>
+<ul>
+<li><a href="https://ec.europa.eu/eurostat/databrowser/view/migr_pop2ctz/default/table?lang=en&amp;category=demo.demo_pop">Eurostat Population Dataset</a></li>
+</ul>
 </section>
-<section id="description-table" class="level2" data-number="2.5">
-<h2 data-number="2.5" class="anchored" data-anchor-id="description-table"><span class="header-section-number">2.5</span> <em>Description Table</em></h2>
+<section id="website-link-1" class="level3" data-number="2.3.2">
+<h3 data-number="2.3.2" class="anchored" data-anchor-id="website-link-1"><span class="header-section-number">2.3.2</span> <em>Website Link</em></h3>
+<ul>
+<li><a href="https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/migr_pop2ctz?format=TSV&amp;compressed=true">Eurostat Population Website</a></li>
+</ul>
+</section>
+<section id="data-set-description-1" class="level3" data-number="2.3.3">
+<h3 data-number="2.3.3" class="anchored" data-anchor-id="data-set-description-1"><span class="header-section-number">2.3.3</span> <em>Data Set Description</em></h3>
+<p>Eurostat Crime provides detailed annual data on suspicion and conviction numbers, dis-aggregated by citizenship (non-citizens vs.&nbsp;citizens) for the period 2008–2022. This data set enables trend analysis to identify disparities between these groups. By combining this data with population statistics, we can calculate new variables representing the rates of suspicion and conviction for both citizens and non-citizens as proportions of their respective population sizes in the countries of interest. The Eurostat Population data set provides annual data on the population of citizens and non-citizens across EU member states from 2008 to 2022. Non-citizens include foreigners and stateless individuals. This data set allows for detailed analysis of demographic compositions and is crucial for understanding disparities between citizens and non-citizens. We aim to use it to determine the number of citizens and non-citizens suspected and convicted in each country as a percentage, allowing for a deeper understanding.</p>
+</section>
+<section id="description-of-variables-of-interest-1" class="level3" data-number="2.3.4">
+<h3 data-number="2.3.4" class="anchored" data-anchor-id="description-of-variables-of-interest-1"><span class="header-section-number">2.3.4</span> <em>Description of Variables of Interest</em></h3>
+<ul>
+<li><em>“citizen”</em>: “FOR_STLS” indicates individuals who are foreigners or stateless, “NAT” indicates individuals who are citizens to the country.</li>
+<li><em>“other demographic variables”</em>: the variables <em>age</em> and <em>sex</em> allow us if wished to assess how more specific trends, for instance we could observ whether changes in results occur if we consider only men.</li>
+</ul>
+</section>
+</section>
+<section id="manifesto-project-data-set" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="manifesto-project-data-set"><span class="header-section-number">2.4</span> <em>Manifesto Project Data set</em></h2>
+<section id="download-link-2" class="level3" data-number="2.4.1">
+<h3 data-number="2.4.1" class="anchored" data-anchor-id="download-link-2"><span class="header-section-number">2.4.1</span> <em>Download Link</em></h3>
+<ul>
+<li><a href="https://manifesto-project.wzb.eu/down/data/2024a/datasets/MPDataset_MPDS2024a.csv">Manifesto Dataset</a></li>
+</ul>
+</section>
+<section id="website-link-2" class="level3" data-number="2.4.2">
+<h3 data-number="2.4.2" class="anchored" data-anchor-id="website-link-2"><span class="header-section-number">2.4.2</span> <em>Website Link</em></h3>
+<ul>
+<li><a href="https://manifesto-project.wzb.eu/datasets">Manifesto Website</a></li>
+</ul>
+</section>
+<section id="data-set-description-2" class="level3" data-number="2.4.3">
+<h3 data-number="2.4.3" class="anchored" data-anchor-id="data-set-description-2"><span class="header-section-number">2.4.3</span> <em>Data Set Description</em></h3>
+<p>The Manifesto Project data set offers a systematic analysis of political party manifestos across various countries, including EU member states. Spanning elections from 1946 to 2017 (with country-specific coverage), it captures the percentage of text devoted to key themes such as “law and order,” “national security,” and “national values.” This data set is particularly valuable for studying the evolution of political discourse over time and across contexts. The dataset’s coding of text into quantifiable measures makes it a powerful tool for understanding the role of party platforms in shaping public opinion and influencing policy. Its detailed historical scope enables longitudinal studies of political ideologies and their relationship with contemporary governance trends.</p>
+</section>
+<section id="description-of-variables-of-interest-2" class="level3" data-number="2.4.4">
+<h3 data-number="2.4.4" class="anchored" data-anchor-id="description-of-variables-of-interest-2"><span class="header-section-number">2.4.4</span> <em>Description of Variables of Interest</em></h3>
+<ul>
+<li><em>“per101 to per109”</em>: represent the percentage of the political party’s manifesto dedicated to specific themes related to national security, crime, and immigration. They focus on topics like law and order, national security, crime prevention, and the role of the state in dealing with security threats. Specifically: per101: Law and Order, per102: National Security, per103: Crime and Punishment, per104: Prison and Penal System, per105: Immigration, per106: International Relations (related to security), per107: Economic Issues, per108: Welfare and Social Issues, per109: Cultural and National Identity</li>
+<li><em>“per201 to per204”</em>: focus on economic policies, social support, and public services, potentially linking to discussions about immigration’s impact on the economy and social welfare. Specifically, per201: Economic Growth, per202: Employment, per203: Social Security, per204: Public Services</li>
+<li><em>“per301 to per305”</em>: focus on social welfare, social issues, and public goods, which might also intersect with debates around immigration and crime in relation to societal well being and state responsibility. Specifically, per301: Social Welfare, per302: Education, per303: Health Care, per304: Family Support, per305: Environment and Sustainability.</li>
+</ul>
+</section>
+</section>
+<section id="eu-political-barometer-data-set" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="eu-political-barometer-data-set"><span class="header-section-number">2.5</span> <em>EU Political Barometer Data set</em></h2>
+<section id="download-link-3" class="level3" data-number="2.5.1">
+<h3 data-number="2.5.1" class="anchored" data-anchor-id="download-link-3"><span class="header-section-number">2.5.1</span> <em>Download Link</em></h3>
+<ul>
+<li><a href="https://eupoliticalbarometer.uc3m.es/api/ideologyDownload">Ideology Dataset</a></li>
+</ul>
+</section>
+<section id="website-link-3" class="level3" data-number="2.5.2">
+<h3 data-number="2.5.2" class="anchored" data-anchor-id="website-link-3"><span class="header-section-number">2.5.2</span> <em>Website Link</em></h3>
+<ul>
+<li><a href="https://eupoliticalbarometer.uc3m.es/dashboard/ideology">EU Political Barometer Dashboard</a></li>
+</ul>
+</section>
+<section id="data-set-description-3" class="level3" data-number="2.5.3">
+<h3 data-number="2.5.3" class="anchored" data-anchor-id="data-set-description-3"><span class="header-section-number">2.5.3</span> <em>Data Set Description</em></h3>
+<p>The EU Political Barometer data set provides bi-monthly data on public opinion and political preferences across EU member states from 2019 to 2023. It tracks ideological shifts, political attitudes, and public reactions to major societal events and political campaigns. Key indicators include changes in support for various ideologies and parties, offering a granular view of how public sentiment evolves over time. This data set is particularly useful for analyzing short-term trends and understanding the relationship between political discourse and public opinion. By examining fluctuations in attitudes during specific events or election campaigns, we can identify patterns in voter behavior and ideological alignment. Its frequent updates make it a critical resource for real-time political analysis and policy evaluation.</p>
+</section>
+<section id="description-of-variables-of-interest-3" class="level3" data-number="2.5.4">
+<h3 data-number="2.5.4" class="anchored" data-anchor-id="description-of-variables-of-interest-3"><span class="header-section-number">2.5.4</span> <em>Description of Variables of Interest</em></h3>
+<ul>
+<li><em>“left_ideology”</em>: numeric score (0-10) representing the left-wing ideological positioning in the country, where a higher value corresponds to stronger left ideology.</li>
+<li><em>“right_ideology”</em>: numeric score (0-10) representing the right-wing ideological positioning in the country, where a higher value corresponds to stronger right ideology.</li>
+<li><em>“dalton”</em>: named after the political scientist Russell Dalton, a numeric score (0-10) that shows the degree of ideological polarization in a country, where a higher score corresponds to higher polarization.</li>
+</ul>
+</section>
+</section>
+<section id="description-table" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="description-table"><span class="header-section-number">2.6</span> <em>Description Table</em></h2>
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
@@ -177,43 +313,11 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </section>
 </section>
-<section id="description-of-variables-of-interest" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> <strong>Description of Variables of Interest</strong></h1>
-<section id="crime-dataset" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="crime-dataset"><span class="header-section-number">3.1</span> <em>Crime Dataset</em></h2>
-<ul>
-<li><p><em>“leg_stat”</em>: “PER_SUSP” indicates individuals who are suspected of committing crimes, “PER_CNV” indicates individuals who are convicted of crimes.</p></li>
-<li><p><em>“citizen”</em>: “NAT” indicates nationals (citizens of the reporting country), “FOR” represents foreigners (non-citizens).</p></li>
-</ul>
-</section>
-<section id="population-dataset" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="population-dataset"><span class="header-section-number">3.2</span> <em>Population Dataset</em></h2>
-<ul>
-<li><p><em>“citizen”</em>: “FOR_STLS” indicates individuals who are foreigners or stateless, “NAT” indicates individuals who have a citizenship.</p></li>
-<li><p><em>“sex”</em>: “F” &amp; “M” indicates whether individuals are women or men, “T” represents the total.</p></li>
-</ul>
-</section>
-<section id="ideology-dataset" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="ideology-dataset"><span class="header-section-number">3.3</span> <em>Ideology Dataset</em></h2>
-<ul>
-<li><p><em>“left_ideology”</em>: numeric score (0-10) representing the left-wing ideological positioning in the country, where a higher value corresponds to stronger left ideology.</p></li>
-<li><p><em>“right_ideology”</em>: numeric score (0-10) representing the right-wing ideological positioning in the country, where a higher value corresponds to stronger right ideology.</p></li>
-<li><p><em>“dalton”</em>: named after the political scientist Russell Dalton, a numeric score (0-10) that shows the degree of ideological polarization in a country, where a higher score corresponds to higher polarization.</p></li>
-</ul>
-</section>
-<section id="manifesto-dataset" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="manifesto-dataset"><span class="header-section-number">3.4</span> <em>Manifesto Dataset</em></h2>
-<ul>
-<li><p><em>“per101 to per109”</em>: represent the percentage of the political party’s manifesto dedicated to specific themes related to national security, crime, and immigration. They focus on topics like law and order, national security, crime prevention, and the role of the state in dealing with security threats. Specifically: per101: Law and Order, per102: National Security, per103: Crime and Punishment, per104: Prison and Penal System, per105: Immigration, per106: International Relations (related to security), per107: Economic Issues, per108: Welfare and Social Issues, per109: Cultural and National Identity</p></li>
-<li><p><em>“per201 to per204”</em>: focus on economic policies, social support, and public services, potentially linking to discussions about immigration’s impact on the economy and social welfare. Specifically, per201: Economic Growth, per202: Employment, per203: Social Security, per204: Public Services</p></li>
-<li><p><em>“per301 to per305”</em>: focus on social welfare, social issues, and public goods, which might also intersect with debates around immigration and crime in relation to societal well being and state responsibility. Specifically, per301: Social Welfare, per302: Education, per303: Health Care, per304: Family Support, per305: Environment and Sustainability.</p></li>
-</ul>
-</section>
-</section>
-<section id="data-cleaning-process" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> <strong>Data Cleaning Process</strong></h1>
-<section id="cleaning-of-eurostat-data-crime" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="cleaning-of-eurostat-data-crime"><span class="header-section-number">4.1</span> <em>Cleaning of Eurostat Data, Crime</em></h2>
+<section id="data-cleaning-process" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> <strong>Data Cleaning Process</strong></h1>
+<p>The following section outlines the comprehensive data cleaning and integration process required to prepare the data for analysis. Given that this study incorporates four distinct data sets, each with varying coverage in terms of years, countries, and data frequencies, significant effort was invested in harmonizing these sources. These data sets, while rich in information, hence presented challenges such as inconsistent time periods, differing country classifications, and variations in data granularity. The cleaning process involved standardizing formats, ensuring compatibility across data sets, and removing variables that were not relevant to the research objectives. Additionally, data joining steps were undertaken to merge these sources into a unified data set that could support the analysis. To this end, tables had to be pivoted and reshaped to facilitate merging by year and country. This meticulous preparation was essential to ensure the reliability and consistency of the findings while enabling robust exploration of the relationships between immigration, crime, and political ideology.</p>
+<section id="cleaning-of-eurostat-data-crime" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="cleaning-of-eurostat-data-crime"><span class="header-section-number">3.1</span> <em>Cleaning of Eurostat Data, Crime</em></h2>
 <ul>
 <li><p><em>Filtering and cleaning:</em> remove irrelevant categories (e.g., “TOTAL” citizens and “PER_PRSC” status), keeping only the data as total number of citizens and non-citizens suspicted and convicted to crimes.</p></li>
 <li><p><em>Country name assignment:</em> convert country codes to full country names using the “countrycode” package.</p></li>
@@ -222,102 +326,67 @@ ul.task-list li input[type="checkbox"] {
 <li><p><em>Data reshaping:</em> pivot the data to have a single row per country per year, with columns for each of the four categories (convicted and suspected citizens/non-citizens).</p></li>
 </ul>
 </section>
-<section id="cleaning-of-eurostat-data-population" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="cleaning-of-eurostat-data-population"><span class="header-section-number">4.2</span> <em>Cleaning of Eurostat Data, Population</em></h2>
+<section id="cleaning-of-eurostat-data-population" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="cleaning-of-eurostat-data-population"><span class="header-section-number">3.2</span> <em>Cleaning of Eurostat Data, Population</em></h2>
 <ul>
-<li><p><em>Filtering and cleaning:</em> remove irrelevant categories (“UNK” or “TOTAL” citizens), keeping only the data as total numbers, not separating per sex or age.</p></li>
+<li><p><em>Filtering and cleaning:</em> remove irrelevant category (e.g.&nbsp;“UNK” or “TOTAL” citizens), keeping only the data as total numbers. Creating a new data set in which we do not separate per sex or age.</p></li>
+<li><p><em>Date filtering:</em> remove data before 2008 (the first available year in the Crime data set).</p></li>
 <li><p><em>Country name assignment:</em> convert country codes to full country names using the “countrycode” package.</p></li>
 <li><p><em>Summarize the data:</em> group the data by country, year, and citizen and calculate the total population for each group.</p></li>
+<li><p><em>Reshape Data for Citizens and Non-Citizens:</em> Reshapes the data to separate populations of citizens (NAT) and non-citizens (FOR_STLS).</p></li>
 </ul>
-<p>-<em>Reshape Data for Citizens and Non-Citizens:</em> Reshapes the data to separate populations of citizens (NAT) and non-citizens (FOR_STLS)</p>
 </section>
-<section id="cleaning-of-manifesto-data-manifesto" class="level2" data-number="4.3">
-<h2 data-number="4.3" class="anchored" data-anchor-id="cleaning-of-manifesto-data-manifesto"><span class="header-section-number">4.3</span> <em>Cleaning of Manifesto Data, manifesto</em></h2>
+<section id="cleaning-of-manifesto-data-manifesto" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="cleaning-of-manifesto-data-manifesto"><span class="header-section-number">3.3</span> <em>Cleaning of Manifesto Data, Manifesto</em></h2>
 <ul>
 <li><p><em>Date filtering:</em> remove data before 2008 (the first available year in the Crime dataset).</p></li>
 <li><p><em>Column selection:</em> Keeps only relevant columns in the manifesto dataset (e.g., political themes related to law and order, national security, immigration).</p></li>
 <li><p><em>Group by date and country:</em> extract the year from the date and group the data by country and year to compute the average percentage of the manifesto dedicated to specific themes like law and order, national security, and immigration.</p></li>
 </ul>
 </section>
-<section id="cleaning-of-barometer-data-ideology" class="level2" data-number="4.4">
-<h2 data-number="4.4" class="anchored" data-anchor-id="cleaning-of-barometer-data-ideology"><span class="header-section-number">4.4</span> <em>Cleaning of Barometer Data, ideology</em></h2>
+<section id="cleaning-of-barometer-data-ideology" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="cleaning-of-barometer-data-ideology"><span class="header-section-number">3.4</span> <em>Cleaning of Barometer Data, Ideology</em></h2>
 <ul>
 <li><p><em>Filter invalid data:</em> removes data related to “ewma” (exponentially weighted moving average) and retain only real ideological scores.</p></li>
-<li><p><em>Date filtering:</em> filter the dataset to include only data up until 2023.</p></li>
+<li><p><em>Date filtering:</em> filter the data set to include only data up until 2023.</p></li>
+<li><p><em>Ideology Data:</em> extract the year from the date and groups the data by country and year to calculate the average ideological scores (left, right, and Dalton’s polarization index).</p></li>
 </ul>
-<p>_ <em>Ideology Data:</em> extract the year from the date and groups the data by country and year to calculate the average ideological scores (left, right, and Dalton’s polarization index).</p>
 </section>
-<section id="joint-cleaning" class="level2" data-number="4.5">
-<h2 data-number="4.5" class="anchored" data-anchor-id="joint-cleaning"><span class="header-section-number">4.5</span> <em>Joint Cleaning</em></h2>
+<section id="joint-cleaning" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="joint-cleaning"><span class="header-section-number">3.5</span> <em>Joint Cleaning</em></h2>
 <ul>
 <li><em>Data intersection:</em> ensure that only countries present in the Crime and Population are kept in the Manifesto and Ideology data sets. This is achieved through a semi_join to keep only the common countries.</li>
 </ul>
 </section>
-<section id="merge-data-sets" class="level2" data-number="4.6">
-<h2 data-number="4.6" class="anchored" data-anchor-id="merge-data-sets"><span class="header-section-number">4.6</span> <em>Merge data sets</em></h2>
-<p>-<em>Merge Crime, Manifesto and Ideology</em>: previously renamed columns in all three data sets for consistency and merge them into one unified data set. “full_join” is used to ensure no data is lost while combining them based on country and year.</p>
-<p>-<em>Merge also with Population Data:</em> add the fourth data set. It would be informative to present the data as percentages in addition to raw numbers. For example, we can display the proportion of suspected non-citizens relative to the total population of non-citizens, and compare this to the proportion of suspected citizens relative to the total population of citizens. We hence also calculate percentages for convictions and suspicions for both citizens and non-citizens</p>
-</section>
-</section>
-<section id="description-of-the-research-question" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> <strong>Description of the Research Question</strong></h1>
-<section id="research-question-what-is-the-association-between-immigration-and-crime-suspicions-and-convictions-in-the-eu-considering-political-ideology" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="research-question-what-is-the-association-between-immigration-and-crime-suspicions-and-convictions-in-the-eu-considering-political-ideology"><span class="header-section-number">5.1</span> <em>Research question:</em> What is the association between immigration and crime suspicions and convictions in the EU, considering political ideology?</h2>
-<p>The research explores the relationship between immigration status and crime outcomes (suspicion and conviction rates) in EU countries. It questions whether claims by political entities, particularly right-wing parties, that immigration drives up crime rates hold true, and explores how other intervening factors, such as the demographic profile of immigrants, might contribute to this perception.</p>
-<p>Background context and relevance Right-wing political narratives often link immigration with rising crime rates without acknowledging broader contextual factors. For example, statistical evidence suggests that most crimes are committed by young males—a group overrepresented among immigrant populations. Across the EU, a significant proportion of non-citizens are young males: non-national men aged 20–49 constitute 29% of their demographic group, compared to 18% for nationals. Additionally, 54–60% of unauthorized immigrants are male, with a majority under 35 years old. Such demographic realities could skew perceptions of immigrant involvement in crime when not carefully controlled for. *Source: <a href="https://ec.europa.eu/eurostat/web/interactive-publications/migration-2023" target="_blank">Migration 2023</a></p>
-<p>This research aims to integrate crime statistics and demographic data with measures of political ideology to disentangle these associations. By doing so, it challenges simplistic narratives and aims to explore whether shifts in political rhetoric influence crime outcomes or merely exacerbate perceptions of immigrant criminality.</p>
-</section>
-<section id="data-and-methodology" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="data-and-methodology"><span class="header-section-number">5.2</span> <em>Data and methodology</em></h2>
-<ol type="1">
-<li><p>Crime Data: Eurostat provides comprehensive data on annual suspicion and conviction rates per 1,000 residents, dis-aggregated by citizenship (non-citizens vs.&nbsp;citizens) for 2008–2022. This allows for trend analysis of disparities between groups.</p></li>
-<li><p>Political ideology data:</p>
+<section id="merging-of-data-sets" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="merging-of-data-sets"><span class="header-section-number">3.6</span> <em>Merging of Data Sets</em></h2>
 <ul>
-<li>Manifesto Project Database: Tracks the content of political party platforms during election years, focusing on themes such as “law and order” and “security.”<br>
-</li>
-<li>EU Political Barometer: Captures public opinion on political ideologies monthly from 2019–2023.</li>
-</ul></li>
-</ol>
-<p>A Difference-in-Differences (DiD) approach will compare changes in crime-related outcomes before and after election periods with shifts in ideological rhetoric. Non-election years serve as a control group, isolating the causal effect of political discourse.</p>
-</section>
-<section id="core-issues-addressed" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="core-issues-addressed"><span class="header-section-number">5.3</span> <em>Core issues addressed</em></h2>
-<p>The research will investigate: 1. Whether increased suspicion of immigrant crime correlates with heightened right-wing rhetoric. 2. If young male over representation among immigrants, rather than immigrant status itself, explains these crime rates.<br>
-3. Do conviction rates—representing judicial outcomes—reflect ideological trends, or are they more stable and less subject to political influence?</p>
-</section>
-<section id="significance-and-expected-outcomes" class="level2" data-number="5.4">
-<h2 data-number="5.4" class="anchored" data-anchor-id="significance-and-expected-outcomes"><span class="header-section-number">5.4</span> <em>Significance and expected outcomes</em></h2>
-<p>This study seeks to clarify how political discourse shapes public perceptions and crime outcomes involving immigrants. Preliminary hypotheses suggest that while suspicion rates rise in line with ideological shifts, conviction rates remain relatively stable, suggesting biases in suspicion rather than evidence-based outcomes. By emphasizing intervening factors like demographics, the research highlights the importance of nuanced policymaking and avoids perpetuating harmful stereotypes.</p>
+<li><p><em>Merge Crime, Manifesto and Ideology</em>: previously renamed columns in all three data sets for consistency and merge them into one unified data set. “full_join” is used to ensure no data is lost while combining them based on country and year.</p></li>
+<li><p><em>Merge also with Population Data:</em> add the fourth data set. It would be informative to present the data as percentages in addition to raw numbers. For example, we can display the proportion of suspected non-citizens relative to the total population of non-citizens, and compare this to the proportion of suspected citizens relative to the total population of citizens. We hence also calculate percentages for convictions and suspicions for both citizens and non-citizens</p></li>
+</ul>
 </section>
 </section>
-<section id="target-variable" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> <strong>Target Variable</strong></h1>
-<section id="total-crime-suspicion-rates-over-time-for-citizens-and-non-citizens-in-selected-countries" class="level2" data-number="6.1">
-<h2 data-number="6.1" class="anchored" data-anchor-id="total-crime-suspicion-rates-over-time-for-citizens-and-non-citizens-in-selected-countries"><span class="header-section-number">6.1</span> <em>Total Crime Suspicion Rates Over Time for Citizens and Non-Citizens in Selected Countries</em></h2>
+<section id="results" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> <strong>Results</strong></h1>
+<p>The graphs reveal several important trends when examining the conviction and suspicion rates of citizens and non-citizens over time. First, we observe that in absolute terms, the number of citizens convicted or suspected of crimes is consistently higher than that of non-citizens. This finding holds true across our subset of the sample, which includes . However, this observation alone does not provide the full picture, as it does not account for the relative size of the citizen and non-citizen populations in each country. To better address our research question, we instead examine the number of convicted and suspected individuals as a percentage of the total population of citizens or non-citizens within a country.</p>
+<p>When analyzing these relative measures, non-citizens consistently exhibit higher conviction and suspicion rates compared to citizens. On average, approximately 4% of non-citizens in our sample are suspected of crimes. This trend includes a significant spike in 2014, where suspicion rates sharply increase before returning to the 4% average in subsequent years. In contrast, the suspicion rate for citizens is significantly lower and more stable, averaging between 0% and 1%, with a slight upward spike observed in 2013.</p>
+<p>Similarly, conviction rates exhibit distinct patterns for citizens and non-citizens. For non-citizens, the average percentage convicted of crimes is around 3% between 2008 and 2014. This figure declines steadily in later years, reaching approximately 1.5% by 2020. For citizens, the average conviction rate is initially around 1% during the same period but gradually decreases, reaching almost zero by 2022. These trends suggest a pronounced difference in the treatment or behavior of citizens versus non-citizens within the criminal justice system.</p>
+<p>To gain a deeper understanding of our main explanatory variable of interest, we analyzed the percentage of non-citizens in selected countries—Austria, Bulgaria, France, and Germany—alongside the average percentage of non-citizens across the entire sample. For the selected countries, a clear upward trend in the share of non-citizens is evident between 2008 and 2022, although the levels vary significantly between countries. Austria, for instance, stands out with a remarkably high share of non-citizens, reaching approximately 17% in 2022. In contrast, Bulgaria deviates from this general trend, experiencing a decline in the percentage of non-citizens from 1.6% to 1% between 2021 and 2022.</p>
+<p>When we look at the entire sample, the average growth rate of the percentage of non-citizens per year is an impressive 4.47%, highlighting a consistent and significant upward trend. While these findings are descriptive and do not establish causality, they are crucial for contextualizing the broader analysis. They reveal that, on average, the number of non-citizens has grown disproportionately compared to the number of citizens across the countries in our dataset. This disproportionate increase suggests that non-citizens are likely composed of a demographic profile that differs fundamentally from that of citizens. Specifically, the influx of new immigrants tends to be disproportionately male and younger, traits associated with a demographic that is statistically more likely to be suspected or convicted of crime.</p>
+<p>This observation is particularly important for understanding the broader context of our study. It offers a plausible explanation for the higher percentage of non-citizens suspected or convicted of crime compared to citizens. By acknowledging the demographic dynamics driving these differences, we can better interpret the patterns observed in the data. Before proceeding with any causal analysis, it is essential to highlight these trends, as they provide a foundational understanding of the structural and demographic factors at play. These findings underscore the importance of considering how the characteristics of non-citizen populations may influence the overall patterns of suspicion and conviction rates observed in the data.</p>
+</section>
+<section id="robustness-checks" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> <em>Robustness checks</em></h1>
 <div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Chi sqr test, etc....</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-</div>
+<p>MORE YAP YAP</p>
 </section>
-<section id="total-crime-conviction-rates-over-time-for-citizens-and-non-citizens-in-selected-countries" class="level2" data-number="6.2">
-<h2 data-number="6.2" class="anchored" data-anchor-id="total-crime-conviction-rates-over-time-for-citizens-and-non-citizens-in-selected-countries"><span class="header-section-number">6.2</span> <em>Total Crime Conviction Rates Over Time for Citizens and Non-Citizens in Selected Countries</em></h2>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="average-crime-suspicion-rates-over-time-for-citizens-and-non-citizens-as-a-percentage-of-their-population-share" class="level2" data-number="6.3">
-<h2 data-number="6.3" class="anchored" data-anchor-id="average-crime-suspicion-rates-over-time-for-citizens-and-non-citizens-as-a-percentage-of-their-population-share"><span class="header-section-number">6.3</span> <em>Average Crime Suspicion Rates Over Time for Citizens and Non-Citizens as a Percentage of their Population Share</em></h2>
+<section id="conclusion-and-discussion" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Conclusion and discussion</h1>
+<p>YAPYAPYAP # <strong>Appendix</strong></p>
+<section id="figure-1" class="level3" data-number="6.0.1">
+<h3 data-number="6.0.1" class="anchored" data-anchor-id="figure-1"><span class="header-section-number">6.0.1</span> <em>Figure 1</em></h3>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -328,8 +397,8 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 </section>
-<section id="average-crime-conviction-rates-over-time-for-citizens-and-non-citizens-as-a-percentage-of-their-population-share" class="level2" data-number="6.4">
-<h2 data-number="6.4" class="anchored" data-anchor-id="average-crime-conviction-rates-over-time-for-citizens-and-non-citizens-as-a-percentage-of-their-population-share"><span class="header-section-number">6.4</span> <em>Average Crime Conviction Rates Over Time for Citizens and Non-Citizens as a Percentage of their Population Share</em></h2>
+<section id="figure-2" class="level3" data-number="6.0.2">
+<h3 data-number="6.0.2" class="anchored" data-anchor-id="figure-2"><span class="header-section-number">6.0.2</span> <em>Figure 2</em></h3>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -339,6 +408,9 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 </div>
+</section>
+<section id="figure-3" class="level3" data-number="6.0.3">
+<h3 data-number="6.0.3" class="anchored" data-anchor-id="figure-3"><span class="header-section-number">6.0.3</span> <em>Figure 3</em></h3>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -347,39 +419,57 @@ ul.task-list li input[type="checkbox"] {
 </figure>
 </div>
 </div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-26-2.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-26-3.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-26-4.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
 </div>
 </section>
-</section>
-<section id="data-analysis" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> <strong>Data Analysis</strong></h1>
-<section id="relationship-between-percentage-of-migrants-and-total-convictions" class="level2" data-number="7.1">
-<h2 data-number="7.1" class="anchored" data-anchor-id="relationship-between-percentage-of-migrants-and-total-convictions"><span class="header-section-number">7.1</span> <strong>Relationship between Percentage of Migrants and Total Convictions</strong></h2>
+<section id="average-crime-conviction-rates-over-time-for-citizens-and-non-citizens-as-a-percentage-of-their-population-share" class="level3" data-number="6.0.4">
+<h3 data-number="6.0.4" class="anchored" data-anchor-id="average-crime-conviction-rates-over-time-for-citizens-and-non-citizens-as-a-percentage-of-their-population-share"><span class="header-section-number">6.0.4</span> <em>Average Crime Conviction Rates Over Time for Citizens and Non-Citizens as a Percentage of their Population Share</em></h3>
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
 <p><img src="DataMan_Project_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-28-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-28-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-28-4.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="relationship-between-percentage-of-migrants-and-total-convictions" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="relationship-between-percentage-of-migrants-and-total-convictions"><span class="header-section-number">6.1</span> <strong>Relationship between Percentage of Migrants and Total Convictions</strong></h2>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -441,13 +531,13 @@ F-statistic: 0.8983 on 1 and 258 DF,  p-value: 0.3441</code></pre>
 </div>
 </div>
 </section>
-<section id="relationship-between-percentage-of-migrants-and-total-suspicions" class="level2" data-number="7.2">
-<h2 data-number="7.2" class="anchored" data-anchor-id="relationship-between-percentage-of-migrants-and-total-suspicions"><span class="header-section-number">7.2</span> <strong>Relationship between Percentage of Migrants and Total Suspicions</strong></h2>
+<section id="relationship-between-percentage-of-migrants-and-total-suspicions" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="relationship-between-percentage-of-migrants-and-total-suspicions"><span class="header-section-number">6.2</span> <strong>Relationship between Percentage of Migrants and Total Suspicions</strong></h2>
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -509,8 +599,8 @@ F-statistic:  3.04 on 1 and 313 DF,  p-value: 0.08221</code></pre>
 </div>
 </div>
 </section>
-<section id="relationship-between-percentage-of-migrants-and-suspicions-of-non-citizens" class="level2" data-number="7.3">
-<h2 data-number="7.3" class="anchored" data-anchor-id="relationship-between-percentage-of-migrants-and-suspicions-of-non-citizens"><span class="header-section-number">7.3</span> <strong>Relationship between Percentage of Migrants and Suspicions of Non-citizens</strong></h2>
+<section id="relationship-between-percentage-of-migrants-and-suspicions-of-non-citizens" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="relationship-between-percentage-of-migrants-and-suspicions-of-non-citizens"><span class="header-section-number">6.3</span> <strong>Relationship between Percentage of Migrants and Suspicions of Non-citizens</strong></h2>
 <ul>
 <li>Removed Bulgaria as it was a clear outlier</li>
 </ul>
@@ -518,101 +608,101 @@ F-statistic:  3.04 on 1 and 313 DF,  p-value: 0.08221</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output-display">
-<table class="table table-striped table-hover caption-top table-sm small" data-quarto-postprocess="true">
-<caption>Regression Results: Total Suspected Persons</caption>
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">Term</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">Estimate</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">Std.Error</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">t.value</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">(Intercept)</td>
-<td style="text-align: left;">Intercept</td>
-<td style="text-align: right;">352159.176</td>
-<td style="text-align: right;">40433.52</td>
-<td style="text-align: right;">8.710</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">percentage_nc_pop</td>
-<td style="text-align: left;">% Non-Citizens</td>
-<td style="text-align: right;">-4670.398</td>
-<td style="text-align: right;">2678.63</td>
-<td style="text-align: right;">-1.744</td>
-<td style="text-align: right;">0.082</td>
-</tr>
-</tbody>
-</table>
-
-
-</div>
-</div>
-</section>
-<section id="relationship-between-percentage-of-migrants-and-convictions-of-non-citizens" class="level2" data-number="7.4">
-<h2 data-number="7.4" class="anchored" data-anchor-id="relationship-between-percentage-of-migrants-and-convictions-of-non-citizens"><span class="header-section-number">7.4</span> <strong>Relationship between Percentage of Migrants and Convictions of Non-citizens</strong></h2>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output-display">
-<table class="table table-striped table-hover caption-top table-sm small" data-quarto-postprocess="true">
-<caption>Regression Results: Total Suspected Persons</caption>
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">Term</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">Estimate</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">Std.Error</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">t.value</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">(Intercept)</td>
-<td style="text-align: left;">Intercept</td>
-<td style="text-align: right;">352159.176</td>
-<td style="text-align: right;">40433.52</td>
-<td style="text-align: right;">8.710</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">percentage_nc_pop</td>
-<td style="text-align: left;">% Non-Citizens</td>
-<td style="text-align: right;">-4670.398</td>
-<td style="text-align: right;">2678.63</td>
-<td style="text-align: right;">-1.744</td>
-<td style="text-align: right;">0.082</td>
-</tr>
-</tbody>
-</table>
-
-
-</div>
-</div>
-</section>
-<section id="relationship-between-polarization-and-total-convictions" class="level2" data-number="7.5">
-<h2 data-number="7.5" class="anchored" data-anchor-id="relationship-between-polarization-and-total-convictions"><span class="header-section-number">7.5</span> <strong>Relationship between Polarization and Total Convictions</strong></h2>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
 <p><img src="DataMan_Project_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<table class="table table-striped table-hover caption-top table-sm small" data-quarto-postprocess="true">
+<caption>Regression Results: Total Suspected Persons</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Term</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Estimate</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Std.Error</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">t.value</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: left;">Intercept</td>
+<td style="text-align: right;">352159.176</td>
+<td style="text-align: right;">40433.52</td>
+<td style="text-align: right;">8.710</td>
+<td style="text-align: right;">0.000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">percentage_nc_pop</td>
+<td style="text-align: left;">% Non-Citizens</td>
+<td style="text-align: right;">-4670.398</td>
+<td style="text-align: right;">2678.63</td>
+<td style="text-align: right;">-1.744</td>
+<td style="text-align: right;">0.082</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</section>
+<section id="relationship-between-percentage-of-migrants-and-convictions-of-non-citizens" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="relationship-between-percentage-of-migrants-and-convictions-of-non-citizens"><span class="header-section-number">6.4</span> <strong>Relationship between Percentage of Migrants and Convictions of Non-citizens</strong></h2>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<table class="table table-striped table-hover caption-top table-sm small" data-quarto-postprocess="true">
+<caption>Regression Results: Total Suspected Persons</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Term</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Estimate</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Std.Error</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">t.value</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: center;">Intercept</td>
+<td style="text-align: center;">352159.176</td>
+<td style="text-align: center;">40433.52</td>
+<td style="text-align: center;">8.710</td>
+<td style="text-align: center;">0.000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">percentage_nc_pop</td>
+<td style="text-align: center;">% Non-Citizens</td>
+<td style="text-align: center;">-4670.398</td>
+<td style="text-align: center;">2678.63</td>
+<td style="text-align: center;">-1.744</td>
+<td style="text-align: center;">0.082</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</section>
+<section id="relationship-between-polarization-and-total-convictions" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="relationship-between-polarization-and-total-convictions"><span class="header-section-number">6.5</span> <strong>Relationship between Polarization and Total Convictions</strong></h2>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -641,13 +731,13 @@ F-statistic: 6.477 on 3 and 58 DF,  p-value: 0.0007417</code></pre>
 </div>
 </div>
 </section>
-<section id="relationship-between-polarization-and-percentage-migrants-convictions" class="level2" data-number="7.6">
-<h2 data-number="7.6" class="anchored" data-anchor-id="relationship-between-polarization-and-percentage-migrants-convictions"><span class="header-section-number">7.6</span> <strong>Relationship between Polarization and Percentage Migrants Convictions</strong></h2>
+<section id="relationship-between-polarization-and-percentage-migrants-convictions" class="level2" data-number="6.6">
+<h2 data-number="6.6" class="anchored" data-anchor-id="relationship-between-polarization-and-percentage-migrants-convictions"><span class="header-section-number">6.6</span> <strong>Relationship between Polarization and Percentage Migrants Convictions</strong></h2>
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -674,13 +764,13 @@ F-statistic: 0.6888 on 3 and 58 DF,  p-value: 0.5626</code></pre>
 </div>
 </div>
 </section>
-<section id="relationship-between-polarization-and-percentage-migrants-suspicions" class="level2" data-number="7.7">
-<h2 data-number="7.7" class="anchored" data-anchor-id="relationship-between-polarization-and-percentage-migrants-suspicions"><span class="header-section-number">7.7</span> <strong>Relationship between Polarization and Percentage Migrants Suspicions</strong></h2>
+<section id="relationship-between-polarization-and-percentage-migrants-suspicions" class="level2" data-number="6.7">
+<h2 data-number="6.7" class="anchored" data-anchor-id="relationship-between-polarization-and-percentage-migrants-suspicions"><span class="header-section-number">6.7</span> <strong>Relationship between Polarization and Percentage Migrants Suspicions</strong></h2>
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -709,13 +799,13 @@ F-statistic: 5.834 on 3 and 67 DF,  p-value: 0.001329</code></pre>
 </div>
 </div>
 </section>
-<section id="relationship-between-right-ideology-and-total-convictions" class="level2" data-number="7.8">
-<h2 data-number="7.8" class="anchored" data-anchor-id="relationship-between-right-ideology-and-total-convictions"><span class="header-section-number">7.8</span> <strong>Relationship between Right Ideology and Total Convictions</strong></h2>
+<section id="relationship-between-right-ideology-and-total-convictions" class="level2" data-number="6.8">
+<h2 data-number="6.8" class="anchored" data-anchor-id="relationship-between-right-ideology-and-total-convictions"><span class="header-section-number">6.8</span> <strong>Relationship between Right Ideology and Total Convictions</strong></h2>
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-36-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -743,13 +833,13 @@ F-statistic: 5.574 on 2 and 59 DF,  p-value: 0.006061</code></pre>
 </div>
 </div>
 </section>
-<section id="relationship-between-right-ideology-and-percentage-migrants-convictions" class="level2" data-number="7.9">
-<h2 data-number="7.9" class="anchored" data-anchor-id="relationship-between-right-ideology-and-percentage-migrants-convictions"><span class="header-section-number">7.9</span> <strong>Relationship between Right Ideology and Percentage Migrants Convictions</strong></h2>
+<section id="relationship-between-right-ideology-and-percentage-migrants-convictions" class="level2" data-number="6.9">
+<h2 data-number="6.9" class="anchored" data-anchor-id="relationship-between-right-ideology-and-percentage-migrants-convictions"><span class="header-section-number">6.9</span> <strong>Relationship between Right Ideology and Percentage Migrants Convictions</strong></h2>
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-37-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -775,13 +865,13 @@ F-statistic: 0.5211 on 2 and 59 DF,  p-value: 0.5965</code></pre>
 </div>
 </div>
 </section>
-<section id="relationship-between-right-ideology-and-percentage-migrants-suspicions" class="level2" data-number="7.10">
-<h2 data-number="7.10" class="anchored" data-anchor-id="relationship-between-right-ideology-and-percentage-migrants-suspicions"><span class="header-section-number">7.10</span> <strong>Relationship between Right Ideology and Percentage Migrants Suspicions</strong></h2>
+<section id="relationship-between-right-ideology-and-percentage-migrants-suspicions" class="level2" data-number="6.10">
+<h2 data-number="6.10" class="anchored" data-anchor-id="relationship-between-right-ideology-and-percentage-migrants-suspicions"><span class="header-section-number">6.10</span> <strong>Relationship between Right Ideology and Percentage Migrants Suspicions</strong></h2>
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-36-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-38-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -808,6 +898,27 @@ Multiple R-squared:  0.1581,    Adjusted R-squared:  0.1334
 F-statistic: 6.387 on 2 and 68 DF,  p-value: 0.002871</code></pre>
 </div>
 </div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-39-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="average-share-of-non-citizens-over-time" class="level3" data-number="6.10.1">
+<h3 data-number="6.10.1" class="anchored" data-anchor-id="average-share-of-non-citizens-over-time"><span class="header-section-number">6.10.1</span> <em>Average Share of Non-Citizens Over Time</em></h3>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="DataMan_Project_files/figure-html/unnamed-chunk-40-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
 </section>
 </section>
 
