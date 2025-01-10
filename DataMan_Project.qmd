@@ -7,6 +7,12 @@ format:
   pdf:
     number-sections: true
 ---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  warning = FALSE,
+  message = FALSE 
+)
+```
 
 ```{r, include=FALSE}
 here::i_am("Data-Management-Project.Rproj")
@@ -220,7 +226,7 @@ Tpop <- Tpop %>%
 ```
 - *Country name assignment:* convert country codes to full country names using the "countrycode" package.
 
-```{r}
+```{r, include=FALSE}
 Tpop <- Tpop %>%
   group_by(country, year, citizen) %>%
   summarise(
@@ -230,7 +236,7 @@ Tpop <- Tpop %>%
 ```
 - *Summarize the data:* group the data by country, year, and citizen and calculate the total population for each group.
 
-```{r}
+```{r, include=FALSE}
 Tpop <- Tpop %>%
   pivot_wider(
     names_from = citizen,
@@ -354,7 +360,7 @@ merged_data <- full_join(crime, manifesto, by = c("country", "year")) %>%
 ```
 -*Merge Crime, Manifesto and Ideology*: previously renamed columns in all three data sets for consistency and merge them into one unified data set. "full_join" is used to ensure no data is lost while combining them based on country and year.
 
-```{r}
+```{r, include=FALSE}
 merged_data <- Tpop %>%
   inner_join(merged_data, by = c("country", "year"))
 merged_data <- merged_data %>%
@@ -566,11 +572,245 @@ for(country in countries) {
 ```
 
 
-# **Description of the Analysis**
+# **Data Analysis**
 
-*Population on 1 January by age, sex and broad group of citizenship (migr_pop2ctz)*
+## **Relationship between Percentage of Migrants and Total Convictions**
+```{r, echo=FALSE}
+merged_data_final <- merged_data %>%
+  mutate(
+    total_convicted = `Convicted Citizens` + `Convicted Non-Citizens`,
+    total_suspected = `Suspected Citizens` + `Suspected Non-Citizens`,
+    percentage_nc_pop = (population_non_citizens / (population_non_citizens + population_citizens)) * 100
+  )
+
+convicted_analysis_data <- merged_data_final %>%
+  select(country, year, percentage_nc_pop, total_convicted)
+
+ggplot(convicted_analysis_data, aes(x = percentage_nc_pop, y = total_convicted, color = country)) +
+  geom_point() +
+  geom_smooth(method = "lm", formula = y ~ x, se = FALSE, color = "black", linetype = "dashed") +
+  labs(
+    title = "Relationship between the Percentage of Non-Citizens and Total Conviction",
+    x = "Percentage of Non-Citizens in Total Population",
+    y = "Total Convictions"
+  ) +
+  theme_minimal()
+
+model_convicted <- lm(total_convicted ~ percentage_nc_pop, 
+                     data = merged_data_final)
+
+Conviction_Model <- data.frame(
+  Term = c("Intercept", "% Non-Citizens"),
+  Estimate = coef(model_convicted),
+  `Std.Error` = summary(model_convicted)$coefficients[,2],
+  `t.value` = summary(model_convicted)$coefficients[,3],
+  `p.value` = summary(model_convicted)$coefficients[,4]
+) %>%
+  kbl(caption = "Regression Results: Total Convicted Persons",
+      digits = 3) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+
+Conviction_Model
+
+model_convicted <- lm(total_convicted ~ percentage_nc_pop, data = merged_data_final)
+summary(model_convicted)
+```
+
+## **Relationship between Percentage of Migrants and Total Suspicions**
+```{r, echo=FALSE}
+suspected_analysis_data <- merged_data_final %>%
+  select(country, year, percentage_nc_pop, total_suspected)
+
+ggplot(suspected_analysis_data, aes(x = percentage_nc_pop, y = total_suspected, color = country)) +
+  geom_point() +
+  geom_smooth(method = "lm", formula = y ~ x, se = FALSE, color = "black", linetype = "dashed") +
+  labs(
+    title = "Relationship between the Percentage of Non-Citizens and Total Suspicions",
+    x = "Percentage of Non-Citizens in Total Population",
+    y = "Total Suspicions"
+  ) +
+  theme_minimal()
+
+model_suspected <- lm(total_suspected ~ percentage_nc_pop, 
+                     data = merged_data_final)
+
+Supspicion_Model <- data.frame(
+  Term = c("Intercept", "% Non-Citizens"),
+  Estimate = coef(model_suspected),
+  `Std.Error` = summary(model_suspected)$coefficients[,2],
+  `t.value` = summary(model_suspected)$coefficients[,3],
+  `p.value` = summary(model_suspected)$coefficients[,4]
+) %>%
+  kbl(caption = "Regression Results: Total Suspected Persons",
+      digits = 3) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+
+Supspicion_Model
+
+model_suspected <- lm(total_suspected ~ percentage_nc_pop, data = merged_data_final)
+summary(model_suspected)
+```
 
 
+## **Relationship between Percentage of Migrants and Suspicions of Non-citizens**
+- Removed Bulgaria as it was a clear outlier
+```{r, echo=FALSE}
+suspected_analysis_data <- merged_data_final %>%
+  filter(country != "Bulgaria") %>% 
+  select(country, year, percentage_nc_pop, suspected_p_nc)
+
+ggplot(suspected_analysis_data, aes(x = percentage_nc_pop, y = suspected_p_nc, color = country)) +
+  geom_point() +
+  geom_smooth(method = "lm", formula = y ~ x, se = FALSE, color = "black", linetype = "dashed") +
+  labs(
+    title = "Relationship between the Percentage of Migrants and Suspicions of Non-citizens",
+    x = "Percentage of Non-Citizens in Total Population",
+    y = "Percentage of Non-citizens Suspected"
+  ) +
+  theme_minimal()
+
+model_suspected_nc <- lm(suspected_p_nc ~ percentage_nc_pop, 
+                     data = merged_data_final  %>% filter(country != "Bulgaria"))
+
+Supspicion_Model_nc <- data.frame(
+  Term = c("Intercept", "% Non-Citizens"),
+  Estimate = coef(model_suspected),
+  `Std.Error` = summary(model_suspected)$coefficients[,2],
+  `t.value` = summary(model_suspected)$coefficients[,3],
+  `p.value` = summary(model_suspected)$coefficients[,4]
+) %>%
+  kbl(caption = "Regression Results: Total Suspected Persons",
+      digits = 3) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+
+Supspicion_Model_nc
+```
+
+## **Relationship between Percentage of Migrants and Convictions of Non-citizens**
+```{r, echo=FALSE}
+suspected_analysis_data <- merged_data_final %>%
+  select(country, year, percentage_nc_pop, convicted_p_nc)
+
+ggplot(suspected_analysis_data, aes(x = percentage_nc_pop, y = convicted_p_nc, color = country)) +
+  geom_point() +
+  geom_smooth(method = "lm", formula = y ~ x, se = FALSE, color = "black", linetype = "dashed") +
+  labs(
+    title = "Relationship between the Percentage of Migrants and Percentage Migrants Convictions",
+    x = "Percentage of Non-Citizens in Total Population",
+    y = "Percentage of Non-citizens Convicted"
+  ) +
+  theme_minimal()
+
+model_convicted_nc <- lm(convicted_p_nc ~ percentage_nc_pop, 
+                     data = merged_data_final)
+
+Conviction_Model_nc <- data.frame(
+  Term = c("Intercept", "% Non-Citizens"),
+  Estimate = coef(model_suspected),
+  `Std.Error` = summary(model_suspected)$coefficients[, 2],
+  `t.value` = summary(model_suspected)$coefficients[, 3],
+  `p.value` = summary(model_suspected)$coefficients[, 4]
+) %>%
+  kbl(
+    caption = "Regression Results: Total Suspected Persons",
+    digits = 3,
+    align = 'c'
+  ) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"), full_width = F)
+
+Conviction_Model_nc
+```
+
+## **Relationship between Polarization and Total Convictions**
+```{r, echo=FALSE}
+ggplot(merged_data_final, aes(x = dalton, y = total_convicted)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = TRUE) +
+  labs(title = "Relationship Between Dalton and Total Convicted", 
+       x = "Dalton Index", 
+       y = "Total Convicted") +
+  theme_minimal()
+
+model_with_polynomial <- lm(total_convicted ~ dalton + poly(year, 2), data = merged_data_final)
+summary(model_with_polynomial)
+```
+
+## **Relationship between Polarization and Percentage Migrants Convictions**
+```{r, echo=FALSE}
+ggplot(merged_data_final, aes(x = dalton, y = convicted_p_nc)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = TRUE) +
+  labs(title = "Relationship Between Dalton and Percentage Migrants Conviction", 
+       x = "Dalton Index", 
+       y = "Percentage Convicted Migrants") +
+  theme_minimal() +
+   ylim(0, 5)
+
+model_with_polynomial <- lm(convicted_p_nc ~ dalton + poly(year, 2), data = merged_data_final)
+summary(model_with_polynomial)
+```
+
+## **Relationship between Polarization and Percentage Migrants Suspicions**
+```{r, echo=FALSE}
+ggplot(merged_data_final, aes(x = dalton, y = suspected_p_nc)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = TRUE) +
+  labs(title = "Relationship Between Dalton and Percentage Migrants Suspicions", 
+       x = "Dalton Index", 
+       y = "Percentage Suspected Migrants") +
+  theme_minimal() +
+  ylim(0, 10)
+
+model_with_polynomial <- lm(suspected_p_nc ~ dalton + poly(year, 2), data = merged_data_final)
+summary(model_with_polynomial)
+```
 
 
+## **Relationship between Right Ideology and Total Convictions**
+```{r, echo=FALSE}
+ggplot(merged_data_final, aes(x = right_ideology, y = total_convicted)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = TRUE) +
+  labs(title = "Relationship Between Right Ideology and Total Conviction", 
+       x = "Right Ideology", 
+       y = "Total Convictions") +
+  theme_minimal()
+
+model_with_ideology <- lm(total_convicted ~ right_ideology + year, data = merged_data_final)
+summary(model_with_ideology)
+
+```
+
+## **Relationship between Right Ideology and Percentage Migrants Convictions**
+```{r, echo=FALSE}
+ggplot(merged_data_final, aes(x = right_ideology, y = convicted_p_nc)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = TRUE) +
+  labs(title = "Relationship Between Right Ideology and Percentage of Migrants Convicted", 
+       x = "Right Ideology", 
+       y = "Non-citiznes Convictions") +
+  theme_minimal() +
+  ylim(0, 5)
+
+model_with_ideology <- lm(convicted_p_nc ~ right_ideology + year, data = merged_data_final)
+summary(model_with_ideology)
+
+```
+
+
+## **Relationship between Right Ideology and Percentage Migrants Suspicions**
+```{r, echo=FALSE}
+ggplot(merged_data_final, aes(x = right_ideology, y = suspected_p_nc)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = TRUE) +
+  labs(title = "Relationship Between Right Ideology and Percentage of Migrants Suspected", 
+       x = "Right Ideology", 
+       y = "Non-citiznes Suspicons") +
+  theme_minimal() +
+  ylim(0, 5)
+
+model_with_ideology <- lm(suspected_p_nc ~ right_ideology + year, data = merged_data_final)
+summary(model_with_ideology)
+
+```
 
