@@ -686,7 +686,7 @@ Figure 6: ***Crime Suspicions Over Time by Citizenship Status***
 
 *Note:* This graph illustrates the trends in crime suspicions for both non-citizens and citizens over time in selected countries. The data is dis-aggregated by country, with each country shown in a separate facet, and the y-axis scaled independently for better visualization of country-specific patterns. The red line represents convictions of non-citizens, while the orange line represents convictions of citizens.
 
-### *Figure 7:*
+
 ```{r, echo=FALSE}
 
 countries <- c("France", "Germany", "Austria", "Bulgaria")
@@ -751,7 +751,11 @@ for(curr_country in countries) {
 }
 
 ```
+Figure 6: ***Convicted vs. Suspected Percentages Over Time for Citizens and Non-Citizens***
 
+*Note*: This series of graphs displays the trends in conviction and suspicion rates as percentages of the respective populations (citizens and non-citizens) for four selected countries: France, Germany, Austria, and Bulgaria. Each country is presented in a separate panel with two subplots.
+Citizens (Left Panel): Shows the average conviction and suspicion rates for citizens over time.
+Non-Citizens (Right Panel): Depicts the average conviction and suspicion rates for non-citizens over time. The Y-axis represents the percentage of each group (citizens or non-citizens) suspected or convicted of crimes.
 
 ### *Figure 7:* **Relationship between Percentage of Migrants and Total Convictions**
 ```{r, echo=FALSE}
