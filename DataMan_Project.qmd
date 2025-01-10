@@ -906,7 +906,7 @@ This observation is particularly important for understanding the broader context
 ### *The effect of immigration on crime while accounting for ideology* (maybe include lagged ideology? the ideology yesterday affects crime today?)
 
 ```{r}
-## lm model, include right_ideology to the regression
+## lm model, include right_ideology to the regression n
 ```
 
 
