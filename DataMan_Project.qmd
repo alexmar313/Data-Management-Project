@@ -419,17 +419,6 @@ merged_data <- merged_data %>%
 ```
 - *Merge also with Population Data:* add the fourth data set. It would be informative to present the data as percentages in addition to raw numbers. For example, we can display the proportion of suspected non-citizens relative to the total population of non-citizens, and compare this to the proportion of suspected citizens relative to the total population of citizens. We hence also calculate percentages for convictions and suspicions for both citizens and non-citizens
 
-
-
-////
-
-# *Robustness checks*
-```{r}
-## Chi sqr test, etc....
-```
-MORE YAP YAP
-////
-
 # Results
 
 ## *Trends in the Percentage of Non-Citizens Over Time*
@@ -497,12 +486,20 @@ The disparity between suspicion and conviction trends points to biases in the cr
 
 The results confirm the study's hypothesis: while suspicion rates rise in line with ideological and political shifts, conviction rates remain relatively stable. These findings challenge simplistic narratives linking immigration to crime and underscore the importance of addressing demographic and systemic factors to foster more equitable policy making.
 
+# Conclusion and recommendation
+This study set out to explore the complex associations between immigration, crime outcomes, and political ideology within EU member states from 2008 to 2022. Key findings offer nuanced insights into these dynamics.
 
-# Robustness checks
-```{r}
-## Chi sqr test, etc....
-```
-MORE YAP YAP
+The data reveals consistently higher suspicion rates among non-citizens compared to citizens, a trend also present, though to a lesser degree, in conviction rates. However, these trends warrant careful interpretation, as they may be influenced by underlying demographic factors and other complex social dynamics not fully captured in our analysis.
+
+Total convictions and suspicions show weak or no strong direct associations with the overall percentage of non-citizens in the population. This finding challenges simplistic narratives that directly link higher immigration levels to increased overall crime rates.
+
+Suspicion rates for non-citizens appear more sensitive to political and ideological shifts. While our analysis explored the influence of political rhetoric through manifesto data and ideological positioning via the Dalton Index, the potential for endogeneity, specifically reverse causality where crime influences political discourse, remains a significant concern. This limits our ability to draw definitive causal conclusions about the impact of political factors on suspicion.
+
+Conviction rates, while showing a disparity between citizens and non-citizens, appear less directly influenced by the political and ideological factors examined. This suggests that the judicial process, while not entirely immune to societal biases, may be more insulated from direct political influence than the initial stages of suspicion.
+
+The disparity between suspicion and conviction trends, with higher suspicion rates among non-citizens not fully reflected in their conviction rates, points to the potential for biases within the criminal justice system. This highlights the need for further investigation into potential issues of unequal treatment and systemic bias.
+
+Several limitations, including sample size, cross-national heterogeneity in cultural perceptions and crime definitions, and the aforementioned endogeneity concerns, necessitate cautious interpretation of our results. While we controlled for some factors, data limitations prevented us from fully addressing these complexities. Future research should prioritize addressing these limitations, particularly through more advanced econometric techniques and the exploration of natural experiments, to establish more robust causal inferences. Despite these limitations, our findings contribute valuable preliminary insights into the complex interplay of immigration, crime, and political ideology, underscoring the need for nuanced, evidence-based policymaking.
 
 # Appendix
 
