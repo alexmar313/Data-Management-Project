@@ -65,46 +65,6 @@
 \fi
 \makeatother
 
-\usepackage{color}
-\usepackage{fancyvrb}
-\newcommand{\VerbBar}{|}
-\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
-\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
-% Add ',fontsize=\small' for more characters per line
-\usepackage{framed}
-\definecolor{shadecolor}{RGB}{241,243,245}
-\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
-\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
-\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
-\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.45,0.13}{#1}}
-\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
-\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
-\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
-\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
-\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
-\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
-\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
-\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
-\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
-\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
-\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
-\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
-\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
-\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
-\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
-\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
-\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
-\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
-\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
-\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
-\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
-\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
-\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
-\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
-\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
-\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
-\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
-\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
 
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
@@ -276,9 +236,7 @@ As this study aims to clarify how political discourse influences public
 perceptions and crime outcomes involving immigrants, three key
 sub-questions emerge as a guiding framework, among others: 1. Does
 increased suspicion of immigrant crime correlate with heightened
-right-wing rhetoric? 2. Is the over-representation of young males among
-immigrants, rather than immigrant status itself, a more significant
-factor in crime rates? 3. Do conviction rates, as judicial outcomes,
+right-wing rhetoric? 2. Do conviction rates, as judicial outcomes,
 reflect ideological trends, or are they more stable and less influenced
 by political discourse?
 
@@ -766,8 +724,11 @@ Figure 1 illustrates the overall trend in the proportion of non-citizens
 across all countries in the data set. The general trend shows a steady
 increase in the percentage of non-citizens from 2008 to 2022, with a dip
 around 2013--2014 and consistent growth thereafter. By 2022, the average
-percentage of non-citizens surpasses 11\%, reflecting the broader
-demographic shift associated with increased migration flows in Europe.
+percentage of non-citizens surpasses 11\%. Additionally, the average
+yearly increase in the number of non-citizens over the years and across
+the countries in our sample is 4.47\% per year. This further highlights
+the broader demographic shift associated with increased migration flows
+in Europe
 
 Building on this, Figure 4 provides a country-specific breakdown for
 Austria, Germany, France, and Bulgaria. Austria demonstrates the most
@@ -924,19 +885,61 @@ relatively stable. These findings challenge simplistic narratives
 linking immigration to crime and underscore the importance of addressing
 demographic and systemic factors to foster more equitable policy making.
 
-\section{Robustness checks}\label{robustness-checks}
+\section{Conclusion and
+recommendation}\label{conclusion-and-recommendation}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\DocumentationTok{\#\# Chi sqr test, etc....}
-\end{Highlighting}
-\end{Shaded}
+This study set out to explore the complex associations between
+immigration, crime outcomes, and political ideology within EU member
+states from 2008 to 2022. Key findings offer nuanced insights into these
+dynamics.
 
-MORE YAP YAP
+The data reveals consistently higher suspicion rates among non-citizens
+compared to citizens, a trend also present, though to a lesser degree,
+in conviction rates. However, these trends warrant careful
+interpretation, as they may be influenced by underlying demographic
+factors and other complex social dynamics not fully captured in our
+analysis.
+
+Total convictions and suspicions show weak or no strong direct
+associations with the overall percentage of non-citizens in the
+population. This finding challenges simplistic narratives that directly
+link higher immigration levels to increased overall crime rates.
+
+Suspicion rates for non-citizens appear more sensitive to political and
+ideological shifts. While our analysis explored the influence of
+political rhetoric through manifesto data and ideological positioning
+via the Dalton Index, the potential for endogeneity, specifically
+reverse causality where crime influences political discourse, remains a
+significant concern. This limits our ability to draw definitive causal
+conclusions about the impact of political factors on suspicion.
+
+Conviction rates, while showing a disparity between citizens and
+non-citizens, appear less directly influenced by the political and
+ideological factors examined. This suggests that the judicial process,
+while not entirely immune to societal biases, may be more insulated from
+direct political influence than the initial stages of suspicion.
+
+The disparity between suspicion and conviction trends, with higher
+suspicion rates among non-citizens not fully reflected in their
+conviction rates, points to the potential for biases within the criminal
+justice system. This highlights the need for further investigation into
+potential issues of unequal treatment and systemic bias.
+
+Several limitations, including sample size, cross-national heterogeneity
+in cultural perceptions and crime definitions, and the aforementioned
+endogeneity concerns, necessitate cautious interpretation of our
+results. While we controlled for some factors, data limitations
+prevented us from fully addressing these complexities. Future research
+should prioritize addressing these limitations, particularly through
+more advanced econometric techniques and the exploration of natural
+experiments, to establish more robust causal inferences. Despite these
+limitations, our findings contribute valuable preliminary insights into
+the complex interplay of immigration, crime, and political ideology,
+underscoring the need for nuanced, evidence-based policymaking.
 
 \section{Appendix}\label{appendix}
 
-\includegraphics{DataMan_Project_files/figure-pdf/unnamed-chunk-25-1.pdf}
+\includegraphics{DataMan_Project_files/figure-pdf/unnamed-chunk-24-1.pdf}
 
 Figure 1: \textbf{\emph{Percentage of Non-Citizens Over Time}}
 
@@ -946,7 +949,7 @@ in most countries, with Austria leading in growth, reaching 17\% by
 2022. Bulgaria diverges with a declining trend, reflecting differing
 demographic dynamics.
 
-\includegraphics{DataMan_Project_files/figure-pdf/unnamed-chunk-26-1.pdf}
+\includegraphics{DataMan_Project_files/figure-pdf/unnamed-chunk-25-1.pdf}
 
 Figure 2: \textbf{\emph{Crime Conviction Over Time}}
 
@@ -957,7 +960,7 @@ declining steadily from 2008 to 2020. Citizen conviction rates start at
 around 1\% and approach zero by 2022, indicating a systemic disparity in
 convictions.
 
-\includegraphics{DataMan_Project_files/figure-pdf/unnamed-chunk-27-1.pdf}
+\includegraphics{DataMan_Project_files/figure-pdf/unnamed-chunk-26-1.pdf}
 
 Figure 3: \textbf{\emph{Crime Suspicion Over Time}}
 
@@ -968,7 +971,7 @@ non-citizens consistently suspected at higher rates than citizens. Key
 trends include a notable spike in non-citizen suspicion rates in 2014,
 while citizen suspicion rates remain relatively stable, averaging 0-1\%.
 
-\includegraphics{DataMan_Project_files/figure-pdf/unnamed-chunk-28-1.pdf}
+\includegraphics{DataMan_Project_files/figure-pdf/unnamed-chunk-27-1.pdf}
 
 Figure 4: \textbf{\emph{Percentage of Non-Citizens in Selected Countries
 Over Time}}
@@ -984,7 +987,7 @@ declining trend. This graph highlights demographic shifts in the
 proportion of non-citizens, offering critical context for understanding
 crime-related data.
 
-\includegraphics{DataMan_Project_files/figure-pdf/unnamed-chunk-29-1.pdf}
+\includegraphics{DataMan_Project_files/figure-pdf/unnamed-chunk-28-1.pdf}
 
 Figure 5: \textbf{\emph{Crime Convictions Over Time by Citizenship
 Status}}
@@ -996,7 +999,7 @@ facet, and the y-axis scaled independently for better visualization of
 country-specific patterns. The red line represents convictions of
 non-citizens, while the orange line represents convictions of citizens.
 
-\includegraphics{DataMan_Project_files/figure-pdf/unnamed-chunk-30-1.pdf}
+\includegraphics{DataMan_Project_files/figure-pdf/unnamed-chunk-29-1.pdf}
 
 Figure 6: \textbf{\emph{Crime Suspicions Over Time by Citizenship
 Status}}
@@ -1008,13 +1011,13 @@ facet, and the y-axis scaled independently for better visualization of
 country-specific patterns. The red line represents convictions of
 non-citizens, while the orange line represents convictions of citizens.
 
-\includegraphics{DataMan_Project_files/figure-pdf/unnamed-chunk-31-1.pdf}
+\includegraphics{DataMan_Project_files/figure-pdf/unnamed-chunk-30-1.pdf}
 
-\includegraphics{DataMan_Project_files/figure-pdf/unnamed-chunk-31-2.pdf}
+\includegraphics{DataMan_Project_files/figure-pdf/unnamed-chunk-30-2.pdf}
 
-\includegraphics{DataMan_Project_files/figure-pdf/unnamed-chunk-31-3.pdf}
+\includegraphics{DataMan_Project_files/figure-pdf/unnamed-chunk-30-3.pdf}
 
-\includegraphics{DataMan_Project_files/figure-pdf/unnamed-chunk-31-4.pdf}
+\includegraphics{DataMan_Project_files/figure-pdf/unnamed-chunk-30-4.pdf}
 
 Figure 6: \textbf{\emph{Convicted vs.~Suspected Percentages Over Time
 for Citizens and Non-Citizens}}
@@ -1029,7 +1032,7 @@ Depicts the average conviction and suspicion rates for non-citizens over
 time. The Y-axis represents the percentage of each group (citizens or
 non-citizens) suspected or convicted of crimes.
 
-\includegraphics{DataMan_Project_files/figure-pdf/unnamed-chunk-32-1.pdf}
+\includegraphics{DataMan_Project_files/figure-pdf/unnamed-chunk-31-1.pdf}
 
 Figure 7: \textbf{\emph{Relationship between the Percentage of Migrants
 and Total Convictions}}
@@ -1066,7 +1069,7 @@ non-citizens. The coefficients represent the estimated effects, with
 standard errors, t-values, and p-values provided to assess statistical
 significance.
 
-\includegraphics{DataMan_Project_files/figure-pdf/unnamed-chunk-34-1.pdf}
+\includegraphics{DataMan_Project_files/figure-pdf/unnamed-chunk-33-1.pdf}
 
 Figure 8: \textbf{\emph{Relationship between the Percentage of Migrants
 and Total Suspicions}}
@@ -1100,7 +1103,7 @@ relationship between total suspicions and the percentage of
 non-citizens. The provided metrics help evaluate the strength and
 significance of this relationship.
 
-\includegraphics{DataMan_Project_files/figure-pdf/unnamed-chunk-36-1.pdf}
+\includegraphics{DataMan_Project_files/figure-pdf/unnamed-chunk-35-1.pdf}
 
 Figure 9: \textbf{\emph{Relationship between the Percentage of Migrants
 and Suspicion Rates for Non-Citizens}}
@@ -1134,7 +1137,7 @@ effect of the percentage of non-citizens on suspicion rates for
 non-citizens, excluding Bulgaria. The results highlight a statistically
 significant positive relationship.
 
-\includegraphics{DataMan_Project_files/figure-pdf/unnamed-chunk-38-1.pdf}
+\includegraphics{DataMan_Project_files/figure-pdf/unnamed-chunk-37-1.pdf}
 
 Figure 10: \textbf{\emph{Relationship between the Percentage of Migrants
 and Conviction Rates for Non-Citizens}}
@@ -1168,7 +1171,7 @@ conviction rates. The coefficients indicate the strength of the
 relationship between non-citizen proportions and conviction rates, with
 statistical significance levels included.
 
-\includegraphics{DataMan_Project_files/figure-pdf/unnamed-chunk-40-1.pdf}
+\includegraphics{DataMan_Project_files/figure-pdf/unnamed-chunk-39-1.pdf}
 
 Figure 11: \textbf{\emph{Relationship between Polarization (Dalton
 Index) and Total Convictions}}
@@ -1204,7 +1207,7 @@ Index)}}
 including quadratic terms for the year. The Dalton Index shows a small
 but statistically significant association with total convictions.
 
-\includegraphics{DataMan_Project_files/figure-pdf/unnamed-chunk-42-1.pdf}
+\includegraphics{DataMan_Project_files/figure-pdf/unnamed-chunk-41-1.pdf}
 
 Figure 12: \textbf{\emph{Relationship between Polarization and
 Percentage of Migrants Convicted}}
@@ -1241,7 +1244,7 @@ relationship between the Dalton Index and conviction rates for
 non-citizens, highlighting the significance of polarization in shaping
 judicial outcomes.
 
-\includegraphics{DataMan_Project_files/figure-pdf/unnamed-chunk-44-1.pdf}
+\includegraphics{DataMan_Project_files/figure-pdf/unnamed-chunk-43-1.pdf}
 
 Figure 13: \textbf{\emph{Relationship between Polarization and
 Percentage of Migrants Suspected}}
@@ -1278,7 +1281,7 @@ the relationship between the Dalton Index and suspicion rates for
 non-citizens. The significant positive relationship suggests that
 polarization affects suspicion outcomes.
 
-\includegraphics{DataMan_Project_files/figure-pdf/unnamed-chunk-46-1.pdf}
+\includegraphics{DataMan_Project_files/figure-pdf/unnamed-chunk-45-1.pdf}
 
 Figure 14: \textbf{\emph{Relationship between Right Ideology and Total
 Convictions}}
@@ -1313,7 +1316,7 @@ convictions, considering right-wing ideology and year as predictors. The
 results provide insight into the relationship between ideological trends
 and crime outcomes.
 
-\includegraphics{DataMan_Project_files/figure-pdf/unnamed-chunk-48-1.pdf}
+\includegraphics{DataMan_Project_files/figure-pdf/unnamed-chunk-47-1.pdf}
 
 Figure 15: \textbf{\emph{Relationship between Right Ideology and
 Conviction Rates for Non-Citizens}}
@@ -1348,7 +1351,7 @@ between right-wing ideology and non-citizen conviction rates. The
 coefficients highlight whether ideological trends significantly affect
 judicial outcomes.
 
-\includegraphics{DataMan_Project_files/figure-pdf/unnamed-chunk-50-1.pdf}
+\includegraphics{DataMan_Project_files/figure-pdf/unnamed-chunk-49-1.pdf}
 
 Figure 16: \textbf{\emph{Relationship between Right Ideology and
 Suspicion Rates for Non-Citizens}}
