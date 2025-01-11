@@ -80,8 +80,7 @@ This study integrates crime statistics, demographic data, and measures of politi
 ## *Sub-Questions*
 As this study aims to clarify how political discourse influences public perceptions and crime outcomes involving immigrants, three key sub-questions emerge as a guiding framework, among others:
 1. Does increased suspicion of immigrant crime correlate with heightened right-wing rhetoric?
-2. Is the over-representation of young males among immigrants, rather than immigrant status itself, a more significant factor in crime rates?
-3. Do conviction rates, as judicial outcomes, reflect ideological trends, or are they more stable and less influenced by political discourse?
+2. Do conviction rates, as judicial outcomes, reflect ideological trends, or are they more stable and less influenced by political discourse?
 
 ## *Hypotheses*
 Preliminary hypotheses indicate that suspicion rates tend to increase in response to ideological, whereas conviction rates remain relatively stable, pointing to potential biases in suspicion rather than outcomes grounded in evidence. By accounting for intervening factors such as demographics, this research underscores the importance of nuanced policy making and seeks to challenge and prevent the perpetuation of harmful stereotypes.
